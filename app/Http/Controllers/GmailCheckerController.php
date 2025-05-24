@@ -64,7 +64,7 @@ class GmailCheckerController extends Controller
             ->first();
 
         if ($record) {
-            return redirect()->route('alumni.form.part1');
+            return redirect()->route('alumni.dashboard');
         }
 
        return redirect()->route('confirmation.form')->withErrors(['code' => 'Invalid or expired confirmation code.']);

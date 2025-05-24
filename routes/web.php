@@ -19,11 +19,19 @@ Route::post('/verify-code', [GmailCheckerController::class, 'verifyCode'])->name
 Route::post('/register-email', [GmailCheckerController::class, 'registerEmail'])->name('register.email');
 
 
-Route::get('/alumni_forms/part1', function () {
-    return view('alumni_forms.part1');
-})->name('alumni.form.part1');
+Route::get('/alumni_information/dashboard', function () {
+    return view('alumni_folder.dashboard');
+})->name('alumni.dashboard');
 Route::get('/confirmation-code', function () {
     return view('confirmation_code');
 })->name('confirmation.form');
+
+Route::get('/alumni_dashboard', [AlumniController::class, 'gotoDashboard'])->name('alumni.dashboard');
+Route::get('/alumni_profile', [AlumniController::class, 'gotoProfile'])->name('alumni.profile');
+Route::get('/alumni_announcements', [AlumniController::class, 'gotoAnnouncements'])->name('alumni.announcements');
+Route::get('/alumni_survey', [AlumniController::class, 'gotoSurvey'])->name('alumni.survey');
+Route::get('/alumni_notifications', [AlumniController::class, 'gotoNotifications'])->name('alumni.notifications');
+Route::get('/alumni_events', [AlumniController::class, 'gotoEvents'])->name('alumni.events');
+Route::get('/alumni_home', [AlumniController::class, 'gotoHome'])->name('alumni.logout');
 
 
