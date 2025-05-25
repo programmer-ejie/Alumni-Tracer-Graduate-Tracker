@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\GmailCheckerController;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('index');
@@ -32,6 +34,17 @@ Route::get('/alumni_announcements', [AlumniController::class, 'gotoAnnouncements
 Route::get('/alumni_survey', [AlumniController::class, 'gotoSurvey'])->name('alumni.survey');
 Route::get('/alumni_notifications', [AlumniController::class, 'gotoNotifications'])->name('alumni.notifications');
 Route::get('/alumni_events', [AlumniController::class, 'gotoEvents'])->name('alumni.events');
-Route::get('/alumni_home', [AlumniController::class, 'gotoHome'])->name('alumni.logout');
+Route::get('/home', [AlumniController::class, 'gotoHome'])->name('alumni.logout');
 
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
+
+
+Route::get('/admin_dashboard', [AdminController::class, 'gotoDashboard'])->name('admin.dashboard');
+Route::get('/admin_profile', [AdminController::class, 'gotoProfile'])->name('admin.profile');
+Route::get('/admin_announcements', [AdminController::class, 'gotoAnnouncements'])->name('admin.announcements');
+Route::get('/admin_survey', [AdminController::class, 'gotoSurvey'])->name('admin.survey');
+Route::get('/admin_notifications', [AdminController::class, 'gotoNotifications'])->name('admin.notifications');
+Route::get('/admin_events', [AdminController::class, 'gotoEvents'])->name('admin.events');
+Route::get('/admin_viewData', [AdminController::class, 'gotoViewData'])->name('admin.viewData');
+Route::get('/home', [AdminController::class, 'gotoHome'])->name('admin.logout');
 

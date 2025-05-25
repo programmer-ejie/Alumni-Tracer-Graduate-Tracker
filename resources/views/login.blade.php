@@ -87,34 +87,65 @@
     </nav>
     <!-- [ Nav ] start -->
     <div class="container">
-      <div class="row align-items-center justify-content-center">
-      <div class="col-md-9 col-xl-5" style="
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  padding: 30px; 
-  border-radius: 30px; 
-  background: rgba(255, 255, 255, 0.05); 
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px); 
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-">
-
+            <div class="row align-items-center justify-content-center">
+            <div class="col-md-9 col-xl-5" style="
+              border: 1px solid rgba(255, 255, 255, 0.2); 
+              padding: 30px; 
+              border-radius: 30px; 
+              background: rgba(255, 255, 255, 0.05); 
+              backdrop-filter: blur(12px); 
+              -webkit-backdrop-filter: blur(12px); 
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            ">
               <div class="d-flex justify-content-between align-items-end mb-4">
               <h3 class="mb-0"><b style = "color: white;">Login</b></h3>
                 <a href = "{{route('home')}}" class = "btn btn-danger" style = "color: white;">Back</a>
             </div>
-            <div class="form-group mb-3"> 
-                <label class="form-label"  style = "color: white;">Email Address</label> 
-                <input type="email" class="form-control" placeholder="Email Address" style = "background: transparent; color: white;"> 
-            </div> 
-            <div class="form-group mb-3"> 
-                <label class="form-label" style = "color: white;">Password</label> 
-                <input type="password" class="form-control" placeholder="Password" style = "background: transparent; color: white;>
-             </div> <div class="d-flex mt-1 justify-content-between"> 
-                <div class="form-check"> </div> 
-                <a href="" style = "color: white;"> Forgot Password? </a>
-             </div> <div class="d-grid mt-4"> 
-                <button type="button" class="btn btn-primary">Login</button> </div>
-        </div>
+         <form action="{{ route('admin.login') }}" method="POST">
+              @csrf
+
+              <div class="form-group mb-3 position-relative">
+                  <label class="form-label" style="color: white;">Email Address</label>
+                  <input type="email" name="email"
+                      class="form-control {{ session('login_error') ? 'border border-danger pr-5' : '' }}"
+                      placeholder="Email Address"
+                      style="background: transparent; color: white;"
+                      required>
+
+                  @if (session('login_error'))
+                      <span class="position-absolute" style="top: 38px; right: 10px; color: red;">
+                          &#9888; <!-- Unicode warning icon -->
+                      </span>
+                  @endif
+              </div>
+
+              <div class="form-group mb-3 position-relative">
+                  <label class="form-label" style="color: white;">Password</label>
+                  <input type="password" name="password"
+                      class="form-control {{ session('login_error') ? 'border border-danger pr-5' : '' }}"
+                      placeholder="Password"
+                      style="background: transparent; color: white;"
+                      required>
+
+                  @if (session('login_error'))
+                      <span class="position-absolute" style="top: 38px; right: 10px; color: red;">
+                          &#9888;
+                      </span>
+                  @endif
+              </div>
+
+              @if (session('login_error'))
+                  <div class="mb-3" style="color: red; background-color: #ffdddd; padding: 10px; border-radius: 5px;">
+                      {{ session('login_error') }}
+                  </div>
+              @endif
+
+              <div class="d-grid mt-4">
+                  <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+          </form>
+
+
       </div>
     </div>
   </header>
