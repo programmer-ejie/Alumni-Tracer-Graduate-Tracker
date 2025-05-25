@@ -20,7 +20,6 @@ Route::get('/confirm-code', fn() => view('confirmation_code'))->name('confirm.co
 Route::post('/verify-code', [GmailCheckerController::class, 'verifyCode'])->name('verify.code');
 Route::post('/register-email', [GmailCheckerController::class, 'registerEmail'])->name('register.email');
 
-
 Route::get('/alumni_information/dashboard', function () {
     return view('alumni_folder.dashboard');
 })->name('alumni.dashboard');
@@ -29,22 +28,26 @@ Route::get('/confirmation-code', function () {
 })->name('confirmation.form');
 
 Route::get('/alumni_dashboard', [AlumniController::class, 'gotoDashboard'])->name('alumni.dashboard');
-Route::get('/alumni_profile', [AlumniController::class, 'gotoProfile'])->name('alumni.profile');
+Route::match(['get', 'post'], '/alumni_profile', [AlumniController::class, 'gotoProfile'])->name('alumni.profile');
 Route::get('/alumni_announcements', [AlumniController::class, 'gotoAnnouncements'])->name('alumni.announcements');
 Route::get('/alumni_survey', [AlumniController::class, 'gotoSurvey'])->name('alumni.survey');
 Route::get('/alumni_notifications', [AlumniController::class, 'gotoNotifications'])->name('alumni.notifications');
 Route::get('/alumni_events', [AlumniController::class, 'gotoEvents'])->name('alumni.events');
-Route::get('/home', [AlumniController::class, 'gotoHome'])->name('alumni.logout');
+Route::get('/alumni_logout', [AlumniController::class, 'gotoHome'])->name('alumni.logout');
 
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
-
 Route::get('/admin_dashboard', [AdminController::class, 'gotoDashboard'])->name('admin.dashboard');
-Route::get('/admin_profile', [AdminController::class, 'gotoProfile'])->name('admin.profile');
+Route::match(['get', 'post'], '/admin_profile', [AdminController::class, 'gotoProfile'])->name('admin.profile');
 Route::get('/admin_announcements', [AdminController::class, 'gotoAnnouncements'])->name('admin.announcements');
 Route::get('/admin_survey', [AdminController::class, 'gotoSurvey'])->name('admin.survey');
 Route::get('/admin_notifications', [AdminController::class, 'gotoNotifications'])->name('admin.notifications');
 Route::get('/admin_events', [AdminController::class, 'gotoEvents'])->name('admin.events');
 Route::get('/admin_viewData', [AdminController::class, 'gotoViewData'])->name('admin.viewData');
-Route::get('/home', [AdminController::class, 'gotoHome'])->name('admin.logout');
+Route::get('/admin_logout', [AdminController::class, 'gotoHome'])->name('admin.logout');
 
+Route::post('/admin/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+Route::delete('/admin/profile/delete', [AdminController::class, 'deleteAccount'])->name('admin.profile.delete');
+
+Route::post('/alumni/profile/update', [AlumniController::class, 'updateProfile'])->name('alumni.profile.update');
+Route::delete('/alumni/profile/delete', [AlumniController::class, 'deleteAccount'])->name('alumni.profile.delete');

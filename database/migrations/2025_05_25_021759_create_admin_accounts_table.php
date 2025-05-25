@@ -15,8 +15,14 @@ return new class extends Migration
         $table->id();
         $table->string('email')->unique();
         $table->string('password');
+        $table->string('profile_pic')->nullable();
+        $table->string('gender')->nullable();
         $table->string('fullname')->nullable();
         $table->string('phone')->nullable();
+        $table->string('github')->nullable();
+        $table->string('twitter')->nullable();
+        $table->string('instagram')->nullable();
+        $table->string('facebook')->nullable();
         $table->text('address')->nullable();
         $table->timestamps();
     });

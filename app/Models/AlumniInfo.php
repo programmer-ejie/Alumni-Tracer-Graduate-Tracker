@@ -19,5 +19,6 @@ class AlumniInfo extends Model
         'age',
         'address',
         'gender',
+        'profile_pic',
     ];
 }

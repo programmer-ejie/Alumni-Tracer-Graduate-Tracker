@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->string('address')->nullable();
             $table->string('gender')->nullable();
+            $table->string('profile_pic')->nullable();
             $table->timestamps();
         });
 

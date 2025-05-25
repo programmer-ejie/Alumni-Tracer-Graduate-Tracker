@@ -63,8 +63,13 @@ class GmailCheckerController extends Controller
             ->where('expires_at', '>', Carbon::now())
             ->first();
 
-        if ($record) {
-            return redirect()->route('alumni.dashboard');
+        if ($record) {      
+              $alumni = AlumniInfo::where('email', $email)->first();
+                session([
+                    'alumni_id' => $alumni->id,
+                    'alumni_logged_in' => true
+                ]);
+                return redirect()->route('alumni.dashboard');
         }
 
        return redirect()->route('confirmation.form')->withErrors(['code' => 'Invalid or expired confirmation code.']);
