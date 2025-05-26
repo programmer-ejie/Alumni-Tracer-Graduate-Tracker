@@ -233,18 +233,18 @@
     </li>
     <li class="dropdown pc-h-item header-user-profile">
       <a
-        class="pc-head-link dropdown-toggle arrow-none me-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        data-bs-auto-close="outside"
-        aria-expanded="false"
-      >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
-      </a>
-      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+            class="pc-head-link dropdown-toggle arrow-none me-0"
+            data-bs-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="false"
+            data-bs-auto-close="outside"
+            aria-expanded="false"
+        >
+            <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
+            <span>Stebin Ben</span>
+        </a>
+      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown"> 
         <div class="dropdown-header">
           <div class="d-flex mb-1">
             <div class="flex-shrink-0">
@@ -543,6 +543,7 @@
   </footer>
 
   <!-- [Page Specific JS] start -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../main_template/dist/assets/js/plugins/apexcharts.min.js"></script>
   <script src="../main_template/dist/assets/js/pages/dashboard-default.js"></script>
   <!-- [Page Specific JS] end -->
