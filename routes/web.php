@@ -43,7 +43,7 @@ Route::get('/admin_announcements', [AdminController::class, 'gotoAnnouncements']
 Route::get('/admin_survey', [AdminController::class, 'gotoSurvey'])->name('admin.survey');
 Route::get('/admin_notifications', [AdminController::class, 'gotoNotifications'])->name('admin.notifications');
 Route::get('/admin_events', [AdminController::class, 'gotoEvents'])->name('admin.events');
-Route::get('/admin_viewData', [AdminController::class, 'gotoViewData'])->name('admin.viewData');
+Route::get('/admin/view-data/{id}', [AdminController::class, 'gotoViewData'])->name('admin.viewData');
 Route::get('/admin_logout', [AdminController::class, 'gotoHome'])->name('admin.logout');
 
 Route::post('/admin/profile/update', [AdminController::class, 'updateProfile'])->name('admin.profile.update');

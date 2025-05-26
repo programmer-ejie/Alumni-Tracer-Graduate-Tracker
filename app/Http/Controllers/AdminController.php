@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AdminAccount;
 use Illuminate\Support\Facades\Hash;
+use App\Models\AlumniSurvey;
+use App\Models\AlumniInfo;
 
 class AdminController extends Controller
 {
@@ -30,7 +32,14 @@ class AdminController extends Controller
     }
     function gotoSurvey()
     {
-        return view('admin.survey');
+              $admin = $this->getAuthenticatedAdmin();
+                if (!$admin) {   
+                return redirect()->route('login')->with('error', 'Please log in first.');
+                } 
+               $surveys = AlumniSurvey::all();
+               $alumni_info = AlumniInfo::all();
+            return view('admin.survey')->with(['admin' => $admin, 'surveys' => $surveys, 'alumni' => $alumni_info]);
+      
     }
     function gotoNotifications()
     {
@@ -44,10 +53,23 @@ class AdminController extends Controller
     {
         return view('index');
     }
-    function gotoViewData()
-    {
-        return view('admin.viewData');
+
+    function gotoViewData($id){
+        $admin = $this->getAuthenticatedAdmin();
+        $alumni_info = AlumniInfo::find($id);
+        $survey = AlumniSurvey::where('alumni_id', $id)->first();
+
+        if (!$alumni_info) {
+            return redirect()->back()->with('error', 'Alumni not found.');
+        }
+
+        if (!$survey) {
+            return redirect()->back()->with('error', 'Survey not found for this alumni.');
+        }
+
+        return view('admin.viewData', compact('alumni_info', 'survey', 'admin'));
     }
+
 
 
 

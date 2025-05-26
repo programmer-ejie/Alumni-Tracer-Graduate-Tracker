@@ -247,18 +247,25 @@
         data-bs-auto-close="outside"
         aria-expanded="false"
       >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
+        <img src="{{ asset('images/' . ($admin->profile_pic ?? 'default.jpg')) }}"
+        alt="user-image"
+        class="user-avtar wid-35"
+        style="height: 23px; object-fit: cover;">
+
+        <span>{{$admin->fullname}}</span>
       </a>
       <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header">
           <div class="d-flex mb-1">
             <div class="flex-shrink-0">
-              <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+                <img src="{{ asset('images/' . ($admin->profile_pic ?? 'default.jpg')) }}"
+              alt="user-image"
+              class="user-avtar wid-35"
+              style="height: 35px; object-fit: cover;">
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
+               <h6 class="mb-1">{{ $admin->fullname}}</h6>
+              <span>Administrator</span>
             </div>
             <a href="{{route('admin.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
           </div>
@@ -410,30 +417,44 @@
                                 <div class="card tbl-card">
                                   <div class="card-body">
                                     <div class="table-responsive ">
-                                      <table class="table table-hover table-borderless mb-0 ">
+                                     <table class="table table-hover table-borderless mb-0">
                                         <thead>
-                                          <tr>
-                                            <th>Email</th>
-                                            <th>Fullname</th>
-                                            <th>School</th>
-                                            <th>Batch</th>
-                                            <th class="text-center">Action</th>
-                                          </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>Fullname</th>
+                                                <th>School</th>
+                                                <th>Batch</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                          <tr>
-                                            <td><a href="#" class="text-muted">examplealumni@gmail.com</a></td>
-                                            <td>Alumni Example</td>
-                                            <td>Southern Leyte State University</td>
-                                            <td ><span class="d-flex align-items-center gap-2"><i
-                                                  class="fas fa-circle text-success f-10 m-r-5"></i>2012-2016</span>
-                                            </td>
-                                            <td class="text-center">
-                                              <a href="{{route('admin.viewData')}}"><i class="fas fa-info-circle"><span style = "margin-left: 5px;">View</span></i></a>
-                                            </td>
-                                        
+                                            @foreach($surveys as $survey)
+                                                @php
+                                                    $alumni = $alumni->firstWhere('id', $survey->alumni_id);
+                                                @endphp
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="text-muted">{{ $alumni->email ?? 'N/A' }}</a>
+                                                    </td>
+                                                    <td>{{ $alumni->fullname ?? 'N/A' }}</td>
+                                                    <td>{{ $alumni->school ?? 'N/A' }}</td>
+                                                    <td>
+                                                        <span class="d-flex align-items-center gap-2">
+                                                            <i class="fas fa-circle text-success f-10 m-r-5"></i>
+                                                            {{ $alumni->batch ?? 'N/A' }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ route('admin.viewData', ['id' => $survey->id]) }}">
+                                                            <i class="fas fa-info-circle"></i>
+                                                            <span style="margin-left: 5px;">View</span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
-                                      </table>
+                                    </table>
+
                                     </div>
                                   </div>
                                 </div>
