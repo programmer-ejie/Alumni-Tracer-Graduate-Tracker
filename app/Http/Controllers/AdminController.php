@@ -56,7 +56,7 @@ class AdminController extends Controller
                 return null;
         }
 
-        return \App\Models\AdminAccount::find(session('admin_id'));
+        return AdminAccount::find(session('admin_id'));
     }
 
     public function updateProfile(Request $request){
@@ -98,6 +98,6 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Account not found.');
         }
 
-        
+
 
 }

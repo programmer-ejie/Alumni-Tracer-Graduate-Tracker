@@ -51,3 +51,5 @@ Route::delete('/admin/profile/delete', [AdminController::class, 'deleteAccount']
 
 Route::post('/alumni/profile/update', [AlumniController::class, 'updateProfile'])->name('alumni.profile.update');
 Route::delete('/alumni/profile/delete', [AlumniController::class, 'deleteAccount'])->name('alumni.profile.delete');
+
+Route::post('/alumni/survey/submit', [AlumniController::class, 'submitSurvey'])->name('alumni.survey.submit');
