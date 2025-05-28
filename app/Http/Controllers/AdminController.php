@@ -28,7 +28,11 @@ class AdminController extends Controller
 
     function gotoAnnouncements()
     {
-        return view('admin.announcements');
+         $admin = $this->getAuthenticatedAdmin();
+                if (!$admin) {   
+                return redirect()->route('login')->with('error', 'Please log in first.');
+                } 
+           return view('admin.announcements')->with('admin',$admin);
     }
     function gotoSurvey()
     {

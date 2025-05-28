@@ -428,30 +428,37 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($surveys as $survey)
-                                                @php
-                                                    $alumni = $alumni->firstWhere('id', $survey->alumni_id);
-                                                @endphp
-                                                <tr>
-                                                    <td>
-                                                        <a href="#" class="text-muted">{{ $alumni->email ?? 'N/A' }}</a>
-                                                    </td>
-                                                    <td>{{ $alumni->fullname ?? 'N/A' }}</td>
-                                                    <td>{{ $alumni->school ?? 'N/A' }}</td>
-                                                    <td>
-                                                        <span class="d-flex align-items-center gap-2">
-                                                            <i class="fas fa-circle text-success f-10 m-r-5"></i>
-                                                            {{ $alumni->batch ?? 'N/A' }}
-                                                        </span>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="{{ route('admin.viewData', ['id' => $survey->id]) }}">
-                                                            <i class="fas fa-info-circle"></i>
-                                                            <span style="margin-left: 5px;">View</span>
-                                                        </a>
-                                                    </td>
+                                          @if($surveys->isEmpty())
+                                                <tr style="background-color: #f8d7da; color: #842029;">
+                                                    <td colspan="5" class="text-center fw-bold">No Alumni Survey Data Yet!</td>
                                                 </tr>
-                                            @endforeach
+                                            @else
+                                                @foreach($surveys as $survey)
+                                                    @php
+                                                        $alumniData = $alumni->firstWhere('id', $survey->alumni_id);
+                                                    @endphp
+                                                    <tr>
+                                                        <td>
+                                                            <a href="#" class="text-muted">{{ $alumniData->email ?? 'N/A' }}</a>
+                                                        </td>
+                                                        <td>{{ $alumniData->fullname ?? 'N/A' }}</td>
+                                                        <td>{{ $alumniData->school ?? 'N/A' }}</td>
+                                                        <td>
+                                                            <span class="d-flex align-items-center gap-2">
+                                                                <i class="fas fa-circle text-success f-10 m-r-5"></i>
+                                                                {{ $alumniData->batch ?? 'N/A' }}
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a href="{{ route('admin.viewData', ['id' => $survey->id]) }}">
+                                                                <i class="fas fa-info-circle"></i>
+                                                                <span style="margin-left: 5px;">View</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+
                                         </tbody>
                                     </table>
 

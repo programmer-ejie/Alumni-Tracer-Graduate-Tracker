@@ -6,6 +6,7 @@ use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\GmailCheckerController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnnouncementController;
 
 Route::get('/', function () {
     return view('index');
@@ -53,3 +54,7 @@ Route::post('/alumni/profile/update', [AlumniController::class, 'updateProfile']
 Route::delete('/alumni/profile/delete', [AlumniController::class, 'deleteAccount'])->name('alumni.profile.delete');
 
 Route::post('/alumni/survey/submit', [AlumniController::class, 'submitSurvey'])->name('alumni.survey.submit');
+
+Route::post('/submit-announcement', [AnnouncementController::class, 'store'])->name('announcement.store');
+Route::post('/delete-announcement', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+Route::post('/edit-announcement', [AnnouncementController::class, 'update'])->name('announcement.update');
