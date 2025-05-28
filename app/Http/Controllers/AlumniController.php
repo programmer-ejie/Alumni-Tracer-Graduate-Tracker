@@ -34,7 +34,12 @@ class AlumniController extends Controller
     }
     function gotoAnnouncements()
     {
-        return view('alumni_folder.announcements');
+         $alumni = $this->getAuthenticatedAlumni();
+            if (!$alumni) {   
+                return redirect()->route('login')->with('error', 'Please log in first.');
+            } 
+            return view('alumni_folder.announcements')->with('alumni', $alumni);
+         
     }
     function gotoSurvey()
     {

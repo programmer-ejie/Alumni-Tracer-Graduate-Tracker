@@ -476,8 +476,13 @@ window.alumniMentions = [
                                       use App\Models\Announcement;
                                       $announcements = \App\Models\Announcement::orderBy('created_at', 'desc')->get();
                                   @endphp
-
-                                  @foreach($announcements as $announcement)
+                                  
+                                  @if($announcements->isEmpty())
+                                      <div class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
+                                          <strong>No Data Available</strong>
+                                      </div>
+                                  @else
+                                      @foreach($announcements as $announcement)
                                  <div class="list-group-item d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <div class="avtar avtar-s rounded-circle text-success bg-light-success me-3">
@@ -635,6 +640,7 @@ window.alumniMentions = [
                                     });
                                 });
                                 </script>
+
                                  <!-- [start] view info Offcanvas Announcement Panel -->
                                   <div class="offcanvas offcanvas-end" tabindex="-1" id="informationcanvas{{ $announcement->id }}" aria-labelledby="informationcanvasLabel{{ $announcement->id }}">
                                       <div class="offcanvas-header border-bottom">
@@ -723,6 +729,7 @@ window.alumniMentions = [
                                       </div>
                                       <!-- [end] delete Offcanvas Announcement Panel -->
                                  @endforeach
+                                 @endif
                                 </div>
                               
                               </div>

@@ -349,11 +349,26 @@
         <!-- [ sample-page ] start -->
           <div class="card construction-card">
               <div class="card-body">
+                @php
+                    use App\Models\Announcement;
+                    $announcements = \App\Models\Announcement::where('mention_id', $alumni->id)
+                        ->orWhere('mention_id', 0)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+                @endphp
+
+                
                         <div class="col-md-12 col-xl-12">
                           <h5 class="mb-3"> Announcements</h5>
                           <div class="card">
                             <div class="list-group list-group-flush">
-                                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="offcanvas" data-bs-target="#announcementOffcanvas" aria-controls="announcementOffcanvas">
+                              @if($announcements->isEmpty())
+                                  <div class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
+                                      <strong>No Data Available</strong>
+                                  </div>
+                              @else
+                              @foreach($announcements as $announcement)
+                                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="offcanvas" data-bs-target="#informationcanvas{{ $announcement->id }}" aria-controls="informationcanvas{{ $announcement->id }}" title="More info">
                                   <div class="d-flex">
                                     <div class="flex-shrink-0">
                                       <div class="avtar avtar-s rounded-circle text-success bg-light-success">
@@ -363,13 +378,19 @@
                                       </div>
                                     </div>
                                     <div class="flex-grow-1 ms-3">
-                                      <h6 class="mb-1">Alumni Gathering</h6>
-                                      <p class="mb-0 text-muted">Scheduled on May 28, 2025.</p>
-                                      <p class="mb-0">First 9 words of the information in db then after that display ... for more information</p>
+                                    <h6 class="mb-1">{{ $announcement->title }}</h6>
+                                        <p class="mb-0 text-muted">
+                                            Scheduled on {{ \Carbon\Carbon::parse($announcement->date)->format('F d, Y') }}.
+                                        </p>
+                                        <p class="mb-0">
+                                            {{ \Illuminate\Support\Str::words($announcement->announcement_message, 9, '...') }}
+                                        </p>
                                     </div>
                                     <div class="flex-shrink-0 text-end">
                                       <div class="d-flex flex-column align-items-center">
-                                        <small class="text-muted mb-1">27 minutes ago</small> <!-- Timestamp -->
+                                       <small class="text-muted mb-1">
+                                            {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                        </small>
                                         <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
                                           <i class="ti ti-info-circle f-18"></i> <!-- Info icon -->
                                         </div>
@@ -379,81 +400,67 @@
                                   </div>
                                 </a>
 
-                                  <!-- [start] Offcanvas Announcement Panel -->
-                                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="announcementOffcanvas" aria-labelledby="announcementLabel">
-                                                      <div class="offcanvas-header">
-                                                        <h5 class="offcanvas-title" id="announcementLabel">🗓️ Event Information</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                                      </div>
-                                                      <div class="offcanvas-body">
-                                                        <div class="card position-relative">
-                                                          <div class="card-body">
-                                                          
-                                                            <button id="markEventBtn"
-                                                              onclick="toggleEventMark()"
-                                                              class="btn btn-outline-secondary btn-sm position-absolute"
-                                                              style="top: 10px; right: 10px;"
-                                                              title="Mark this event">
-                                                              <i id="markIcon" class="ti ti-flag f-18"></i>
-                                                            </button>
+                                 <!-- [start] view info Offcanvas Announcement Panel -->
+                                  <div class="offcanvas offcanvas-end" tabindex="-1" id="informationcanvas{{ $announcement->id }}" aria-labelledby="informationcanvasLabel{{ $announcement->id }}">
+                                      <div class="offcanvas-header border-bottom">
+                                          <h5 class="offcanvas-title" id="informationcanvasLabel{{ $announcement->id }}">
+                                              <span class="me-2" style="font-size: 1.5rem;">📢</span>
+                                              Announcement Details
+                                          </h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                      </div>
+                                      <div class="offcanvas-body p-4">
+                                          <div class="card shadow-sm border-primary position-relative">
+                                              <div class="card-body">
+                                                  <div class="mb-3 text-center">
+                                                      <span style="font-size: 2.5rem;">🎉</span>
+                                                      <h4 class="fw-bold mt-2 mb-1 text-primary">Hello, Alumni!</h4>
+                                                      <p class="mb-2 text-muted">Here's the latest update from your community:</p>
+                                                  </div>
+                                                  <h5 class="fw-bold mb-3 text-success">
+                                                      <i class="ti ti-speakerphone me-2"></i>{{ $announcement->title }}
+                                                  </h5>
+                                                  <p class="mb-2 fs-6">
+                                                      <span class="me-1" style = "text-transform: capitalize; font-size: 10px;">
+                                                          <i class="ti ti-clock-hour-4 text-info"></i>
+                                                          <strong>Updated at:</strong>
+                                                          {{ $announcement->updated_at->format('F d, Y h:i A') }}
+                                                      </span>
+                                                  </p>
+                                                  <p class="mb-2 fs-6">
+                                                      <i class="ti ti-at text-warning"></i>
+                                                      <strong>Mention:</strong>
+                                                      @if($announcement->mention_id == 0)
+                                                          <span class="badge bg-primary">@everyone</span>
+                                                      @else
+                                                          @php
+                                                              $user = \App\Models\AlumniInfo::find($announcement->mention_id);
+                                                          @endphp
+                                                          <span class="badge bg-info">{{ $user ? '@' . $user->fullname : 'Unknown' }}</span>
+                                                      @endif
+                                                  </p>
+                                                  <hr>
+                                                  <p class="fs-5 mb-3 text-dark">
+                                                      {{ $announcement->announcement_message }}
+                                                  </p>
+                                                  <div class="alert alert-light border mt-4 mb-0 text-center" role="alert">
+                                                      <span style="font-size: 1.2rem;">🙌</span>
+                                                      <span class="ms-2">Stay connected and spread the word! <b>Your participation makes a difference.</b></span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!-- [end] view info Offcanvas Announcement Panel -->
 
-                                                            <h6 class="card-title">Alumni Homecoming Gathering</h6>
-                                                            <p class="card-text">
-                                                              We are excited to invite all SLSU alumni to our upcoming <strong>Alumni Homecoming Gathering</strong> on
-                                                              <strong>June 15, 2025</strong> at the <strong>SLSU Main Campus Auditorium</strong>. Join us for a day of reconnection,
-                                                              celebration, and shared memories!
-                                                            </p>
-                                                            <p class="text-muted mb-0">We look forward to seeing you there. Please spread the word!</p>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-
-                                                  
-                                                      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
-                                                        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true"
-                                                            style="background-color: rgba(25, 135, 84, 0.8);">
-                                                          <div class="d-flex">
-                                                            <div class="toast-body">
-                                                              ✅ Event successfully marked!
-                                                            </div>
-                                                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-
-                                                    
-                                                    <!-- JavaScript -->
-                                                    <script>
-                                                      let isMarked = false;
-
-                                                      function toggleEventMark() {
-                                                        const btn = document.getElementById('markEventBtn');
-                                                        const icon = document.getElementById('markIcon');
-                                                        const audio = document.getElementById('successAudio');
-                                                        const toast = new bootstrap.Toast(document.getElementById('successToast'));
-
-                                                        isMarked = !isMarked;
-
-                                                        if (isMarked) {
-                                                          btn.classList.remove('btn-outline-secondary');
-                                                          btn.classList.add('btn-success');
-                                                          icon.classList.remove('text-secondary');
-                                                          icon.classList.add('text-light');
-                                                          toast.show();
-                                                        } else {
-                                                          btn.classList.remove('btn-success');
-                                                          btn.classList.add('btn-outline-secondary');
-                                                          icon.classList.remove('text-light');
-                                                          icon.classList.add('text-secondary');
-                                                        }
-                                                      }
-                                                    </script>
+                                @endforeach
+                                @endif
                                               <!-- [end] Offcanvas Announcement Panel -->
                           
                             </div>
                           </div>
                         </div>
+                       
               </div>
          </div>
         <!-- [ sample-page ] end -->

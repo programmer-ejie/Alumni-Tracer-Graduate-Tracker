@@ -27,29 +27,31 @@ class AnnouncementController extends Controller
             return redirect()->back()->with('success', 'Announcement posted!');
         }
 
-    public function destroy(Request $request){
-        $announcement = Announcement::find($request->announcement_id);
-        if ($announcement) {
-            $announcement->delete();
-            return redirect()->back()->with('success', 'Announcement deleted!');
+        public function destroy(Request $request){
+            $announcement = Announcement::find($request->announcement_id);
+            if ($announcement) {
+                $announcement->delete();
+                return redirect()->back()->with('success', 'Announcement deleted!');
+            }
+            return redirect()->back()->with('error', 'Announcement not found.');
         }
-        return redirect()->back()->with('error', 'Announcement not found.');
+
+        public function update(Request $request){
+        $validated = $request->validate([
+            'announcement_id' => 'required|integer|exists:announcements,id',
+            'title' => 'required|string|max:255',
+            'announcement_message' => 'required|string',
+            'mention_id' => 'required|integer',
+        ]);
+
+        $announcement = Announcement::find($validated['announcement_id']);
+        $announcement->title = $validated['title'];
+        $announcement->announcement_message = $validated['announcement_message'];
+        $announcement->mention_id = $validated['mention_id'];
+        $announcement->save();
+
+        return redirect()->back()->with('success', 'Announcement updated successfully!');
     }
 
-    public function update(Request $request){
-    $validated = $request->validate([
-        'announcement_id' => 'required|integer|exists:announcements,id',
-        'title' => 'required|string|max:255',
-        'announcement_message' => 'required|string',
-        'mention_id' => 'required|integer',
-    ]);
-
-    $announcement = Announcement::find($validated['announcement_id']);
-    $announcement->title = $validated['title'];
-    $announcement->announcement_message = $validated['announcement_message'];
-    $announcement->mention_id = $validated['mention_id'];
-    $announcement->save();
-
-    return redirect()->back()->with('success', 'Announcement updated successfully!');
-}
+    
 }
