@@ -58,3 +58,7 @@ Route::post('/alumni/survey/submit', [AlumniController::class, 'submitSurvey'])-
 Route::post('/submit-announcement', [AnnouncementController::class, 'store'])->name('announcement.store');
 Route::post('/delete-announcement', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 Route::post('/edit-announcement', [AnnouncementController::class, 'update'])->name('announcement.update');
+
+Route::post('/admin/events/store', [AdminController::class, 'storeEvent'])->name('admin.events.store');
+Route::put('/admin/events/{event}', [AdminController::class, 'updateEvent'])->name('admin.events.update');
+Route::delete('/admin/events/{event}', [AdminController::class, 'destroyEvent'])->name('admin.events.destroy');

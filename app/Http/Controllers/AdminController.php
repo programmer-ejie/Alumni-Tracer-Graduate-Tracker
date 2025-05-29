@@ -7,6 +7,7 @@ use App\Models\AdminAccount;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AlumniSurvey;
 use App\Models\AlumniInfo;
+use App\Models\Event;
 
 class AdminController extends Controller
 {
@@ -49,10 +50,28 @@ class AdminController extends Controller
     {
         return view('admin.notifications');
     }
-    function gotoEvents()
-    {
-        return view('admin.events');
+
+    function gotoEvents(Request $request){
+            $admin = $this->getAuthenticatedAdmin();
+                $admin = $this->getAuthenticatedAdmin();
+                if (!$admin) {
+                    return redirect()->route('login')->with('error', 'Please log in first.');
+                }
+                $query = Event::where('admin_id', $admin->id);
+
+                $filter = $request->input('filter', 'all');
+                $today = date('Y-m-d');
+
+                if ($filter === 'completed') {
+                    $query->where('date', '<', $today);
+                } elseif ($filter === 'upcoming') {
+                    $query->where('date', '>=', $today);
+                }
+
+                $events = $query->orderBy('date', 'desc')->get();
+                return view('admin.events', compact('admin', 'events'));
     }
+
     function gotoHome()
     {
         return view('index');
@@ -101,7 +120,7 @@ class AdminController extends Controller
                 'profile_pic' => 'nullable|image|max:10240',
             ]);
 
-            // Handle profile picture upload
+          
             if ($request->hasFile('profile_pic')) {
                 $file = $request->file('profile_pic');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -123,6 +142,62 @@ class AdminController extends Controller
             }
             return redirect()->back()->with('error', 'Account not found.');
         }
+
+
+        public function storeEvent(Request $request)
+            {
+                $admin = $this->getAuthenticatedAdmin();
+                if (!$admin) {
+                    return redirect()->route('login')->with('error', 'Please log in first.');
+                }
+
+                $data = $request->validate([
+                    'title' => 'required|string|max:255',
+                    'message' => 'required|string',
+                    'date' => 'required|date',
+                    'location' => 'nullable|string|max:255',
+                ]);
+
+                $data['admin_id'] = $admin->id;
+
+                Event::create($data);
+
+                return redirect()->route('admin.events')->with('success', 'Event created successfully!');
+            }
+
+         public function updateEvent(Request $request, $id)
+                {
+                    $admin = $this->getAuthenticatedAdmin();
+                    if (!$admin) {
+                        return redirect()->route('login')->with('error', 'Please log in first.');
+                    }
+
+                    $event = Event::where('admin_id', $admin->id)->findOrFail($id);
+
+                    $data = $request->validate([
+                        'title' => 'required|string|max:255',
+                        'message' => 'required|string',
+                        'date' => 'required|date',
+                        'location' => 'nullable|string|max:255',
+                    ]);
+
+                    $event->update($data);
+
+                    return redirect()->route('admin.events')->with('success', 'Event updated successfully!');
+                }
+
+         public function destroyEvent($id)
+                {
+                    $admin = $this->getAuthenticatedAdmin();
+                    if (!$admin) {
+                        return redirect()->route('login')->with('error', 'Please log in first.');
+                    }
+
+                    $event = Event::where('admin_id', $admin->id)->findOrFail($id);
+                    $event->delete();
+
+                    return redirect()->route('admin.events')->with('success', 'Event deleted successfully!');
+                }
 
 
 

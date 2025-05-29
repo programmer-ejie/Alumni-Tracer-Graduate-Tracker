@@ -389,8 +389,8 @@
                                     <div class="flex-shrink-0 text-end">
                                       <div class="d-flex flex-column align-items-center">
                                        <small class="text-muted mb-1">
-                                            {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
-                                        </small>
+                                          {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                      </small>
                                         <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
                                           <i class="ti ti-info-circle f-18"></i> <!-- Info icon -->
                                         </div>
