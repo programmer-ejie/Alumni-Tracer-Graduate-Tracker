@@ -7,6 +7,7 @@ use App\Models\AlumniInfo;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\AlumniSurvey;
+use App\Models\Event; 
 
 class AlumniController extends Controller
 {
@@ -54,10 +55,29 @@ class AlumniController extends Controller
     {
         return view('alumni_folder.notifications');
     }
-    function gotoEvents()
-    {
-        return view('alumni_folder.events');
+
+    function gotoEvents(Request $request){
+         $alumni = $this->getAuthenticatedAlumni();
+            if (!$alumni) {   
+                return redirect()->route('login')->with('error', 'Please log in first.');
+            }
+
+            $query = Event::query();
+
+            $filter = $request->input('filter', 'all');
+            $today = date('Y-m-d');
+
+            if ($filter === 'completed') {
+                $query->where('date', '<', $today);
+            } elseif ($filter === 'upcoming') {
+                $query->where('date', '>=', $today);
+            }
+
+            $events = $query->orderBy('date', 'desc')->get();
+
+            return view('alumni_folder.events', compact('alumni', 'events'));
     }
+
     function gotoHome()
     {
         return view('index');

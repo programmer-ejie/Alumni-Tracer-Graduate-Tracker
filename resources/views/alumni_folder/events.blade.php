@@ -1,510 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- [Head] start -->
-
 <head>
   <title>Events | Alumni Tracer</title>
-  <!-- [Meta] -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+  <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free alumni template & use it for your project.">
   <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
   <meta name="author" content="CodedThemes">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- [Favicon] icon -->
-  <link rel="icon" href="../main_template/dist/assets/images/favicon.svg" type="image/x-icon"> <!-- [Google Font] Family -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
-<!-- [Tabler Icons] https://tablericons.com -->
-<link rel="stylesheet" href="../main_template/dist/assets/fonts/tabler-icons.min.css" >
-<!-- [Feather Icons] https://feathericons.com -->
-<link rel="stylesheet" href="../main_template/dist/assets/fonts/feather.css" >
-<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-<link rel="stylesheet" href="../main_template/dist/assets/fonts/fontawesome.css" >
-<!-- [Material Icons] https://fonts.google.com/icons -->
-<link rel="stylesheet" href="../main_template/dist/assets/fonts/material.css" >
-<!-- [Template CSS Files] -->
-<link rel="stylesheet" href="../main_template/dist/assets/css/style.css" id="main-style-link" >
-<link rel="stylesheet" href="../main_template/dist/assets/css/style-preset.css" >
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="icon" href="../main_template/dist/assets/images/favicon.svg" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+  <link rel="stylesheet" href="../main_template/dist/assets/fonts/tabler-icons.min.css" >
+  <link rel="stylesheet" href="../main_template/dist/assets/fonts/feather.css" >
+  <link rel="stylesheet" href="../main_template/dist/assets/fonts/fontawesome.css" >
+  <link rel="stylesheet" href="../main_template/dist/assets/fonts/material.css" >
+  <link rel="stylesheet" href="../main_template/dist/assets/css/style.css" id="main-style-link" >
+  <link rel="stylesheet" href="../main_template/dist/assets/css/style-preset.css" >
 </head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
-
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
-  <!-- [ Pre-loader ] start -->
 <div class="loader-bg">
   <div class="loader-track">
     <div class="loader-fill"></div>
   </div>
 </div>
-<!-- [ Pre-loader ] End -->
- <!-- [ Sidebar Menu ] start -->
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
-      <a href="{{route('alumni.dashboard')}}" class="b-brand text-primary" style = "display: flex;">
-                <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
-                <h4 style = "color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold;">ALUMNI TRACER</h4>
+      <a href="{{route('alumni.dashboard')}}" class="b-brand text-primary" style="display: flex;">
+        <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
+        <h4 style="color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold;">ALUMNI TRACER</h4>
       </a>
     </div>
     <div class="navbar-content">
       <ul class="pc-navbar">
-
-        
-      <li class="pc-item">
-  <a href="{{route('alumni.dashboard')}}" class="pc-link">
-    <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-    <span class="pc-mtext">Dashboard</span>
-  </a>
-</li>
-
-<li class="pc-item pc-caption">
-  <label>Web Functions</label>
-  <i class="ti ti-layout-grid"></i>
-</li>
-
-<li class="pc-item">
-  <a href="{{route('alumni.profile')}}" class="pc-link">
-    <span class="pc-micon"><i class="ti ti-user"></i></span>
-    <span class="pc-mtext">Profile</span>
-  </a>
-</li>
-
-<li class="pc-item">
-  <a href="{{route('alumni.survey')}}" class="pc-link">
-    <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
-    <span class="pc-mtext">Survey</span>
-  </a>
-</li>
-
-<li class="pc-item">
-  <a href="{{route('alumni.announcements')}}" class="pc-link">
-    <span class="pc-micon"><i class="ti ti-speakerphone"></i></span>
-    <span class="pc-mtext">Announcements</span>
-  </a>
-</li>
-
-<li class="pc-item">
-  <a href="{{route('alumni.events')}}" class="pc-link">
-  <span class="pc-micon"><i class="ti ti-calendar-event"></i></span>
-    <span class="pc-mtext">Events</span>
-  </a>
-</li>
-
-<li class="pc-item">
-  <a href="{{route('alumni.notifications')}}" class="pc-link">
-    <span class="pc-micon"><i class="ti ti-bell"></i></span>
-    <span class="pc-mtext">Notifications</span>
-  </a>
-</li>
-
-
-       
+        <li class="pc-item">
+          <a href="{{route('alumni.dashboard')}}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Admin Dashboard</span>
+          </a>
+        </li>
+        <li class="pc-item pc-caption">
+          <label>Web Functions</label>
+          <i class="ti ti-layout-grid"></i>
+        </li>
+        <li class="pc-item">
+          <a href="{{route('alumni.profile')}}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-user"></i></span>
+            <span class="pc-mtext">Admin Profile</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="{{route('alumni.survey')}}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+            <span class="pc-mtext">Survey Data</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="{{route('alumni.announcements')}}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-speakerphone"></i></span>
+            <span class="pc-mtext">Announcements</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="{{route('alumni.events')}}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-calendar-event"></i></span>
+            <span class="pc-mtext">Manage Events</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="{{route('alumni.notifications')}}" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-bell"></i></span>
+            <span class="pc-mtext">Notifications</span>
+          </a>
+        </li>
       </ul>
-     
     </div>
   </div>
 </nav>
-<!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
 <header class="pc-header">
-  <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
-<div class="me-auto pc-mob-drp">
-  <ul class="list-unstyled">
-    <!-- ======= Menu collapse Icon ===== -->
-    <li class="pc-h-item pc-sidebar-collapse">
-      <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
-        <i class="ti ti-menu-2"></i>
-      </a>
-    </li>
-    <li class="pc-h-item pc-sidebar-popup">
-      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
-        <i class="ti ti-menu-2"></i>
-      </a>
-    </li>
-    <li class="dropdown pc-h-item d-inline-flex d-md-none">
-      <a
-        class="pc-head-link dropdown-toggle arrow-none m-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        aria-expanded="false"
-      >
-        <i class="ti ti-search"></i>
-      </a>
-      <div class="dropdown-menu pc-h-dropdown drp-search">
-        <form class="px-3">
-          <div class="form-group mb-0 d-flex align-items-center">
-            <i data-feather="search"></i>
-            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+  <div class="header-wrapper">
+    <div class="me-auto pc-mob-drp">
+      <ul class="list-unstyled">
+        <li class="pc-h-item pc-sidebar-collapse">
+          <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+            <i class="ti ti-menu-2"></i>
+          </a>
+        </li>
+        <li class="pc-h-item pc-sidebar-popup">
+          <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+            <i class="ti ti-menu-2"></i>
+          </a>
+        </li>
+        <li class="dropdown pc-h-item d-inline-flex d-md-none">
+          <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <i class="ti ti-search"></i>
+          </a>
+          <div class="dropdown-menu pc-h-dropdown drp-search">
+            <form class="px-3">
+              <div class="form-group mb-0 d-flex align-items-center">
+                <i data-feather="search"></i>
+                <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </li>
-    <li class="pc-h-item d-none d-md-inline-flex">
-      <form class="header-search">
-        <i data-feather="search" class="icon-search"></i>
-        <input type="search" class="form-control" placeholder="Search here. . .">
-      </form>
-    </li>
-  </ul>
-</div>
-<!-- [Mobile Media Block end] -->
-<div class="ms-auto">
-  <ul class="list-unstyled">
-    <li class="dropdown pc-h-item">
-      <a
-        class="pc-head-link dropdown-toggle arrow-none me-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        aria-expanded="false"
-      >
-        <i class="ti ti-mail"></i>
-      </a>
-      <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
-        <div class="dropdown-header d-flex align-items-center justify-content-between">
-          <h5 class="m-0">Message</h5>
-          <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-x text-danger"></i></a>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
-          <div class="list-group list-group-flush w-100">
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">3:00 AM</span>
-                  <p class="text-body mb-1">It's <b>Cristina danny's</b> birthday today.</p>
-                  <span class="text-muted">2 min ago</span>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../main_template/dist/assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">6:00 PM</span>
-                  <p class="text-body mb-1"><b>Aida Burg</b> commented your post.</p>
-                  <span class="text-muted">5 August</span>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../main_template/dist/assets/images/user/avatar-3.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">2:45 PM</span>
-                  <p class="text-body mb-1"><b>There was a failure to your setup.</b></p>
-                  <span class="text-muted">7 hours ago</span>
-                </div>
-              </div>
-            </a>
-            <a class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img src="../main_template/dist/assets/images/user/avatar-4.jpg" alt="user-image" class="user-avtar">
-                </div>
-                <div class="flex-grow-1 ms-1">
-                  <span class="float-end text-muted">9:10 PM</span>
-                  <p class="text-body mb-1"><b>Cristina Danny </b> invited to join <b> Meeting.</b></p>
-                  <span class="text-muted">Daily scrum meeting time</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="text-center py-2">
-          <a href="#!" class="link-primary">View all</a>
-        </div>
-      </div>
-    </li>
-    <li class="dropdown pc-h-item header-user-profile">
-      <a
-        class="pc-head-link dropdown-toggle arrow-none me-0"
-        data-bs-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="false"
-        data-bs-auto-close="outside"
-        aria-expanded="false"
-      >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
-      </a>
-      <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
-        <div class="dropdown-header">
-          <div class="d-flex mb-1">
-            <div class="flex-shrink-0">
-              <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+        </li>
+        <li class="pc-h-item d-none d-md-inline-flex">
+          <form class="header-search">
+            <i data-feather="search" class="icon-search"></i>
+            <input type="search" class="form-control" placeholder="Search here. . .">
+          </form>
+        </li>
+      </ul>
+    </div>
+    <div class="ms-auto">
+      <ul class="list-unstyled">
+        <li class="dropdown pc-h-item">
+          <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <i class="ti ti-mail"></i>
+          </a>
+          <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+            <div class="dropdown-header d-flex align-items-center justify-content-between">
+              <h5 class="m-0">Message</h5>
+              <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-x text-danger"></i></a>
             </div>
-            <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
-            </div>
-            <a href="{{route('alumni.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
-          </div>
-        </div>
-        <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link active"
-              id="drp-t1"
-              data-bs-toggle="tab"
-              data-bs-target="#drp-tab-1"
-              type="button"
-              role="tab"
-              aria-controls="drp-tab-1"
-              aria-selected="true"
-              ><i class="ti ti-user"></i> User</button
-            >
-          </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link"
-              id="drp-t2"
-              data-bs-toggle="tab"
-              data-bs-target="#drp-tab-2"
-              type="button"
-              role="tab"
-              aria-controls="drp-tab-2"
-              aria-selected="false"
-              ><i class="ti ti-settings"></i> Setting</button
-            >
-          </li>
-        </ul>
-        <div class="tab-content" id="mysrpTabContent">
-          <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
-           
-             <a href="{{route('alumni.dashboard')}}" class="dropdown-item">
-            <i class="ti ti-dashboard"></i>
-              <span>Dashboard</span>
-            </a>
-            <a href="{{route('alumni.profile')}}" class="dropdown-item">
-              <i class="ti ti-user"></i>
-              <span>Profile</span>
-            </a>
-            <a href="{{route('alumni.survey')}}" class="dropdown-item">
-              <i class="ti ti-clipboard-list"></i>
-              <span>Survey</span>
-            </a>
-           
-          </div>
-          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
-        
-          <a href="{{route('alumni.announcements')}}" class="dropdown-item">
-          <i class="ti ti-speakerphone"></i>
-            <span>Announcements</span>
-            </a>
-            <a href="{{route('alumni.notifications')}}" class="dropdown-item">
-            <i class="ti ti-bell"></i>
-            <span>Notifications</span>
-            </a>
-            <a href="{{route('alumni.events')}}" class="dropdown-item">
-            <i class="ti ti-phone-call"></i>
-            <span>Events</span>
-            </a>
-
-          </div>
-        </div>  
-      </div>
-    </li>
-  </ul>
-</div>
- </div>
-</header>
-<!-- [ Header ] end -->
-
-
-
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">      
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Alumni Tracer</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">User</a></li>
-                <li class="breadcrumb-item" aria-current="page">Events</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-         <div class="card construction-card">
-              <div class="card-body">
-                  <label for="eventFilter" class="form-label">Event Status:</label>
-                  <select id="eventFilter" class="form-select" aria-label="Filter Event Status" style = "width: 200px; margin-bottom: 20px;"> 
-                    <option value="all" selected>All Events</option>
-                    <option value="completed">Completed Events</option>
-                    <option value="upcoming">Upcoming Events</option>
-                    <option value="highlighted">My Marked Events</option>
-                  </select>
-
-                  <div class="row">
-                      <div class="col-md-6 col-xl-3">
-                      <div class="card">
-                        <div class="card-body">
-                           <a href="#" class="position-absolute top-0 end-0 m-3 text-decoration-none" data-bs-toggle="offcanvas" data-bs-target="#announcementOffcanvas" aria-controls="announcementOffcanvas" title="View Announcement">
-                            <i class="ti ti-info-circle f-18 text-primary"></i>
-                          </a>
-                              <h6 class="mb-2 f-w-400 text-muted">Event</h6>
-                              <h6 class="mb-3">Alumni Gathering <br><span class="badge bg-light-warning border border-warning"><i class="ti ti-users-group"></i> June 15</span></h6><hr>
-                              <p class="mb-0 text-muted text-sm">SLSU Main Campus Auditorium – reconnect and celebrate with fellow alumni.</p>
-
-                        </div>
-                             <!-- [start] Offcanvas Announcement Panel -->
-                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="announcementOffcanvas" aria-labelledby="announcementLabel">
-                                      <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title" id="announcementLabel">🗓️ Event Information</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                      </div>
-                                      <div class="offcanvas-body">
-                                        <div class="card position-relative">
-                                          <div class="card-body">
-                                          
-                                            <button id="markEventBtn"
-                                              onclick="toggleEventMark()"
-                                              class="btn btn-outline-secondary btn-sm position-absolute"
-                                              style="top: 10px; right: 10px;"
-                                              title="Mark this event">
-                                              <i id="markIcon" class="ti ti-flag f-18"></i>
-                                            </button>
-
-                                            <h6 class="card-title">Alumni Homecoming Gathering</h6>
-                                            <p class="card-text">
-                                              We are excited to invite all SLSU alumni to our upcoming <strong>Alumni Homecoming Gathering</strong> on
-                                              <strong>June 15, 2025</strong> at the <strong>SLSU Main Campus Auditorium</strong>. Join us for a day of reconnection,
-                                              celebration, and shared memories!
-                                            </p>
-                                            <p class="text-muted mb-0">We look forward to seeing you there. Please spread the word!</p>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                   
-                                      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
-                                        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true"
-                                            style="background-color: rgba(25, 135, 84, 0.8);">
-                                          <div class="d-flex">
-                                            <div class="toast-body">
-                                              ✅ Event successfully marked!
-                                            </div>
-                                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                    
-                                    <!-- JavaScript -->
-                                    <script>
-                                      let isMarked = false;
-
-                                      function toggleEventMark() {
-                                        const btn = document.getElementById('markEventBtn');
-                                        const icon = document.getElementById('markIcon');
-                                        const audio = document.getElementById('successAudio');
-                                        const toast = new bootstrap.Toast(document.getElementById('successToast'));
-
-                                        isMarked = !isMarked;
-
-                                        if (isMarked) {
-                                          btn.classList.remove('btn-outline-secondary');
-                                          btn.classList.add('btn-success');
-                                          icon.classList.remove('text-secondary');
-                                          icon.classList.add('text-light');
-                                          toast.show();
-                                        } else {
-                                          btn.classList.remove('btn-success');
-                                          btn.classList.add('btn-outline-secondary');
-                                          icon.classList.remove('text-light');
-                                          icon.classList.add('text-secondary');
-                                        }
-                                      }
-                                    </script>
-                              <!-- [end] Offcanvas Announcement Panel -->
-
-
-                      </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
+              <div class="list-group list-group-flush w-100">
+                <a class="list-group-item list-group-item-action">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0">
+                      <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
                     </div>
- 
+                    <div class="flex-grow-1 ms-1">
+                      <span class="float-end text-muted">3:00 AM</span>
+                      <p class="text-body mb-1">It's <b>Cristina danny's</b> birthday today.</p>
+                      <span class="text-muted">2 min ago</span>
+                    </div>
                   </div>
+                </a>
+                <a class="list-group-item list-group-item-action">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0">
+                      <img src="../main_template/dist/assets/images/user/avatar-1.jpg" alt="user-image" class="user-avtar">
+                    </div>
+                    <div class="flex-grow-1 ms-1">
+                      <span class="float-end text-muted">6:00 PM</span>
+                      <p class="text-body mb-1"><b>Aida Burg</b> commented your post.</p>
+                      <span class="text-muted">5 August</span>
+                    </div>
+                  </div>
+                </a>
+                <a class="list-group-item list-group-item-action">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0">
+                      <img src="../main_template/dist/assets/images/user/avatar-3.jpg" alt="user-image" class="user-avtar">
+                    </div>
+                    <div class="flex-grow-1 ms-1">
+                      <span class="float-end text-muted">2:45 PM</span>
+                      <p class="text-body mb-1"><b>There was a failure to your setup.</b></p>
+                      <span class="text-muted">7 hours ago</span>
+                    </div>
+                  </div>
+                </a>
+                <a class="list-group-item list-group-item-action">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0">
+                      <img src="../main_template/dist/assets/images/user/avatar-4.jpg" alt="user-image" class="user-avtar">
+                    </div>
+                    <div class="flex-grow-1 ms-1">
+                      <span class="float-end text-muted">9:10 PM</span>
+                      <p class="text-body mb-1"><b>Cristina Danny </b> invited to join <b> Meeting.</b></p>
+                      <span class="text-muted">Daily scrum meeting time</span>
+                    </div>
+                  </div>
+                </a>
               </div>
-         </div>
-        <!-- [ sample-page ] end -->
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="text-center py-2">
+              <a href="#!" class="link-primary">View all</a>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown pc-h-item header-user-profile">
+          <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
+            <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
+            <span>Stebin Ben</span>
+          </a>
+          <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+            <div class="dropdown-header">
+              <div class="d-flex mb-1">
+                <div class="flex-shrink-0">
+                  <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h6 class="mb-1">Stebin Ben</h6>
+                  <span>UI/UX Designer</span>
+                </div>
+                <a href="{{route('alumni.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+              </div>
+            </div>
+            <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="drp-t1" data-bs-toggle="tab" data-bs-target="#drp-tab-1" type="button" role="tab" aria-controls="drp-tab-1" aria-selected="true"><i class="ti ti-user"></i> Admin</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="drp-t2" data-bs-toggle="tab" data-bs-target="#drp-tab-2" type="button" role="tab" aria-controls="drp-tab-2" aria-selected="false"><i class="ti ti-settings"></i> Setting</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="mysrpTabContent">
+              <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
+                <a href="{{route('alumni.dashboard')}}" class="dropdown-item">
+                  <i class="ti ti-dashboard"></i>
+                  <span>Dashboard</span>
+                </a>
+                <a href="{{route('alumni.profile')}}" class="dropdown-item">
+                  <i class="ti ti-user"></i>
+                  <span>Profile</span>
+                </a>
+                <a href="{{route('alumni.survey')}}" class="dropdown-item">
+                  <i class="ti ti-clipboard-list"></i>
+                  <span>Survey</span>
+                </a>
+              </div>
+              <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+                <a href="{{route('alumni.announcements')}}" class="dropdown-item">
+                  <i class="ti ti-speakerphone"></i>
+                  <span>Announcements</span>
+                </a>
+                <a href="{{route('alumni.notifications')}}" class="dropdown-item">
+                  <i class="ti ti-bell"></i>
+                  <span>Notifications</span>
+                </a>
+                <a href="{{route('alumni.events')}}" class="dropdown-item">
+                  <i class="ti ti-phone-call"></i>
+                  <span>Events</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<div class="pc-container">
+  <div class="pc-content">
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../dashboard/index.html">Alumni Tracer</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Admin</a></li>
+              <li class="breadcrumb-item" aria-current="page">Events</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="d-flex mb-3" style="justify-content:space-between;">
+        <div>
+          <form id="eventFilterForm" method="GET" action="{{ route('alumni.events') }}">
+              <select id="eventFilter" name="filter" class="form-select" aria-label="Filter Event Status" style="width: 200px; height: 36px; font-size: 10px; font-weight: bolder;">
+                <option value="all" {{ request('filter') == 'all' ? 'selected' : '' }}>All Events</option>
+                <option value="completed" {{ request('filter') == 'completed' ? 'selected' : '' }}>Completed Events</option>
+                <option value="upcoming" {{ request('filter') == 'upcoming' ? 'selected' : '' }}>Upcoming Events</option>
+              </select>
+            </form>
+            <script>
+            document.getElementById('eventFilter').addEventListener('change', function() {
+              document.getElementById('eventFilterForm').submit();
+            });
+            </script>
+        </div>
+        <div>
+          {{-- <button class="btn btn-primary shadow" data-bs-toggle="offcanvas" data-bs-target="#addEventOffcanvas" aria-controls="addEventOffcanvas">
+            <i class="ti ti-calendar-event me-1"></i> Add Event
+          </button> --}}
+        </div>
+        
+      </div>
+   
+      <div class="card construction-card">
+        <div class="card-body p-0">
+          <div class="row gx-2">
+            @foreach($events as $event)
+              <div class="col-12 col-md-6 col-xl-3 mb-4 d-flex align-items-stretch event-card" style = "margin-top: 20px;
+                   data-date="{{ $event->date }}">
+                <div class="card shadow-sm position-relative h-100 w-100">
+                  <div class="card-body">
+                    <div class="position-absolute top-0 end-0 p-2 d-flex gap-2">
+                      <a href="#" data-bs-toggle="offcanvas" data-bs-target="#viewEventOffcanvas{{ $event->id }}" aria-controls="viewEventOffcanvas{{ $event->id }}" title="View Event">
+                        <i class="ti ti-info-circle f-18 text-primary"></i>
+                      </a>
+                    
+                    </div>
+                    <h6 class="mb-2 f-w-400 text-muted">Event</h6>
+                    <h6 class="mb-3">
+                      {{ $event->title }}<br>
+                      <span class="badge bg-light-warning border border-warning">
+                        <i class="ti ti-users-group"></i>
+                        {{ \Carbon\Carbon::parse($event->date)->format('F d, Y') }}
+                      </span>
+                    </h6>
+                    <hr>
+                    <p class="mb-0 text-muted text-sm">
+                      <i class="ti ti-map-pin"></i> {{ $event->location ?? 'No location' }}
+                    </p>
+                    <p class="mb-0 mt-2">{{ \Illuminate\Support\Str::limit($event->message, 30) }}</p>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- [ Main Content ] end -->
-  <footer class="pc-footer">
-    <div class="footer-wrapper container-fluid">
-      <div class="row">
-        <div class="col-sm my-1">
-         <p class="m-0">
-           © Van's Group Capstone Project 2025
-         </p>
-
+</div>
+@foreach($events as $event)
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="viewEventOffcanvas{{ $event->id }}" aria-labelledby="viewEventLabel{{ $event->id }}" >
+    <div class="offcanvas-header border-bottom bg-primary bg-opacity-10">
+      <h5 class="offcanvas-title text-primary fw-bold" id="viewEventLabel{{ $event->id }}">
+        <i class="ti ti-calendar-event me-2"></i> Event Details
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="card border-0 shadow-sm mb-0">
+        <div class="card-body">
+          <h4 class="card-title fw-bold text-dark mb-2">
+            <i class="ti ti-bolt text-warning me-2"></i>{{ $event->title }}
+          </h4>
+          <div class="mb-3">
+            <span class="badge bg-light-primary text-primary border border-primary me-2">
+              <i class="ti ti-calendar-event"></i>
+              {{ \Carbon\Carbon::parse($event->date)->format('F d, Y') }}
+            </span>
+            <span class="badge bg-light-info text-info border border-info">
+              <i class="ti ti-map-pin"></i>
+              {{ $event->location ?? 'No location' }}
+            </span>
+          </div>
+          <div class="mb-3">
+            <label class="fw-semibold text-secondary mb-1"><i class="ti ti-info-circle"></i> Description</label>
+            <div class="p-2 rounded bg-light border text-dark" style="min-height: 60px;">
+              {{ $event->message }}
+            </div>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-muted small">
+              <i class="ti ti-clock"></i> Created: {{ $event->created_at->diffForHumans() }}
+            </span>
+            <span class="badge {{ \Carbon\Carbon::parse($event->date)->isPast() ? 'bg-danger' : 'bg-success' }}">
+              {{ \Carbon\Carbon::parse($event->date)->isPast() ? 'Completed' : 'Upcoming' }}
+            </span>
+          </div>
         </div>
-        
       </div>
     </div>
-  </footer>
+  </div>
+  
+@endforeach
 
-  <!-- [Page Specific JS] start -->
-  <script src="../main_template/dist/assets/js/plugins/apexcharts.min.js"></script>
-  <script src="../main_template/dist/assets/js/pages/dashboard-default.js"></script>
-  <!-- [Page Specific JS] end -->
-  <!-- Required Js -->
-  <script src="../main_template/dist/assets/js/plugins/popper.min.js"></script>
-  <script src="../main_template/dist/assets/js/plugins/simplebar.min.js"></script>
-  <script src="../main_template/dist/assets/js/plugins/bootstrap.min.js"></script>
-  <script src="../main_template/dist/assets/js/fonts/custom-font.js"></script>
-  <script src="../main_template/dist/assets/js/pcoded.js"></script>
-  <script src="../main_template/dist/assets/js/plugins/feather.min.js"></script>
-
-  
-  
-  
-  
-  <script>layout_change('light');</script>
-  
-  
-  
-  
-  <script>change_box_container('false');</script>
-  
-  
-  
-  <script>layout_rtl_change('false');</script>
-  
-  
-  <script>preset_change("preset-1");</script>
-  
-  
-  <script>font_change("Public-Sans");</script>
-  
-    
-
+<footer class="pc-footer">
+  <div class="footer-wrapper container-fluid">
+    <div class="row">
+      <div class="col-sm my-1">
+        <p class="m-0">
+          © Van's Group Capstone Project 2025
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const filter = document.getElementById('eventFilter');
+  filter.addEventListener('change', function () {
+    const selected = this.value;
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    document.querySelectorAll('.event-card').forEach(function (card) {
+      const eventDate = (card.getAttribute('data-date') || '').trim();
+      if (!eventDate) {
+        card.style.display = 'none';
+        return;
+      }
+      if (selected === 'all') {
+        card.style.display = '';
+      } else if (selected === 'completed') {
+        card.style.display = (eventDate < today) ? '' : 'none';
+      } else if (selected === 'upcoming') {
+        card.style.display = (eventDate >= today) ? '' : 'none';
+      }
+    });
+  });
+});
+document.addEventListener('show.bs.offcanvas', function (event) {
+  document.querySelectorAll('.offcanvas.show').forEach(function (canvas) {
+    if (canvas !== event.target) {
+      bootstrap.Offcanvas.getInstance(canvas).hide();
+    }
+  });
+  document.querySelectorAll('[data-bs-toggle="offcanvas"]').forEach(function (btn) {
+    btn.disabled = true;
+  });
+  event.target.addEventListener('hidden.bs.offcanvas', function handler() {
+    document.querySelectorAll('[data-bs-toggle="offcanvas"]').forEach(function (btn) {
+      btn.disabled = false;
+    });
+    event.target.removeEventListener('hidden.bs.offcanvas', handler);
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../main_template/dist/assets/js/plugins/apexcharts.min.js"></script>
+<script src="../main_template/dist/assets/js/pages/dashboard-default.js"></script>
+<script src="../main_template/dist/assets/js/plugins/popper.min.js"></script>
+<script src="../main_template/dist/assets/js/plugins/simplebar.min.js"></script>
+<script src="../main_template/dist/assets/js/plugins/bootstrap.min.js"></script>
+<script src="../main_template/dist/assets/js/fonts/custom-font.js"></script>
+<script src="../main_template/dist/assets/js/pcoded.js"></script>
+<script src="../main_template/dist/assets/js/plugins/feather.min.js"></script>
+<script>layout_change('light');</script>
+<script>change_box_container('false');</script>
+<script>layout_rtl_change('false');</script>
+<script>preset_change("preset-1");</script>
+<script>font_change("Public-Sans");</script>
 </body>
-<!-- [Body] end -->
-
 </html>

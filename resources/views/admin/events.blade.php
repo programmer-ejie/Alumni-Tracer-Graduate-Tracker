@@ -280,7 +280,7 @@
             document.getElementById('eventFilter').addEventListener('change', function() {
               document.getElementById('eventFilterForm').submit();
             });
-          </script>
+            </script>
         </div>
       </div>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="addEventOffcanvas" aria-labelledby="addEventOffcanvasLabel">
@@ -344,7 +344,7 @@
         <div class="card-body p-0">
           <div class="row gx-2">
             @foreach($events as $event)
-              <div class="col-12 col-md-6 col-xl-3 mb-4 d-flex align-items-stretch event-card"
+              <div class="col-12 col-md-6 col-xl-3 mb-4 d-flex align-items-stretch event-card" style = "margin-top: 20px;
                    data-date="{{ $event->date }}">
                 <div class="card shadow-sm position-relative h-100 w-100">
                   <div class="card-body">
@@ -382,7 +382,6 @@
     </div>
   </div>
 </div>
-
 @foreach($events as $event)
   <div class="offcanvas offcanvas-end" tabindex="-1" id="viewEventOffcanvas{{ $event->id }}" aria-labelledby="viewEventLabel{{ $event->id }}" >
     <div class="offcanvas-header border-bottom bg-primary bg-opacity-10">
