@@ -269,7 +269,8 @@
                 <option value="all" {{ request('filter') == 'all' ? 'selected' : '' }}>All Events</option>
                 <option value="completed" {{ request('filter') == 'completed' ? 'selected' : '' }}>Completed Events</option>
                 <option value="upcoming" {{ request('filter') == 'upcoming' ? 'selected' : '' }}>Upcoming Events</option>
-              </select>
+                <option value="my" {{ request('filter') == 'my' ? 'selected' : '' }}>Flagged Events</option>
+            </select>
             </form>
             <script>
             document.getElementById('eventFilter').addEventListener('change', function() {
@@ -297,8 +298,73 @@
                       <a href="#" data-bs-toggle="offcanvas" data-bs-target="#viewEventOffcanvas{{ $event->id }}" aria-controls="viewEventOffcanvas{{ $event->id }}" title="View Event">
                         <i class="ti ti-info-circle f-18 text-primary"></i>
                       </a>
-                    
-                    </div>
+                 
+                        @php
+                          $isAttending = $alumni->events->contains($event->id);
+                        @endphp
+
+                        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#attendEventOffcanvas{{ $event->id }}" aria-controls="attendEventOffcanvas{{ $event->id }}" title="Attend Event">
+                          @if($isAttending)
+                            <i class="ti ti-flag f-18 text-success"></i>
+                          @else
+                            <i class="ti ti-flag f-18 text-warning"></i>
+                          @endif
+                        </a>
+                        </div>
+
+                        <!-- Unique Offcanvas for Attend -->
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="attendEventOffcanvas{{ $event->id }}" aria-labelledby="attendEventLabel{{ $event->id }}">
+                          <div class="offcanvas-header border-bottom bg-warning bg-opacity-10">
+                            <h5 class="offcanvas-title text-warning fw-bold" id="attendEventLabel{{ $event->id }}">
+                              <i class="ti ti-flag me-2"></i> Attend Event
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                          </div>
+                          <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center" style="min-height: 300px;">
+                            <div class="mb-4 text-center">
+                              <i class="ti ti-calendar-event" style="font-size: 2.5rem; color: #f59e42;"></i>
+                              <h5 class="fw-bold mt-3 mb-2">{{ $event->title }}</h5>
+                              <p class="mb-1 text-muted">
+                                <i class="ti ti-calendar-event"></i>
+                                {{ \Carbon\Carbon::parse($event->date)->format('F d, Y') }}
+                              </p>
+                              <p class="mb-3 text-muted">
+                                <i class="ti ti-map-pin"></i>
+                                {{ $event->location ?? 'No location' }}
+                              </p>
+                              @if(!$isAttending)
+                                <div class="alert alert-warning" style="font-size: 1rem;">
+                                  Are you sure you want to attend this event?<br>
+                                  Click <b>Attend</b> to confirm your participation.
+                                </div>
+                                <form method="POST" action="{{ route('alumni.events.attend', $event->id) }}">
+                                  @csrf
+                                  <button type="submit" class="btn btn-success shadow mb-2">
+                                    <i class="ti ti-flag me-1"></i> Attend
+                                  </button>
+                                  <button type="button" class="btn btn-secondary shadow mb-2" data-bs-dismiss="offcanvas">
+                                    Cancel
+                                  </button>
+                                </form>
+                              @else
+                                <div class="alert alert-success" style="font-size: 1rem;">
+                                  You are attending this event.<br>
+                                  If you want to cancel your attendance, click below.
+                                </div>
+                                <form method="POST" action="{{ route('alumni.events.unattend', $event->id) }}">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-danger shadow mb-2">
+                                    <i class="ti ti-flag-off me-1"></i> Cancel Attendance
+                                  </button>
+                                  <button type="button" class="btn btn-secondary shadow mb-2" data-bs-dismiss="offcanvas">
+                                    Close
+                                  </button>
+                                </form>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
                     <h6 class="mb-2 f-w-400 text-muted">Event</h6>
                     <h6 class="mb-3">
                       {{ $event->title }}<br>

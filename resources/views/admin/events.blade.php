@@ -383,7 +383,7 @@
   </div>
 </div>
 @foreach($events as $event)
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="viewEventOffcanvas{{ $event->id }}" aria-labelledby="viewEventLabel{{ $event->id }}" >
+   <div class="offcanvas offcanvas-end" tabindex="-1" id="viewEventOffcanvas{{ $event->id }}" aria-labelledby="viewEventLabel{{ $event->id }}">
     <div class="offcanvas-header border-bottom bg-primary bg-opacity-10">
       <h5 class="offcanvas-title text-primary fw-bold" id="viewEventLabel{{ $event->id }}">
         <i class="ti ti-calendar-event me-2"></i> Event Details
@@ -421,10 +421,16 @@
               {{ \Carbon\Carbon::parse($event->date)->isPast() ? 'Completed' : 'Upcoming' }}
             </span>
           </div>
+          <div class="mt-3">
+            <span class="fw-semibold text-primary">
+              <i class="ti ti-users"></i>
+              Attendees: {{ $event->alumni()->count() ?? 0 }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+</div>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="editEventOffcanvas{{ $event->id }}" aria-labelledby="editEventLabel{{ $event->id }}">
     <div class="offcanvas-header border-bottom">
       <h5 class="offcanvas-title" id="editEventLabel{{ $event->id }}">

@@ -21,4 +21,10 @@ class AlumniInfo extends Model
         'gender',
         'profile_pic',
     ];
+
+     public function events(){
+        return $this->belongsToMany(Event::class, 'alumni_event', 'alumni_id', 'event_id')
+            ->withTimestamps()
+            ->withPivot('attended_at');
+    }
 }

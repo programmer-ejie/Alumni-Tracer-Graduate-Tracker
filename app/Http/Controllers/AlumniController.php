@@ -57,23 +57,23 @@ class AlumniController extends Controller
     }
 
     function gotoEvents(Request $request){
-         $alumni = $this->getAuthenticatedAlumni();
+          $alumni = $this->getAuthenticatedAlumni();
             if (!$alumni) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
             }
-
-            $query = Event::query();
 
             $filter = $request->input('filter', 'all');
             $today = date('Y-m-d');
 
             if ($filter === 'completed') {
-                $query->where('date', '<', $today);
+                $events = Event::where('date', '<', $today)->orderBy('date', 'desc')->get();
             } elseif ($filter === 'upcoming') {
-                $query->where('date', '>=', $today);
+                $events = Event::where('date', '>=', $today)->orderBy('date', 'desc')->get();
+            } elseif ($filter === 'my') {
+                $events = $alumni->events()->orderBy('date', 'desc')->get();
+            } else {
+                $events = Event::orderBy('date', 'desc')->get();
             }
-
-            $events = $query->orderBy('date', 'desc')->get();
 
             return view('alumni_folder.events', compact('alumni', 'events'));
     }
@@ -195,6 +195,25 @@ class AlumniController extends Controller
                 return redirect()->back()->with('success', 'Survey submitted successfully!');
             }
 
+           public function attendEvent(Request $request, $eventId){
+                $alumni = $this->getAuthenticatedAlumni();
+                if (!$alumni) {
+                    return redirect()->route('login')->with('error', 'Please log in first.');
+                }
+                if (!$alumni->events()->where('event_id', $eventId)->exists()) {
+                    $alumni->events()->attach($eventId, ['attended_at' => now()]);
+                }
+
+                return redirect()->back()->with('success', 'You have successfully marked your attendance for this event!');
+            }
+
+            public function unattendEvent(Request $request, $eventId){
+                    $alumni = $this->getAuthenticatedAlumni();
+                    if ($alumni) {
+                        $alumni->events()->detach($eventId);
+                    }
+                    return redirect()->back()->with('success', 'You have cancelled your attendance for this event.');
+            }
     
 
 }

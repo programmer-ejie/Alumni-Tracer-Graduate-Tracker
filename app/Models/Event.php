@@ -21,4 +21,12 @@ class Event extends Model
     {
         return $this->belongsTo(AdminAccount::class, 'admin_id');
     }
+
+    public function alumni(){
+        return $this->belongsToMany(AlumniInfo::class, 'alumni_event', 'event_id', 'alumni_id')
+            ->withTimestamps()
+            ->withPivot('attended_at');
+    }
+
+    
 }

@@ -62,3 +62,6 @@ Route::post('/edit-announcement', [AnnouncementController::class, 'update'])->na
 Route::post('/admin/events/store', [AdminController::class, 'storeEvent'])->name('admin.events.store');
 Route::put('/admin/events/{event}', [AdminController::class, 'updateEvent'])->name('admin.events.update');
 Route::delete('/admin/events/{event}', [AdminController::class, 'destroyEvent'])->name('admin.events.destroy');
+
+Route::post('/alumni_events/{event}/attend', [AlumniController::class, 'attendEvent'])->name('alumni.events.attend');
+Route::delete('/alumni_events/{event}/unattend', [AlumniController::class, 'unattendEvent'])->name('alumni.events.unattend');
