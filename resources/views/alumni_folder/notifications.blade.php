@@ -347,92 +347,134 @@
       <!-- [ Main Content ] start -->
       <div class="row">
         <!-- [ sample-page ] start -->
-        <div class="card construction-card">
-                    <div class="card-body">
-                        <div class="col-md-12 col-xl-12">
-                        <h5 class="mb-3">Notifications Logs</h5>
-                        <div class="card">
-                            <!-- Latest Section -->
-                            <p class="mb-2" style = "margin-left: 20px; margin-top: 3px;">Latest</p>
-                            <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="offcanvas" data-bs-target="#announcementOffcanvas" aria-controls="announcementOffcanvas">
-                                <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                                    <i class="ti ti-bell f-18"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h6 class="mb-1">Administrator</h6>
-                                    <p class="mb-0 text-muted">Action on May 28, 2025.</p>
-                                    <p class="mb-0">Added new events hosted at SLSU this Wednesday!</p>
-                                </div>
-                                <div class="flex-shrink-0 text-end">
-                                    <div class="d-flex flex-column align-items-center">
-                                    <small class="text-muted mb-1">27 minutes ago</small>
-                                    <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                                        <i class="ti ti-info-circle f-18"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </a>
-                            </div>
+        
+             <div class="card construction-card">
+                  <div class="card-body">
+    <div class="col-md-12 col-xl-12">
+        <h5 class="mb-3">Notifications Logs</h5>
+        <div class="card shadow-sm border-0">
+            <div class="list-group list-group-flush">
 
-                            <!-- Earlier Section -->
-                            <p class="mt-4 mb-2" style = "margin-left: 20px; margin-top: 3px;">Earlier</p>
-                            <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="offcanvas" data-bs-target="#announcementOffcanvas" aria-controls="announcementOffcanvas">
-                                <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                                    <i class="ti ti-bell f-18"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h6 class="mb-1">Administrator</h6>
-                                    <p class="mb-0 text-muted">Action on May 28, 2025.</p>
-                                    <p class="mb-0">Added new events hosted at SLSU this Wednesday!</p>
-                                </div>
-                                <div class="flex-shrink-0 text-end">
-                                    <div class="d-flex flex-column align-items-center">
-                                    <small class="text-muted mb-1">2 hours ago</small>
-                                    <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                                        <i class="ti ti-info-circle f-18"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="offcanvas" data-bs-target="#announcementOffcanvas" aria-controls="announcementOffcanvas">
-                                <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                                    <i class="ti ti-bell f-18"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h6 class="mb-1">Administrator</h6>
-                                    <p class="mb-0 text-muted">Action on May 27, 2025.</p>
-                                    <p class="mb-0">Updated event schedules for next month.</p>
-                                </div>
-                                <div class="flex-shrink-0 text-end">
-                                    <div class="d-flex flex-column align-items-center">
-                                    <small class="text-muted mb-1">1 day ago</small>
-                                    <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                                        <i class="ti ti-info-circle f-18"></i>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </a>
+                {{-- Latest Section --}}
+           
+                 <h6 class="mb-2 mt-2 text-primary" style="font-weight: bold; margin: 10px;">Latest</h6>
+                  @forelse($latestNotifications as $notification)
+                      @php
+                          $icon = 'ti-bell';
+                          $iconBg = 'bg-light-secondary text-secondary';
+                          if($notification->type === 'event_deleted') {
+                              $icon = 'ti-trash';
+                              $iconBg = 'bg-light-danger text-danger';
+                          } elseif($notification->type === 'event_updated') {
+                              $icon = 'ti-pencil';
+                              $iconBg = 'bg-light-warning text-warning';
+                          } elseif($notification->type === 'new_event' || $notification->type === 'event_posted') {
+                              $icon = 'ti-calendar-event';
+                              $iconBg = 'bg-light-primary text-primary';
+                          } elseif($notification->type === 'new_announcement') {
+                              $icon = 'ti-speakerphone';
+                              $iconBg = 'bg-light-info text-info';
+                          } elseif($notification->type === 'announcement_deleted') {
+                              $icon = 'ti-trash';
+                              $iconBg = 'bg-light-danger text-danger';
+                          } elseif($notification->type === 'announcement_updated') {
+                              $icon = 'ti-pencil';
+                              $iconBg = 'bg-light-warning text-warning';
+                          } elseif($notification->type === 'profile_update') {
+                              $icon = 'ti-user';
+                              $iconBg = 'bg-light-success text-success';
+                          } elseif($notification->type === 'survey_submitted') {
+                              $icon = 'ti-clipboard-list';
+                              $iconBg = 'bg-light-info text-info';
+                          }
+                      @endphp
+                      <div class="list-group-item border rounded mb-2 py-3 px-2" style="background: #f8fafd; border-width: 2px; margin: 10px;">
+                          <div class="d-flex align-items-center">
+                              <div class="flex-shrink-0">
+                                  <div class="avtar avtar-s rounded-circle {{ $iconBg }} d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                      <i class="ti {{ $icon }} f-24"></i>
+                                  </div>
+                              </div>
+                              <div class="flex-grow-1 ms-3">
+                                  <h6 class="mb-1 text-capitalize" style="font-weight: 600;">{{ str_replace('_', ' ', $notification->type) }}</h6>
+                                  <p class="mb-0 text-muted small">{{ $notification->created_at->format('F d, Y h:i A') }}</p>
+                                  <p class="mb-0" style="font-size: 1rem;">{{ $notification->message }}</p>
+                              </div>
+                             <div class="flex-shrink-0 d-flex flex-column align-items-end justify-content-between" style="height: 70px; min-width: 40px;">
+                                <small class="text-muted" style="margin-bottom: auto;">{{ $notification->created_at->diffForHumans() }}</small>
+                                <span title="More info" style="margin-top: auto;">
+                                    <i class="ti ti-info-circle text-info f-20"></i>
+                                </span>
                             </div>
-                            
-                        </div>
+                          </div>
+                      </div>
+                  @empty
+                      <div class="list-group-item border rounded mb-2">
+                          <p class="mb-0 text-muted">No notifications found.</p>
+                      </div>
+                  @endforelse
+
+                {{-- Earlier Section --}}
+                @if($earlierNotifications->count())
+                <h6 class="mb-2 mt-4 text-secondary" style="font-weight: bold; margin: 10px;">Earlier</h6>
+                @foreach($earlierNotifications as $notification)
+                    @php
+                        $icon = 'ti-bell';
+                        $iconBg = 'bg-light-secondary text-secondary';
+                        if($notification->type === 'event_deleted') {
+                            $icon = 'ti-trash';
+                            $iconBg = 'bg-light-danger text-danger';
+                        } elseif($notification->type === 'event_updated') {
+                            $icon = 'ti-pencil';
+                            $iconBg = 'bg-light-warning text-warning';
+                        } elseif($notification->type === 'new_event' || $notification->type === 'event_posted') {
+                            $icon = 'ti-calendar-event';
+                            $iconBg = 'bg-light-primary text-primary';
+                        } elseif($notification->type === 'new_announcement') {
+                            $icon = 'ti-speakerphone';
+                            $iconBg = 'bg-light-info text-info';
+                        } elseif($notification->type === 'announcement_deleted') {
+                            $icon = 'ti-trash';
+                            $iconBg = 'bg-light-danger text-danger';
+                        } elseif($notification->type === 'announcement_updated') {
+                            $icon = 'ti-pencil';
+                            $iconBg = 'bg-light-warning text-warning';
+                        } elseif($notification->type === 'profile_update') {
+                            $icon = 'ti-user';
+                            $iconBg = 'bg-light-success text-success';
+                        } elseif($notification->type === 'survey_submitted') {
+                            $icon = 'ti-clipboard-list';
+                            $iconBg = 'bg-light-info text-info';
+                        }
+                    @endphp
+                    <div class="list-group-item border rounded mb-2 py-3 px-2" style="background: #f8fafd; border-width: 2px; margin: 10px;">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="avtar avtar-s rounded-circle {{ $iconBg }} d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="ti {{ $icon }} f-24"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-1 text-capitalize" style="font-weight: 600;">{{ str_replace('_', ' ', $notification->type) }}</h6>
+                                <p class="mb-0 text-muted small">{{ $notification->created_at->format('F d, Y h:i A') }}</p>
+                                <p class="mb-0" style="font-size: 1rem;">{{ $notification->message }}</p>
+                            </div>
+                            <div class="flex-shrink-0 d-flex flex-column align-items-end justify-content-between" style="height: 70px; min-width: 40px;">
+                                <small class="text-muted" style="margin-bottom: auto;">{{ $notification->created_at->diffForHumans() }}</small>
+                                <span title="More info" style="margin-top: auto;">
+                                    <i class="ti ti-info-circle text-info f-20"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    </div>
+                @endforeach
+                @endif
+
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
 
         <!-- [ sample-page ] end -->
       </div>

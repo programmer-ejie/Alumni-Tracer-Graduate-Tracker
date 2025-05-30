@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\AlumniSurvey;
 use App\Models\AlumniInfo;
 use App\Models\Event;
+use App\Models\Notification;
 
 class AdminController extends Controller
 {
@@ -46,9 +47,21 @@ class AdminController extends Controller
             return view('admin.survey')->with(['admin' => $admin, 'surveys' => $surveys, 'alumni' => $alumni_info]);
       
     }
-    function gotoNotifications()
-    {
-        return view('admin.notifications');
+    function gotoNotifications(){
+        $admin = $this->getAuthenticatedAdmin();
+            if (!$admin) {
+                return redirect()->route('login')->with('error', 'Please log in first.');
+            }
+
+            $notifications = Notification::where('user_type', 'admin')
+                ->where('user_id', $admin->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $latestNotifications = $notifications->take(3);
+            $earlierNotifications = $notifications->slice(3);
+
+            return view('admin.notifications', compact('admin', 'notifications','latestNotifications', 'earlierNotifications'));
     }
 
     function gotoEvents(Request $request){
@@ -130,6 +143,13 @@ class AdminController extends Controller
 
             $admin->update($data);
 
+            Notification::create([
+                'user_id' => $admin->id,
+                'user_type' => 'admin',
+                'type' => 'profile_update',
+                'message' => "Your profile was updated successfully.",
+            ]);
+
             return redirect()->back()->with('success', 'Profile updated successfully!');
         }
 
@@ -144,8 +164,7 @@ class AdminController extends Controller
         }
 
 
-        public function storeEvent(Request $request)
-            {
+        public function storeEvent(Request $request){
                 $admin = $this->getAuthenticatedAdmin();
                 if (!$admin) {
                     return redirect()->route('login')->with('error', 'Please log in first.');
@@ -160,13 +179,30 @@ class AdminController extends Controller
 
                 $data['admin_id'] = $admin->id;
 
-                Event::create($data);
+                $event = Event::create($data);
+                 $alumniList = AlumniInfo::all();
+                    foreach ($alumniList as $alumni) {
+                        Notification::create([
+                            'user_id' => $alumni->id,
+                            'user_type' => 'alumni',
+                            'type' => 'new_event',
+                            'message' => "A new event \"{$event->title}\" has been posted by admin.",
+                            'event_id' => $event->id,
+                        ]);
+                    }
+
+                 Notification::create([
+                    'user_id' => $admin->id,
+                    'user_type' => 'admin',
+                    'type' => 'event_posted',
+                    'message' => "You have posted a new event: \"{$event->title}\".",
+                    'event_id' => $event->id,
+                ]);
 
                 return redirect()->route('admin.events')->with('success', 'Event created successfully!');
             }
 
-         public function updateEvent(Request $request, $id)
-                {
+         public function updateEvent(Request $request, $id){
                     $admin = $this->getAuthenticatedAdmin();
                     if (!$admin) {
                         return redirect()->route('login')->with('error', 'Please log in first.');
@@ -183,18 +219,56 @@ class AdminController extends Controller
 
                     $event->update($data);
 
+                     $alumniList = AlumniInfo::all();
+                        foreach ($alumniList as $alumni) {
+                            Notification::create([
+                                'user_id' => $alumni->id,
+                                'user_type' => 'alumni',
+                                'type' => 'event_updated',
+                                'message' => "The event \"{$event->title}\" has been updated by admin.",
+                                'event_id' => $event->id,
+                            ]);
+                        }
+
+                     Notification::create([
+                        'user_id' => $admin->id,
+                        'user_type' => 'admin',
+                        'type' => 'event_updated',
+                        'message' => "You have updated the event: \"{$event->title}\".",
+                        'event_id' => $event->id,
+                    ]);
+
                     return redirect()->route('admin.events')->with('success', 'Event updated successfully!');
                 }
 
-         public function destroyEvent($id)
-                {
+            public function destroyEvent($id){
                     $admin = $this->getAuthenticatedAdmin();
                     if (!$admin) {
                         return redirect()->route('login')->with('error', 'Please log in first.');
                     }
 
                     $event = Event::where('admin_id', $admin->id)->findOrFail($id);
+                    $eventTitle = $event->title;
                     $event->delete();
+
+                     $alumniList = AlumniInfo::all();
+                        foreach ($alumniList as $alumni) {
+                            Notification::create([
+                                'user_id' => $alumni->id,
+                                'user_type' => 'alumni',
+                                'type' => 'event_deleted',
+                                'message' => "The event \"{$eventTitle}\" has been deleted by admin.",
+                                'event_id' => $id,
+                            ]);
+                        }
+
+                     Notification::create([
+                        'user_id' => $admin->id,
+                        'user_type' => 'admin',
+                        'type' => 'event_deleted',
+                        'message' => "You have deleted the event: \"{$eventTitle}\".",
+                        'event_id' => $id,
+                    ]);
 
                     return redirect()->route('admin.events')->with('success', 'Event deleted successfully!');
                 }

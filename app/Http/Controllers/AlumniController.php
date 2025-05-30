@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\AlumniSurvey;
 use App\Models\Event; 
+use App\Models\Notification;
+use App\Models\AdminAccount;
 
 class AlumniController extends Controller
 {
@@ -53,7 +55,20 @@ class AlumniController extends Controller
     }
     function gotoNotifications()
     {
-        return view('alumni_folder.notifications');
+         $alumni = $this->getAuthenticatedAlumni();
+    if (!$alumni) {
+        return redirect()->route('login')->with('error', 'Please log in first.');
+    }
+
+    $notifications = Notification::where('user_type', 'alumni')
+        ->where('user_id', $alumni->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    $latestNotifications = $notifications->take(3);
+    $earlierNotifications = $notifications->slice(3);
+
+    return view('alumni_folder.notifications', compact('alumni', 'latestNotifications', 'earlierNotifications'));
     }
 
     function gotoEvents(Request $request){
@@ -122,12 +137,39 @@ class AlumniController extends Controller
 
             $alumni->update($data);
 
+            $admins = AdminAccount::all();
+                foreach ($admins as $admin) {
+                    Notification::create([
+                        'user_id' => $admin->id,
+                        'user_type' => 'admin',
+                        'type' => 'profile_update',
+                        'message' => "{$alumni->fullname} updated their profile.",
+                    ]);
+                }
+
+            Notification::create([
+                'user_id' => $alumni->id,
+                'user_type' => 'alumni',
+                'type' => 'profile_update',
+                'message' => "Your profile was updated successfully.",
+            ]);
+
             return redirect()->back()->with('success', 'Profile updated successfully!');
         }
 
          public function deleteAccount(Request $request){
             $alumni = $this->getAuthenticatedAlumni();
             if ($alumni) {
+                 $admins = AdminAccount::all();
+                    foreach ($admins as $admin) {
+                    Notification::create([
+                            'user_id' => $admin->id,
+                            'user_type' => 'admin',
+                            'type' => 'account_deleted',
+                            'message' => "{$alumni->fullname} has deleted their alumni account.",
+                        ]);
+                    }
+
                 $alumni->delete();
                 session()->flush();
                 return redirect('/')->with('success', 'Account deleted successfully.');
@@ -192,6 +234,23 @@ class AlumniController extends Controller
                     $data
                 );
 
+                 $admins = AdminAccount::all();
+                    foreach ($admins as $admin) {
+                        Notification::create([
+                            'user_id' => $admin->id,
+                            'user_type' => 'admin',
+                            'type' => 'survey_submitted',
+                            'message' => "{$alumni->fullname} submitted a survey.",
+                        ]);
+                    }
+
+                Notification::create([
+                    'user_id' => $alumni->id,
+                    'user_type' => 'alumni',
+                    'type' => 'survey_submitted',
+                    'message' => "You have submitted your survey successfully.",
+                ]);
+
                 return redirect()->back()->with('success', 'Survey submitted successfully!');
             }
 
@@ -202,16 +261,61 @@ class AlumniController extends Controller
                 }
                 if (!$alumni->events()->where('event_id', $eventId)->exists()) {
                     $alumni->events()->attach($eventId, ['attended_at' => now()]);
-                }
 
-                return redirect()->back()->with('success', 'You have successfully marked your attendance for this event!');
+                     $event = Event::find($eventId);
+
+                      $admins = AdminAccount::all();
+                        foreach ($admins as $admin) {
+                            Notification::create([
+                                'user_id' => $admin->id,
+                                'user_type' => 'admin',
+                                'type' => 'event_attendance',
+                                'message' => "{$alumni->fullname} will attend the event: {$event->title}",
+                                'event_id' => $eventId,
+                            ]);
+                        }
+                    
+
+                        Notification::create([
+                            'user_id' => $alumni->id,
+                            'user_type' => 'alumni',
+                            'type' => 'event_attendance',
+                            'message' => "You have successfully marked your attendance for the event: {$event->title}",
+                            'event_id' => $eventId,
+                        ]);
+                    
+                    }
+
+                    return redirect()->back()->with('success', 'You have successfully marked your attendance for this event!');
             }
 
             public function unattendEvent(Request $request, $eventId){
                     $alumni = $this->getAuthenticatedAlumni();
                     if ($alumni) {
                         $alumni->events()->detach($eventId);
-                    }
+
+                        $event = Event::find($eventId);
+
+                        $admins = AdminAccount::all();
+                            foreach ($admins as $admin) {
+                                Notification::create([
+                                    'user_id' => $admin->id,
+                                    'user_type' => 'admin',
+                                    'type' => 'event_unattend',
+                                    'message' => "{$alumni->fullname} cancelled attendance for the event: {$event->title}",
+                                    'event_id' => $eventId,
+                                ]);
+                            }
+
+                            Notification::create([
+                                'user_id' => $alumni->id,
+                                'user_type' => 'alumni',
+                                'type' => 'event_unattend',
+                                'message' => "You have cancelled your attendance for the event: {$event->title}",
+                                'event_id' => $eventId,
+                            ]);
+
+                       }
                     return redirect()->back()->with('success', 'You have cancelled your attendance for this event.');
             }
     
