@@ -347,60 +347,73 @@
       <!-- [ Main Content ] start -->
       <div class="row">
         <!-- [ sample-page ] start -->
-          <div class="card construction-card">
-              <div class="card-body">
-                @php
-                    use App\Models\Announcement;
-                    $announcements = \App\Models\Announcement::where('mention_id', $alumni->id)
-                        ->orWhere('mention_id', 0)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
-                @endphp
+        <div class="card construction-card">
+          <div class="card-body">
+              @php
+                  use App\Models\Announcement;
+                  $announcements = \App\Models\Announcement::where('mention_id', $alumni->id)
+                      ->orWhere('mention_id', 0)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+              @endphp
 
-                
-                        <div class="col-md-12 col-xl-12">
-                          <h5 class="mb-3"> Announcements</h5>
-                          <div class="card">
-                            <div class="list-group list-group-flush">
-                              @if($announcements->isEmpty())
-                                  <div class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
-                                      <strong>No Data Available</strong>
-                                  </div>
-                              @else
+              <div class="col-md-12 col-xl-12">
+                  <h5 class="mb-3">Announcements</h5>
+                  <div class="card border-0 shadow-sm">
+                      <div class="list-group list-group-flush">
+                          @if($announcements->isEmpty())
+                              <div class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
+                                  <strong>No Announcements Available</strong>
+                              </div>
+                          @else
                               @foreach($announcements as $announcement)
-                                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="offcanvas" data-bs-target="#informationcanvas{{ $announcement->id }}" aria-controls="informationcanvas{{ $announcement->id }}" title="More info">
-                                  <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                      <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                                <span style="font-size:18px;">📢</span>
-
-
+                                 <a href="#" class="list-group-item list-group-item-action border rounded mb-3 py-3 px-3"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#informationcanvas{{ $announcement->id }}"
+                                    aria-controls="informationcanvas{{ $announcement->id }}"
+                                    title="View Details"
+                                    style="background: #f9fbfd; transition: box-shadow 0.2s; box-shadow: 0 2px 8px rgba(44,62,80,0.04);">
+                                      <div class="d-flex align-items-center flex-wrap flex-md-nowrap">
+                                          <div class="flex-shrink-0 mb-2 mb-md-0">
+                                              <div class="avtar avtar-s rounded-circle bg-light-primary text-primary d-flex align-items-center justify-content-center"
+                                                  style="width: 48px; height: 48px;">
+                                                  <i class="ti ti-speakerphone f-24"></i>
+                                              </div>
+                                          </div>
+                                          <div class="flex-grow-1 ms-3" style="min-width: 0;">
+                                              <h5 class="mb-1 fw-bold text-primary" style="font-size: 1.1rem;">{{ $announcement->title }}</h5>
+                                              <div class="d-flex flex-wrap align-items-center mb-1">
+                                                  <span class="badge bg-info me-2 mb-1" style="font-size: 0.85rem;">
+                                                      {{ $announcement->mention_id == 0 ? '@ Everyone' : '@ ' . optional(\App\Models\AlumniInfo::find($announcement->mention_id))->fullname }}
+                                                  </span>
+                                                  <span class="text-muted small mb-1">
+                                                      <i class="ti ti-calendar-event me-1"></i>
+                                                      {{ \Carbon\Carbon::parse($announcement->date)->format('F d, Y') }}
+                                                  </span>
+                                              </div>
+                                              <p class="mb-0 text-dark" style="font-size: 0.98rem; word-break: break-word;">
+                                                  {{ \Illuminate\Support\Str::words($announcement->announcement_message, 15, '...') }}
+                                              </p>
+                                          </div>
+                                          <div class="flex-shrink-0 text-end d-flex flex-column align-items-end justify-content-between ms-2"
+                                              style="min-width: 40px;">
+                                              <small class="text-muted mb-2 d-none d-md-block">
+                                                  {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                              </small>
+                                             <span title="More info" class="d-none d-lg-inline">
+                                                <i class="ti ti-info-circle text-info f-20"></i>
+                                            </span>
+                                          </div>
                                       </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                    <h6 class="mb-1">{{ $announcement->title }}</h6>
-                                        <p class="mb-0 text-muted">
-                                            Scheduled on {{ \Carbon\Carbon::parse($announcement->date)->format('F d, Y') }}.
-                                        </p>
-                                        <p class="mb-0">
-                                            {{ \Illuminate\Support\Str::words($announcement->announcement_message, 9, '...') }}
-                                        </p>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                      <div class="d-flex flex-column align-items-center">
-                                       <small class="text-muted mb-1">
-                                          {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
-                                      </small>
-                                        <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                                          <i class="ti ti-info-circle f-18"></i> <!-- Info icon -->
-                                        </div>
+                                      <!-- Show time below on mobile -->
+                                      <div class="d-block d-md-none mt-2 text-end">
+                                          <small class="text-muted">
+                                              {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
+                                          </small>
                                       </div>
-                                    </div>
+                                  </a>
 
-                                  </div>
-                                </a>
-
-                                 <!-- [start] view info Offcanvas Announcement Panel -->
+                                  <!-- Offcanvas Announcement Panel -->
                                   <div class="offcanvas offcanvas-end" tabindex="-1" id="informationcanvas{{ $announcement->id }}" aria-labelledby="informationcanvasLabel{{ $announcement->id }}">
                                       <div class="offcanvas-header border-bottom">
                                           <h5 class="offcanvas-title" id="informationcanvasLabel{{ $announcement->id }}">
@@ -421,7 +434,7 @@
                                                       <i class="ti ti-speakerphone me-2"></i>{{ $announcement->title }}
                                                   </h5>
                                                   <p class="mb-2 fs-6">
-                                                      <span class="me-1" style = "text-transform: capitalize; font-size: 10px;">
+                                                      <span class="me-1" style="text-transform: capitalize; font-size: 10px;">
                                                           <i class="ti ti-clock-hour-4 text-info"></i>
                                                           <strong>Updated at:</strong>
                                                           {{ $announcement->updated_at->format('F d, Y h:i A') }}
@@ -451,18 +464,14 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <!-- [end] view info Offcanvas Announcement Panel -->
-
-                                @endforeach
-                                @endif
-                                              <!-- [end] Offcanvas Announcement Panel -->
-                          
-                            </div>
-                          </div>
-                        </div>
-                       
+                                  <!-- End Offcanvas -->
+                              @endforeach
+                          @endif
+                      </div>
+                  </div>
               </div>
-         </div>
+          </div>
+      </div>
         <!-- [ sample-page ] end -->
       </div>
     </div>

@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-     Schema::create('alumni_info', function (Blueprint $table) {
-            $table->id();
-            $table->string('email')->unique();
-            $table->string('fullname')->nullable();
-            $table->string('school_graduated')->nullable();
-            $table->string('batch')->nullable();
-            $table->integer('age')->nullable();
-            $table->string('address')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('profile_pic')->nullable();
-            $table->timestamps();
-        });
+        Schema::create('alumni_info', function (Blueprint $table) {
+                $table->id();
+                $table->string('email')->unique();
+                $table->string('fullname')->nullable();
+                $table->string('school_graduated')->nullable();
+                $table->string('batch')->nullable();
+                $table->integer('age')->nullable();
+                $table->string('address')->nullable();
+                $table->string('gender')->nullable();
+                $table->string('profile_pic')->nullable();
+                $table->timestamps();
+            });
 
     }
 

@@ -20,6 +20,11 @@ class AlumniInfo extends Model
         'address',
         'gender',
         'profile_pic',
+        'github',
+        'twitter',
+        'instagram',
+        'facebook',
+        'profile_pic'
     ];
 
      public function events(){
