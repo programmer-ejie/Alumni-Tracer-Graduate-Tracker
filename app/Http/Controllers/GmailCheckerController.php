@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\AlumniInfo;
 use App\Models\EmailConfirmation;
+use App\Models\PageView;
 
 class GmailCheckerController extends Controller
 {
@@ -68,6 +69,10 @@ class GmailCheckerController extends Controller
                 session([
                     'alumni_id' => $alumni->id,
                     'alumni_logged_in' => true
+                ]);
+                 PageView::create([
+                    'page' => 'landing',
+                    'ip_address' => request()->ip(),
                 ]);
                 return redirect()->route('alumni.dashboard');
         }

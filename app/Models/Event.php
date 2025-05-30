@@ -17,6 +17,11 @@ class Event extends Model
         'location',
     ];
 
+     protected $casts = [
+        'date' => 'datetime',
+    ];
+
+
     public function admin()
     {
         return $this->belongsTo(AdminAccount::class, 'admin_id');

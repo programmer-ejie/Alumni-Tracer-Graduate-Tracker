@@ -7,13 +7,15 @@ use App\Http\Controllers\GmailCheckerController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\DashboardController;
+use App\Models\PageView;
 
 Route::get('/', function () {
     return view('index');
 });
 
 Route::get('/AuthLogin',[LoginController::class, 'gotoLogin'])->name('login');
-Route::get('/',[LoginController::class, 'gotoHome'])->name('home');
+Route::get('/*',[LoginController::class, 'gotoHome'])->name('home');
 Route::get('/Alumni_CheckGmail',[AlumniController::class, 'gotoAlumni'])->name('alumni');
 
 Route::post('/check-gmail', [GmailCheckerController::class, 'checkEmail'])->name('check.gmail');
@@ -38,7 +40,7 @@ Route::get('/alumni_logout', [AlumniController::class, 'gotoHome'])->name('alumn
 
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
-Route::get('/admin_dashboard', [AdminController::class, 'gotoDashboard'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 Route::match(['get', 'post'], '/admin_profile', [AdminController::class, 'gotoProfile'])->name('admin.profile');
 Route::get('/admin_announcements', [AdminController::class, 'gotoAnnouncements'])->name('admin.announcements');
 Route::get('/admin_survey', [AdminController::class, 'gotoSurvey'])->name('admin.survey');
@@ -65,3 +67,4 @@ Route::delete('/admin/events/{event}', [AdminController::class, 'destroyEvent'])
 
 Route::post('/alumni_events/{event}/attend', [AlumniController::class, 'attendEvent'])->name('alumni.events.attend');
 Route::delete('/alumni_events/{event}/unattend', [AlumniController::class, 'unattendEvent'])->name('alumni.events.unattend');
+
