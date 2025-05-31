@@ -240,18 +240,24 @@
         data-bs-auto-close="outside"
         aria-expanded="false"
       >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
+          <img src="{{ asset('images/' . ($alumni->profile_pic ?? 'default.jpg')) }}"
+                alt="user-image"
+                class="user-avtar wid-35"
+                style="height: 23px; object-fit: cover;">
+        <span>{{ empty($alumni->fullname) ? 'New Account !' : $alumni->fullname }}</span>
       </a>
       <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header">
           <div class="d-flex mb-1">
             <div class="flex-shrink-0">
-              <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+             <img src="{{ asset('images/' . ($alumni->profile_pic ?? 'default.jpg')) }}"
+                alt="user-image"
+                class="user-avtar wid-35"
+                style="height: 35px; object-fit: cover;">
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
+                 <h6 class="mb-1" style = "font-size: 12px;">{{ empty($alumni->fullname) ? 'New Account !' : $alumni->fullname }}</h6>
+              <span>School Alumni</span>
             </div>
             <a href="{{route('alumni.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
           </div>
