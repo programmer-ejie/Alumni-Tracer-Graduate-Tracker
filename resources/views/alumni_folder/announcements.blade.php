@@ -137,7 +137,7 @@
         <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
-            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . ." id = "announcement-search-mobile">
           </div>
         </form>
       </div>
@@ -145,8 +145,38 @@
     <li class="pc-h-item d-none d-md-inline-flex">
       <form class="header-search">
         <i data-feather="search" class="icon-search"></i>
-        <input type="search" class="form-control" placeholder="Search here. . .">
+        <input type="search" class="form-control" placeholder="Search here. . ." id = "announcement-search">
       </form>
+
+       <script>
+        document.getElementById('announcement-search').addEventListener('input', function() {
+            let filter = this.value.toLowerCase().trim();
+            let items = document.querySelectorAll('.announcement-item');
+            let anyVisible = false;
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                let match = text.includes(filter);
+                item.style.display = match ? '' : 'none';
+                if (match) anyVisible = true;
+            });
+            document.getElementById('no-announcement-alert').style.display = anyVisible ? 'none' : '';
+        });
+        </script>
+
+       <script>
+            document.getElementById('announcement-search-mobile').addEventListener('input', function() {
+                let filter = this.value.toLowerCase().trim();
+                let items = document.querySelectorAll('.announcement-item');
+                let anyVisible = false;
+                items.forEach(item => {
+                    let text = item.textContent.toLowerCase();
+                    let match = text.includes(filter);
+                    item.style.display = match ? '' : 'none';
+                    if (match) anyVisible = true;
+                });
+                document.getElementById('no-announcement-alert').style.display = anyVisible ? 'none' : '';
+            });
+            </script>
     </li>
   </ul>
 </div>
@@ -367,7 +397,7 @@
                               </div>
                           @else
                               @foreach($announcements as $announcement)
-                                 <a href="#" class="list-group-item list-group-item-action border rounded mb-3 py-3 px-3"
+                                 <a href="#" class="list-group-item list-group-item-action border rounded mb-3 py-3 px-3 announcement-item"
                                     data-bs-toggle="offcanvas"
                                     data-bs-target="#informationcanvas{{ $announcement->id }}"
                                     aria-controls="informationcanvas{{ $announcement->id }}"
@@ -464,6 +494,9 @@
                                           </div>
                                       </div>
                                   </div>
+                                    <div id="no-announcement-alert" class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da; display: none;">
+                                            <strong>No Data Available</strong>
+                                        </div>
                                   <!-- End Offcanvas -->
                               @endforeach
                           @endif
