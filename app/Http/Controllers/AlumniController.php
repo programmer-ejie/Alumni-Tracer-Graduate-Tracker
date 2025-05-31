@@ -24,8 +24,50 @@ class AlumniController extends Controller
             if (!$alumni) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
             } 
-            return view('alumni_folder.dashboard')->with('alumni', $alumni);
-        }
+             $upcomingEvents = \App\Models\Event::where('date', '>=', now())
+            ->orderBy('date', 'asc')
+            ->take(3)
+            ->get();
+
+            $recentAnnouncements = \App\Models\Announcement::orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+            $latestNotifications = \App\Models\Notification::where('user_type', 'alumni')
+            ->where('user_id', $alumni->id)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+            $surveysCompleted = \App\Models\AlumniSurvey::where('alumni_id', $alumni->id)->count();
+            $lastSurvey = \App\Models\AlumniSurvey::where('alumni_id', $alumni->id)->orderBy('updated_at', 'desc')->first();
+            $lastSurveyDate = $lastSurvey ? $lastSurvey->updated_at : null;
+
+          $profileComplete =
+            !empty($alumni->fullname) &&
+            !empty($alumni->email) &&
+            !empty($alumni->school_graduated) &&
+            !empty($alumni->batch) &&
+            !empty($alumni->gender) &&
+            !empty($alumni->address) &&
+            ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+           
+            $eventsAttended = $alumni->events()->count();
+
+            $connections = $alumni->connections()->count() ?? 0;
+           
+            return view('alumni_folder.dashboard', compact(
+                'alumni',
+                'upcomingEvents',
+                'recentAnnouncements',
+                'latestNotifications',
+                'surveysCompleted',
+                'lastSurveyDate',
+                'profileComplete',
+                'eventsAttended',
+                'connections'
+              ));
+             }
 
     function gotoProfile()
     {

@@ -124,7 +124,7 @@
       </a>
     </li>
     <li class="dropdown pc-h-item d-inline-flex d-md-none">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none m-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -132,22 +132,22 @@
         aria-haspopup="false"
         aria-expanded="false"
       >
-        <i class="ti ti-search"></i>
+        <i class="ti ti-search"></i> --}}
       </a>
       <div class="dropdown-menu pc-h-dropdown drp-search">
-        <form class="px-3">
+        {{-- <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
             <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
           </div>
-        </form>
+        </form> --}}
       </div>
     </li>
     <li class="pc-h-item d-none d-md-inline-flex">
-      <form class="header-search">
+      {{-- <form class="header-search">
         <i data-feather="search" class="icon-search"></i>
         <input type="search" class="form-control" placeholder="Search here. . .">
-      </form>
+      </form> --}}
     </li>
   </ul>
 </div>
@@ -155,7 +155,7 @@
 <div class="ms-auto">
   <ul class="list-unstyled">
     <li class="dropdown pc-h-item">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none me-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -164,7 +164,7 @@
         aria-expanded="false"
       >
         <i class="ti ti-mail"></i>
-      </a>
+      </a> --}}
       <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header d-flex align-items-center justify-content-between">
           <h5 class="m-0">Message</h5>
@@ -239,18 +239,24 @@
         data-bs-auto-close="outside"
         aria-expanded="false"
       >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
+        <img src="{{ asset('images/' . ($alumni->profile_pic ?? 'default.jpg')) }}"
+                alt="user-image"
+                class="user-avtar wid-35"
+                style="height: 23px; object-fit: cover;">
+        <span>{{ empty($alumni->fullname) ? 'New Account !' : $alumni->fullname }}</span>
       </a>
       <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header">
           <div class="d-flex mb-1">
             <div class="flex-shrink-0">
-              <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+             <img src="{{ asset('images/' . ($alumni->profile_pic ?? 'default.jpg')) }}"
+                alt="user-image"
+                class="user-avtar wid-35"
+                style="height: 35px; object-fit: cover;">
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
+              <h6 class="mb-1">{{ empty($alumni->fullname) ? 'New Account !' : $alumni->fullname }}</h6>
+              <span>School Alumni</span>
             </div>
             <a href="{{route('alumni.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
           </div>
@@ -346,289 +352,189 @@
       </div>
       <!-- [ breadcrumb ] end -->
       <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Page Views</h6>
-              <h4 class="mb-3">4,42,236 <span class="badge bg-light-primary border border-primary"><i
-                    class="ti ti-trending-up"></i> 59.3%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-primary">35,000</span> this year
-              </p>
+     <div class="row">
+      <div class="col-12 mb-4">
+    <div class="card shadow-sm border-0" style="background: linear-gradient(90deg, #f8fafc 60%, #e3f0ff 100%);">
+        <div class="card-body d-flex align-items-center py-4 px-4">
+            @if($alumni->profile_pic)
+                <img src="{{ asset('images/' . $alumni->profile_pic) }}" alt="user-image" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
+            @else
+                <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light border border-3 border-primary shadow-sm" style="width: 80px; height: 80px;">
+                    <i class="ti ti-user-circle text-primary" style="font-size: 2.8rem;"></i>
+                </span>
+            @endif
+            <div class="ms-4">
+                <h3 class="mb-1 fw-bold" style="color: #2a5caa;">Welcome back, {{ $alumni->fullname ?? 'Alumni' }}!</h3>
+                <p class="mb-0 text-muted" style="font-size: 1.08rem;">Here's what's new since your last visit.</p>
             </div>
-          </div>
         </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Users</h6>
-              <h4 class="mb-3">78,250 <span class="badge bg-light-success border border-success"><i
-                    class="ti ti-trending-up"></i> 70.5%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-success">8,900</span> this year</p>
-            </div>
-          </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-4 mb-4">
+    <div class="card shadow-sm h-100 border-0" style="background: #f8fbff;">
+        <div class="card-header bg-white border-bottom-0">
+            <h6 class="mb-0 d-flex align-items-center" style="font-size: 1.1rem;">
+                <i class="ti ti-calendar-event text-primary me-2"></i>
+                Upcoming Events
+            </h6>
         </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Order</h6>
-              <h4 class="mb-3">18,800 <span class="badge bg-light-warning border border-warning"><i
-                    class="ti ti-trending-down"></i> 27.4%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-warning">1,943</span> this year</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">Total Sales</h6>
-              <h4 class="mb-3">$35,078 <span class="badge bg-light-danger border border-danger"><i
-                    class="ti ti-trending-down"></i> 27.4%</span></h4>
-              <p class="mb-0 text-muted text-sm">You made an extra <span class="text-danger">$20,395</span> this year
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 col-xl-8">
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="mb-0">Unique Visitor</h5>
-            <ul class="nav nav-pills justify-content-end mb-0" id="chart-tab-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="chart-tab-home-tab" data-bs-toggle="pill" data-bs-target="#chart-tab-home"
-                  type="button" role="tab" aria-controls="chart-tab-home" aria-selected="true">Month</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="chart-tab-profile-tab" data-bs-toggle="pill"
-                  data-bs-target="#chart-tab-profile" type="button" role="tab" aria-controls="chart-tab-profile"
-                  aria-selected="false">Week</button>
-              </li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="tab-content" id="chart-tab-tabContent">
-                <div class="tab-pane" id="chart-tab-home" role="tabpanel" aria-labelledby="chart-tab-home-tab"
-                  tabindex="0">
-                  <div id="visitor-chart-1"></div>
-                </div>
-                <div class="tab-pane show active" id="chart-tab-profile" role="tabpanel"
-                  aria-labelledby="chart-tab-profile-tab" tabindex="0">
-                  <div id="visitor-chart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 col-xl-4">
-          <h5 class="mb-3">Income Overview</h5>
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
-              <h3 class="mb-3">$7,650</h3>
-              <div id="income-overview-chart"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 col-xl-8">
-          <h5 class="mb-3">Recent Orders</h5>
-          <div class="card tbl-card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-hover table-borderless mb-0">
-                  <thead>
-                    <tr>
-                      <th>TRACKING NO.</th>
-                      <th>PRODUCT NAME</th>
-                      <th>TOTAL ORDER</th>
-                      <th>STATUS</th>
-                      <th class="text-end">TOTAL AMOUNT</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 col-xl-4">
-          <h5 class="mb-3">Analytics Report</h5>
-          <div class="card">
-            <div class="list-group list-group-flush">
-              <a href="#"
-                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Company
-                Finance Growth<span class="h5 mb-0">+45.14%</span></a>
-              <a href="#"
-                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Company
-                Expenses Ratio<span class="h5 mb-0">0.58%</span></a>
-              <a href="#"
-                class="list-group-item list-group-item-action d-flex align-items-center justify-content-between">Business
-                Risk Cases<span class="h5 mb-0">Low</span></a>
-            </div>
-            <div class="card-body px-2">
-              <div id="analytics-report-chart"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 col-xl-8">
-          <h5 class="mb-3">Sales Report</h5>
-          <div class="card">
-            <div class="card-body">
-              <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
-              <h3 class="mb-0">$7,650</h3>
-              <div id="sales-report-chart"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 col-xl-4">
-          <h5 class="mb-3">Transaction History</h5>
-          <div class="card">
-            <div class="list-group list-group-flush">
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <div class="avtar avtar-s rounded-circle text-success bg-light-success">
-                      <i class="ti ti-gift f-18"></i>
+        <div class="card-body pt-2">
+            @forelse($upcomingEvents as $event)
+                <div class="mb-3 pb-2 border-bottom" style="min-height: 3.5rem;">
+                    <span class="text-muted small d-block mb-1">
+                        <i class="ti ti-calendar-event me-1"></i>
+                        {{ \Carbon\Carbon::parse($event->date)->format('M d, Y') }}
+                    </span>
+                    <div class="text-truncate" style="font-size: 12px; max-width: 100%;" title="{{ $event->title }}">
+                        {{ \Illuminate\Support\Str::limit($event->title, 50) }}
                     </div>
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Order #002434</h6>
-                    <p class="mb-0 text-muted">Today, 2:00 AM</P>
-                  </div>
-                  <div class="flex-shrink-0 text-end">
-                    <h6 class="mb-1">+ $1,430</h6>
-                    <p class="mb-0 text-muted">78%</P>
-                  </div>
                 </div>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <div class="avtar avtar-s rounded-circle text-primary bg-light-primary">
-                      <i class="ti ti-message-circle f-18"></i>
-                    </div>
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Order #984947</h6>
-                    <p class="mb-0 text-muted">5 August, 1:45 PM</P>
-                  </div>
-                  <div class="flex-shrink-0 text-end">
-                    <h6 class="mb-1">- $302</h6>
-                    <p class="mb-0 text-muted">8%</P>
-                  </div>
-                </div>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action">
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <div class="avtar avtar-s rounded-circle text-danger bg-light-danger">
-                      <i class="ti ti-settings f-18"></i>
-                    </div>
-                  </div>
-                  <div class="flex-grow-1 ms-3">
-                    <h6 class="mb-1">Order #988784</h6>
-                    <p class="mb-0 text-muted">7 hours ago</P>
-                  </div>
-                  <div class="flex-shrink-0 text-end">
-                    <h6 class="mb-1">- $682</h6>
-                    <p class="mb-0 text-muted">16%</P>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
+            @empty
+                <div class="text-muted text-center py-4">No upcoming events.</div>
+            @endforelse
+            <a href="{{ route('alumni.events') }}" class="btn btn-outline-primary btn-sm w-100 mt-2 rounded-pill fw-semibold">
+                View all events
+            </a>
         </div>
-      </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-4 mb-4">
+    <div class="card shadow-sm h-100 border-0" style="background: #fff9f3;">
+        <div class="card-header bg-white border-bottom-0">
+            <h6 class="mb-0 d-flex align-items-center" style="font-size: 1.1rem;">
+                <i class="ti ti-speakerphone text-warning me-2"></i>
+                Recent Announcements
+            </h6>
+        </div>
+        <div class="card-body pt-2">
+            @forelse($recentAnnouncements as $announcement)
+                <div class="mb-3 pb-2 border-bottom" style="min-height: 3.5rem;">
+                    <span class="text-muted small d-block mb-1">
+                        <i class="ti ti-calendar-event me-1"></i>
+                        {{ \Carbon\Carbon::parse($announcement->created_at)->format('M d, Y') }}
+                    </span>
+                    <div class="text-truncate" style="font-size: 12px; max-width: 100%;" title="{{ $announcement->title }}">
+                        {{ \Illuminate\Support\Str::limit($announcement->title, 50) }}
+                    </div>
+                </div>
+            @empty
+                <div class="text-muted text-center py-4">No recent announcements.</div>
+            @endforelse
+            <a href="{{ route('alumni.announcements') }}" class="btn btn-outline-warning btn-sm w-100 mt-2 rounded-pill fw-semibold">
+                View all announcements
+            </a>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-xl-4 mb-4">
+    <div class="card shadow-sm h-100 border-0" style="background: #f6fff8;">
+        <div class="card-header bg-white border-bottom-0">
+            <h6 class="mb-0 d-flex align-items-center" style="font-size: 1.1rem;">
+                <i class="ti ti-bell text-success me-2"></i>
+                Notifications
+            </h6>
+        </div>
+        <div class="card-body pt-2">
+            @forelse($latestNotifications as $notification)
+                <div class="mb-3 pb-2 border-bottom" style="min-height: 3.5rem;">
+                    <span class="text-muted small d-block mb-1">
+                        <i class="ti ti-calendar-event me-1"></i>
+                        {{ \Carbon\Carbon::parse($notification->created_at)->format('M d, Y') }}
+                    </span>
+                    <div class="text-truncate" style="font-size: 12px; max-width: 100%;" title="{{ strip_tags($notification->message) }}">
+                        {!! \Illuminate\Support\Str::limit(strip_tags($notification->message), 60) !!}
+                    </div>
+                </div>
+            @empty
+                <div class="text-muted text-center py-4">No notifications.</div>
+            @endforelse
+            <a href="{{ route('alumni.notifications') }}" class="btn btn-outline-success btn-sm w-100 mt-2 rounded-pill fw-semibold">
+                View all notifications
+            </a>
+        </div>
+    </div>
+</div>
+    <div class="col-md-6 col-xl-4 mb-4">
+    <div class="card shadow-sm h-100 border-0" style="background: #f3faff;">
+        <div class="card-header bg-white border-bottom-0 pb-2">
+            <h6 class="mb-0 d-flex align-items-center" style="font-size: 1.13rem; font-weight: 600;">
+                <span class="rounded-circle bg-info bg-opacity-10 d-flex align-items-center justify-content-center me-2" style="width: 36px; height: 36px;">
+                    <i class="ti ti-clipboard-list text-info" style="font-size: 1.3rem;"></i>
+                </span>
+                Survey Participation
+            </h6>
+        </div>
+        <div class="card-body pt-2">
+           <div class="mb-2 text-dark" style="font-size: 12px;">
+              Surveys Completed: <span class="fw-semibold"></span>
+              <span class="ms-2">
+                  @if($surveysCompleted > 0)
+                      <span class="badge bg-success">Completed</span>
+                  @else
+                      <span class="badge bg-warning text-dark">Not Completed</span>
+                  @endif
+              </span>
+          </div>
+            <div class="mb-2 text-dark" style="font-size: 12px;">
+                Last Survey: <span class="text-muted">{{ $lastSurveyDate ? \Carbon\Carbon::parse($lastSurveyDate)->format('M d, Y') : 'N/A' }}</span>
+            </div>
+            <a href="{{ route('alumni.survey') }}" class="btn btn-outline-info btn-sm w-100 mt-2 rounded-pill fw-semibold">Take a survey</a>
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-4 mb-4">
+    <div class="card shadow-sm h-100 border-0" style="background: #f7faff;">
+        <div class="card-header bg-white border-bottom-0 pb-2">
+            <h6 class="mb-0 d-flex align-items-center" style="font-size: 1.13rem; font-weight: 600;">
+                <span class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center me-2" style="width: 36px; height: 36px;">
+                    <i class="ti ti-user-check text-primary" style="font-size: 1.3rem;"></i>
+                </span>
+                Profile Completion
+            </h6>
+        </div>
+        <div class="card-body pt-2">
+            <div class="mb-2 text-dark" style="font-size: 12px;">
+                Profile Status:
+                @if($profileComplete)
+                    <span class="badge bg-success ms-2">Complete</span>
+                @else
+                    <span class="badge bg-warning text-dark ms-2">Incomplete</span>
+                @endif
+            </div>
+            <div class="mb-2 text-dark" style="font-size: 12px;">
+                Last Updated:
+                <span class="text-muted">
+                    {{ $alumni->updated_at ? \Carbon\Carbon::parse($alumni->updated_at)->format('M d, Y') : 'N/A' }}
+                </span>
+            </div>
+            <a href="{{ route('alumni.profile') }}" class="btn btn-outline-primary btn-sm w-100 mt-2 rounded-pill fw-semibold">Update profile</a>
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-xl-4 mb-4">
+    <div class="card shadow-sm h-100 border-0" style="background: #f9f9ff;">
+        <div class="card-header bg-white border-bottom-0 pb-2">
+            <h6 class="mb-0 d-flex align-items-center" style="font-size: 1.13rem; font-weight: 600;">
+                <span class="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center me-2" style="width: 36px; height: 36px;">
+                    <i class="ti ti-users text-secondary" style="font-size: 1.3rem;"></i>
+                </span>
+                My Network
+            </h6>
+        </div>
+        <div class="card-body pt-2">
+            <div class="mb-2 text-dark" style="font-size: 12px;">
+                Events Attended: <span class="fw-semibold">{{ $eventsAttended }}</span>
+            </div>
+            <div class="mb-2 text-dark" style="font-size: 12px;">
+                Connections: <span class="fw-semibold">{{ $connections }}</span>
+            </div>
+            <a href="{{ route('alumni.profile') }}" class="btn btn-outline-secondary btn-sm w-100 mt-2 rounded-pill fw-semibold">View my connections</a>
+        </div>
+    </div>
+</div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
   <!-- [ Main Content ] end -->

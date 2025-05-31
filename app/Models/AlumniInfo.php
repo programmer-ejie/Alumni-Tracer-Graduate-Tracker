@@ -32,4 +32,8 @@ class AlumniInfo extends Model
             ->withTimestamps()
             ->withPivot('attended_at');
     }
+
+    public function connections(){
+        return $this->belongsToMany(AlumniInfo::class, 'alumni_connections', 'alumni_id', 'connection_id');
+    }
 }
