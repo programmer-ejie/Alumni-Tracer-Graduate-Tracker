@@ -259,7 +259,7 @@
               style="height: 35px; object-fit: cover;">
             </div>
             <div class="flex-grow-1 ms-3">
-               <h6 class="mb-1">{{ $admin->fullname}}</h6>
+               <h6 class="mb-1"  style = "font-size: 12px;">{{ $admin->fullname}}</h6>
               <span>Administrator</span>
             </div>
             <a href="{{route('admin.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
