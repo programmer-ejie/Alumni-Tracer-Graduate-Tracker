@@ -1,8 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
+<!-- [Head] start -->
+
 <head>
-  <title>Landing Page / Alumni Tracer</title>
+  <title>Check Mail | Mantis Bootstrap 5 Admin Template</title>
   <!-- [Meta] -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -10,118 +11,104 @@
   <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
   <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
   <meta name="author" content="CodedThemes">
-
-  <!-- [Favicon] icon -->
-  <link rel="icon" href="main_template/dist/assets/images/favicon.svg" type="image/x-icon">
-  <!-- [Page specific CSS] start -->
-  <link href="main_template/dist/assets/css/plugins/animate.min.css" rel="stylesheet" type="text/css">
-  <!-- [Page specific CSS] end -->
-  <!-- [Google Font] Family -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
-  <!-- [Tabler Icons] https://tablericons.com -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/tabler-icons.min.css" >
-  <!-- [Feather Icons] https://feathericons.com -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/feather.css" >
-  <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/fontawesome.css" >
-  <!-- [Material Icons] https://fonts.google.com/icons -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/material.css" >
-  <!-- [Template CSS Files] -->
-  <link rel="stylesheet" href="main_template/dist/assets/css/style.css" id="main-style-link" >
-  <link rel="stylesheet" href="main_template/dist/assets/css/style-preset.css" >
-
-  <link rel="stylesheet" href="main_template/dist/assets/css/landing.css">
-</head>
-
-<body class="landing-page"><script id="__bs_script__">//<![CDATA[
-  (function() {
-    try {
-      var script = document.createElement('script');
-      if ('async') {
-        script.async = true;
-      }
-      script.src = '/browser-sync/browser-sync-client.js?v=2.29.3'.replace("HOST", location.hostname);
-      if (document.body) {
-        document.body.appendChild(script);
-      } else if (document.head) {
-        document.head.appendChild(script);
-      }
-    } catch (e) {
-      console.error("Browsersync: could not append script tag", e);
+<style>
+    body {
+        background: linear-gradient(135deg, #f0f4f8, #e0e7ed);
+        font-family: 'Public Sans', sans-serif; 
     }
-  })()
-//]]></script>
+</style>
+  <!-- [Favicon] icon -->
+  <link rel="icon" href="main_template/dist/assets/images/favicon.svg" type="image/x-icon"> <!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/tabler-icons.min.css" >
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/feather.css" >
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/fontawesome.css" >
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/material.css" >
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="main_template/dist/assets/css/style.css" id="main-style-link" >
+<link rel="stylesheet" href="main_template/dist/assets/css/style-preset.css" >
 
-  <!-- [ Main Content ] start -->
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body>
   <!-- [ Pre-loader ] start -->
   <div class="loader-bg">
     <div class="loader-track">
       <div class="loader-fill"></div>
     </div>
   </div>
+  
   <!-- [ Pre-loader ] End -->
 
-  <!-- [ Header ] start -->
-  <header id="home">
-    <!-- [ Nav ] start -->
-    <nav class="navbar navbar-expand-md navbar-dark top-nav-collapse default">
-      <div class="container">
-        <a class="navbar-brand" href="#" style = "text-align: center; display: flex;">
-          <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
-          <h4 style = "color: white; text-align: center; margin-top: 4px; margin-left: 5px;">ALUMNI TRACER</h4>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item pe-1">
-              <h6 style = "color: white; margin-top: 6px; padding: 3px;">Administrator</h6>
-            <li class="nav-item">
-              <a class="btn btn-primary" href="{{route('login')}}">Login<a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- [ Nav ] start -->
-    <div class="container">
-      <div class="row align-items-center justify-content-center">
-     <div class="col-md-9 col-xl-5" style="
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  padding: 30px; 
-  border-radius: 30px; 
-  background: rgba(255, 255, 255, 0.05); 
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px); 
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-">
+            <div class="auth-main">
+                <div class="auth-wrapper v3">
+                <div class="auth-form">
+                    <div class="auth-header">
+                    <a href="{{route('home')}}" class="b-brand text-primary" style = "display: flex; margin-left: 10px;">
+                                    <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
+                                    <h4 style = "color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold; ">ALUMNI TRACER</h4>
+                    </a>
+                    </div>
+                <div class="card my-5" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.18); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
+            <div class="card-body">
+                
+                <div class="mb-4">
+                     <div class="d-flex justify-content-end align-items-end mb-4" style = "position: absolute; right: 15px; top: 10px;">
+              
+                    <a href="{{route('home')}}" class="btn btn-danger">✖</a>
+                </div>
+                <h3 class="mb-2"><b>Hi Alumni,</b></h3>
+                
+                <p class="text-muted">Please enter your Gmail account here for authentication!</p>
+                </div>
+                <form action="{{ route('check.gmail') }}" method="POST" autocomplete="off">
+                @csrf
+                <label class="form-label">Email Address</label>
+                <input type="email" name="email"
+                    class="form-control @error('email') is-invalid @enderror"
+                    placeholder="Email Address"
+                    value="{{ old('email') }}"
+                    required autofocus>
+                @error('email')
+                    <span class="invalid-feedback" role="alert" style="display:block;">
+                    {{ $message }}
+                    </span>
+                @enderror
 
-           
-              <div class="d-flex justify-content-between align-items-end mb-4">
-              <h3 class="mb-0"><b style = "color: white;">Check Email</b></h3>
-               <a href = "{{route('home')}}" class = "btn btn-danger" style = "color: white;">Back</a>
-            </div>
-           <form action="{{ route('check.gmail') }}" method="POST">
-                    @csrf
-                    <div class="form-group mb-3">
-                        <label class="form-label" style = "color: white;">Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="Email Address" required style = "background: transparent; color: white;">
-                       
-                    </div>
-                    <div class="d-grid mt-4">
-                        <input type="submit" class="btn btn-primary" value="Check Gmail">
-                        
-                    </div>
-                      <div class="form-check"> </div> 
-                          <a href="" style = "color: white;" style = "font-size: 0px"> </a> 
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
                 </form>
+                @if(session('status'))
+                <div class="alert alert-success mt-3">
+                    {{ session('status') }}
+                </div>
+                @endif
+            </div>
+            </div>
+        <div class="auth-footer row">
+          <!-- <div class=""> -->
+          <div class="col my-1">
+             <p class="m-0">Copyright © <a href="#">Capstone, Van's Group</a></p>
+          </div>
+          <div class="col-auto my-1">
+            <ul class="list-inline footer-link mb-0">
+              <li class="list-inline-item"><a href="#">Home</a></li>
+              <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+              <li class="list-inline-item"><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
-  </header>
-  <!-- [ Header ] End -->
+  </div>
   <!-- [ Main Content ] end -->
   <!-- Required Js -->
   <script src="main_template/dist/assets/js/plugins/popper.min.js"></script>
@@ -130,36 +117,207 @@
   <script src="main_template/dist/assets/js/fonts/custom-font.js"></script>
   <script src="main_template/dist/assets/js/pcoded.js"></script>
   <script src="main_template/dist/assets/js/plugins/feather.min.js"></script>
-  <script>layout_change('light');</script>
-  <script>change_box_container('false');</script>
-  <script>layout_rtl_change('false');</script>
-  <script>preset_change("preset-1");</script>
-  <script>font_change("Public-Sans");</script>
-  <script>
-    // Start [ Menu hide/show on scroll ]
-    let ost = 0;
-    document.addEventListener('scroll', function () {
-      let cOst = document.documentElement.scrollTop;
-      if (cOst == 0) {
-        document.querySelector(".navbar").classList.add("top-nav-collapse");
-      } else if (cOst > ost) {
-        document.querySelector(".navbar").classList.add("top-nav-collapse");
-        document.querySelector(".navbar").classList.remove("default");
-      } else {
-        document.querySelector(".navbar").classList.add("default");
-        document.querySelector(".navbar").classList.remove("top-nav-collapse");
-      }
 
-      if (cOst > 500) {
-        document.querySelector(".pc-landing-custmizer").classList.add("active");
-      } else {
-        document.querySelector(".pc-landing-custmizer").classList.remove("active");
-      }
-      ost = cOst;
-    });
-    // End [ Menu hide/show on scroll ]
-  </script>
-  <!-- [Page Specific JS] end -->
+  
+  
+  
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+  
+    
+ <div class="offcanvas pct-offcanvas offcanvas-end" tabindex="-1" id="offcanvas_pc_layout">
+  <div class="offcanvas-header bg-primary">
+    <h5 class="offcanvas-title text-white">Mantis Customizer</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="pct-body" style="height: calc(100% - 60px)">
+    <div class="offcanvas-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <a class="btn border-0 text-start w-100" data-bs-toggle="collapse" href="#pctcustcollapse1">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0">
+                <div class="avtar avtar-xs bg-light-primary">
+                  <i class="ti ti-layout-sidebar f-18"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h6 class="mb-1">Theme Layout</h6>
+                <span>Choose your layout</span>
+              </div>
+              <i class="ti ti-chevron-down"></i>
+            </div>
+          </a>
+          <div class="collapse show" id="pctcustcollapse1">
+            <div class="pct-content">
+              <div class="pc-rtl">
+                <p class="mb-1">Direction</p>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="layoutmodertl">
+                  <label class="form-check-label" for="layoutmodertl">RTL</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <a class="btn border-0 text-start w-100" data-bs-toggle="collapse" href="#pctcustcollapse2">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0">
+                <div class="avtar avtar-xs bg-light-primary">
+                  <i class="ti ti-brush f-18"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h6 class="mb-1">Theme Mode</h6>
+                <span>Choose light or dark mode</span>
+              </div>
+              <i class="ti ti-chevron-down"></i>
+            </div>
+          </a>
+          <div class="collapse show" id="pctcustcollapse2">
+            <div class="pct-content">
+              <div class="theme-color themepreset-color theme-layout">
+                <a href="#!" class="active" onclick="layout_change('light')" data-value="false"
+                  ><span><img src="main_template/dist/assets/images/customization/default.svg" alt="img"></span><span>Light</span></a
+                >
+                <a href="#!" class="" onclick="layout_change('dark')" data-value="true"
+                  ><span><img src="main_template/dist/assets/images/customization/dark.svg" alt="img"></span><span>Dark</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <a class="btn border-0 text-start w-100" data-bs-toggle="collapse" href="#pctcustcollapse3">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0">
+                <div class="avtar avtar-xs bg-light-primary">
+                  <i class="ti ti-color-swatch f-18"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h6 class="mb-1">Color Scheme</h6>
+                <span>Choose your primary theme color</span>
+              </div>
+              <i class="ti ti-chevron-down"></i>
+            </div>
+          </a>
+          <div class="collapse show" id="pctcustcollapse3">
+            <div class="pct-content">
+              <div class="theme-color preset-color">
+                <a href="#!" class="active" data-value="preset-1"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 1</span></a
+                >
+                <a href="#!" class="" data-value="preset-2"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 2</span></a
+                >
+                <a href="#!" class="" data-value="preset-3"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 3</span></a
+                >
+                <a href="#!" class="" data-value="preset-4"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 4</span></a
+                >
+                <a href="#!" class="" data-value="preset-5"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 5</span></a
+                >
+                <a href="#!" class="" data-value="preset-6"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 6</span></a
+                >
+                <a href="#!" class="" data-value="preset-7"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 7</span></a
+                >
+                <a href="#!" class="" data-value="preset-8"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 8</span></a
+                >
+                <a href="#!" class="" data-value="preset-9"
+                  ><span><img src="main_template/dist/assets/images/customization/theme-color.svg" alt="img"></span><span>Theme 9</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item pc-boxcontainer">
+          <a class="btn border-0 text-start w-100" data-bs-toggle="collapse" href="#pctcustcollapse4">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0">
+                <div class="avtar avtar-xs bg-light-primary">
+                  <i class="ti ti-border-inner f-18"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h6 class="mb-1">Layout Width</h6>
+                <span>Choose fluid or container layout</span>
+              </div>
+              <i class="ti ti-chevron-down"></i>
+            </div>
+          </a>
+          <div class="collapse show" id="pctcustcollapse4">
+            <div class="pct-content">
+              <div class="theme-color themepreset-color boxwidthpreset theme-container">
+                <a href="#!" class="active" onclick="change_box_container('false')" data-value="false"><span><img src="main_template/dist/assets/images/customization/default.svg" alt="img"></span><span>Fluid</span></a>
+                <a href="#!" class="" onclick="change_box_container('true')" data-value="true"><span><img src="main_template/dist/assets/images/customization/container.svg" alt="img"></span><span>Container</span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <a class="btn border-0 text-start w-100" data-bs-toggle="collapse" href="#pctcustcollapse5">
+            <div class="d-flex align-items-center">
+              <div class="flex-shrink-0">
+                <div class="avtar avtar-xs bg-light-primary">
+                  <i class="ti ti-typography f-18"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h6 class="mb-1">Font Family</h6>
+                <span>Choose your font family.</span>
+              </div>
+              <i class="ti ti-chevron-down"></i>
+            </div>
+          </a>
+          <div class="collapse show" id="pctcustcollapse5">
+            <div class="pct-content">
+              <div class="theme-color fontpreset-color">
+                <a href="#!" class="active" onclick="font_change('Public-Sans')" data-value="Public-Sans"
+                  ><span>Aa</span><span>Public Sans</span></a
+                >
+                <a href="#!" class="" onclick="font_change('Roboto')" data-value="Roboto"><span>Aa</span><span>Roboto</span></a>
+                <a href="#!" class="" onclick="font_change('Poppins')" data-value="Poppins"><span>Aa</span><span>Poppins</span></a>
+                <a href="#!" class="" onclick="font_change('Inter')" data-value="Inter"><span>Aa</span><span>Inter</span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="collapse show">
+            <div class="pct-content">
+              <div class="d-grid">
+                <button class="btn btn-light-danger" id="layoutreset">Reset Layout</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 </body>
+<!-- [Body] end -->
 
 </html>

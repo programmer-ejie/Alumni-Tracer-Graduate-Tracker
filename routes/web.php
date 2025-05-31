@@ -15,20 +15,25 @@ Route::get('/', function () {
 });
 
 Route::get('/AuthLogin',[LoginController::class, 'gotoLogin'])->name('login');
-Route::get('/*',[LoginController::class, 'gotoHome'])->name('home');
+Route::get('/',[LoginController::class, 'gotoHome'])->name('home');
 Route::get('/Alumni_CheckGmail',[AlumniController::class, 'gotoAlumni'])->name('alumni');
 
-Route::post('/check-gmail', [GmailCheckerController::class, 'checkEmail'])->name('check.gmail');
-Route::get('/confirm-code', fn() => view('confirmation_code'))->name('confirm.code.page');
+Route::match(['get', 'post'], '/check-gmail', [GmailCheckerController::class, 'checkEmail'])->name('check.gmail');
+Route::get('/confirmation-code', function () {
+    $email = session('email');
+    if (!$email) {
+        return redirect()->route('alumni'); 
+    }
+    return view('confirmation_code', ['email' => $email]);
+})->name('confirmation.form');
+Route::post('/resend-code', [GmailCheckerController::class, 'resendCode'])->name('resend.code');
 Route::post('/verify-code', [GmailCheckerController::class, 'verifyCode'])->name('verify.code');
 Route::post('/register-email', [GmailCheckerController::class, 'registerEmail'])->name('register.email');
 
 Route::get('/alumni_information/dashboard', function () {
     return view('alumni_folder.dashboard');
 })->name('alumni.dashboard');
-Route::get('/confirmation-code', function () {
-    return view('confirmation_code');
-})->name('confirmation.form');
+
 
 Route::get('/alumni_dashboard', [AlumniController::class, 'gotoDashboard'])->name('alumni.dashboard');
 Route::match(['get', 'post'], '/alumni_profile', [AlumniController::class, 'gotoProfile'])->name('alumni.profile');

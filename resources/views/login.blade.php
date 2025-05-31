@@ -1,8 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
+<!-- [Head] start -->
+
 <head>
-  <title>Landing Page / Alumni Tracer</title>
+  <title>Login | Mantis Bootstrap 5 Admin Template</title>
   <!-- [Meta] -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -12,47 +13,30 @@
   <meta name="author" content="CodedThemes">
 
   <!-- [Favicon] icon -->
-  <link rel="icon" href="main_template/dist/assets/images/favicon.svg" type="image/x-icon">
-  <!-- [Page specific CSS] start -->
-  <link href="main_template/dist/assets/css/plugins/animate.min.css" rel="stylesheet" type="text/css">
-  <!-- [Page specific CSS] end -->
-  <!-- [Google Font] Family -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
-  <!-- [Tabler Icons] https://tablericons.com -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/tabler-icons.min.css" >
-  <!-- [Feather Icons] https://feathericons.com -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/feather.css" >
-  <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/fontawesome.css" >
-  <!-- [Material Icons] https://fonts.google.com/icons -->
-  <link rel="stylesheet" href="main_template/dist/assets/fonts/material.css" >
-  <!-- [Template CSS Files] -->
-  <link rel="stylesheet" href="main_template/dist/assets/css/style.css" id="main-style-link" >
-  <link rel="stylesheet" href="main_template/dist/assets/css/style-preset.css" >
-
-  <link rel="stylesheet" href="main_template/dist/assets/css/landing.css">
-</head>
-
-<body class="landing-page"><script id="__bs_script__">//<![CDATA[
-  (function() {
-    try {
-      var script = document.createElement('script');
-      if ('async') {
-        script.async = true;
-      }
-      script.src = '/browser-sync/browser-sync-client.js?v=2.29.3'.replace("HOST", location.hostname);
-      if (document.body) {
-        document.body.appendChild(script);
-      } else if (document.head) {
-        document.head.appendChild(script);
-      }
-    } catch (e) {
-      console.error("Browsersync: could not append script tag", e);
+  <link rel="icon" href="main_template/dist/assets/images/favicon.svg" type="image/x-icon"> <!-- [Google Font] Family -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
+<!-- [Tabler Icons] https://tablericons.com -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/tabler-icons.min.css" >
+<!-- [Feather Icons] https://feathericons.com -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/feather.css" >
+<!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/fontawesome.css" >
+<!-- [Material Icons] https://fonts.google.com/icons -->
+<link rel="stylesheet" href="main_template/dist/assets/fonts/material.css" >
+<!-- [Template CSS Files] -->
+<link rel="stylesheet" href="main_template/dist/assets/css/style.css" id="main-style-link" >
+<link rel="stylesheet" href="main_template/dist/assets/css/style-preset.css" >
+<style>
+    body {
+        background: linear-gradient(135deg, #f0f4f8, #e0e7ed);
+        font-family: 'Public Sans', sans-serif; 
     }
-  })()
-//]]></script>
+</style>
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
 
-  <!-- [ Main Content ] start -->
+<body>
   <!-- [ Pre-loader ] start -->
   <div class="loader-bg">
     <div class="loader-track">
@@ -61,95 +45,145 @@
   </div>
   <!-- [ Pre-loader ] End -->
 
-  <!-- [ Header ] start -->
-  <header id="home">
-    <!-- [ Nav ] start -->
-    <nav class="navbar navbar-expand-md navbar-dark top-nav-collapse default">
-      <div class="container">
-        <a class="navbar-brand" href="#" style = "text-align: center; display: flex;">
-          <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
-          <h4 style = "color: white; text-align: center; margin-top: 4px; margin-left: 5px;">ALUMNI TRACER</h4>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item pe-1">
-              <h6 style = "color: white; margin-top: 6px; padding: 3px;">Administrator</h6>
-            <li class="nav-item">
-              <a class="btn btn-primary" href="{{route('login')}}">Login<a>
-            </li>
-          </ul>
+        <div class="auth-main shadow" >
+            <div class="auth-wrapper v3" >
+            <div class="auth-form">
+                <div class="auth-header">
+                    <a href="{{route('home')}}" class="b-brand text-primary" style = "display: flex; margin-left: 10px;">
+                        <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
+                        <h4 style = "color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold; ">ALUMNI TRACER</h4>
+                </div>
+            <style>
+        @media (max-width: 576px) {
+            .card.my-5 {
+                margin-top: -20rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .auth-main {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+            }
+        }
+        </style>
+
+        <div class="card my-5"   style="
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+           
+            box-shadow: 0 4px 24px 0 rgba(34,41,47,0.10), 0 1.5px 4px 0 rgba(34,41,47,0.08);
+        ">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-end mb-4">
+                    <h3 class="mb-0"><b>Login</b></h3>
+                    <a href="{{route('home')}}" class="btn btn-danger">✖</a>
+                </div>
+            <form action="{{ route('admin.login') }}" method="POST">
+            @csrf
+
+            <div class="form-group mb-3 position-relative">
+                <label class="form-label">Email Address</label>
+                <input type="email" name="email"
+                    class="form-control @error('email') is-invalid @enderror"
+                    placeholder="Email Address"
+                    value="{{ old('email') }}"
+                    required autofocus>
+                @error('email')
+                    <span class="invalid-feedback" role="alert" style="display:block;">
+                        {{ $message }}
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3 position-relative">
+                <label class="form-label">Password</label>
+                <input type="password" name="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    placeholder="Password"
+                    id="passwordInput"
+                    required>
+                        <span class="position-absolute" style="top: 38px; right: 15px; cursor: pointer; z-index: 2; font-size: 18px;" onclick="togglePassword()">
+                            <i class="ti ti-eye" id="togglePasswordIcon" style="color: #888;"></i>
+                        </span>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert" style="display:block;">
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+
+                    @if(session('login_error'))
+                        <div class="mb-3" style="color: red; background-color: #ffdddd; padding: 10px; border-radius: 5px;">
+                            {{ session('login_error') }}
+                        </div>
+                    @endif
+
+                    <div class="d-flex mt-1 justify-content-between">
+                    <div class="form-check">
+                        <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="">
+                        <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
+                    </div>
+                    <h5 class="text-secondary f-w-400">Forgot Password?</h5>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+
+                <script>
+                function togglePassword() {
+                    const input = document.getElementById('passwordInput');
+                    const icon = document.getElementById('togglePasswordIcon');
+                    if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove('ti-eye');
+                        icon.classList.add('ti-eye-off');
+                    } else {
+                        input.type = "password";
+                        icon.classList.remove('ti-eye-off');
+                        icon.classList.add('ti-eye');
+                    }
+                }
+                </script>
+
+                <script>
+                function togglePassword() {
+                    const input = document.getElementById('passwordInput');
+                    const icon = document.getElementById('togglePasswordIcon');
+                    if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove('ti-eye-off');
+                        icon.classList.add('ti-eye');
+                    } else {
+                        input.type = "password";
+                        icon.classList.remove('ti-eye');
+                        
+                        icon.classList.add('ti-eye-off');
+                    }
+                }
+                </script>
+            
+            </div>
+        </div>
+        <div class="auth-footer row">
+          <!-- <div class=""> -->
+            <div class="col my-1">
+               <p class="m-0">Copyright © <a href="#">Capstone Project , Van's Group</a></p>
+            </div>
+            <div class="col-auto my-1">
+              <ul class="list-inline footer-link mb-0">
+                <li class="list-inline-item"><a href="#" >Home</a></li>
+                 <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="#">Contact us</a></li>
+              </ul>
+            </div>
+          <!-- </div> -->
         </div>
       </div>
-    </nav>
-    <!-- [ Nav ] start -->
-    <div class="container">
-            <div class="row align-items-center justify-content-center">
-            <div class="col-md-9 col-xl-5" style="
-              border: 1px solid rgba(255, 255, 255, 0.2); 
-              padding: 30px; 
-              border-radius: 30px; 
-              background: rgba(255, 255, 255, 0.05); 
-              backdrop-filter: blur(12px); 
-              -webkit-backdrop-filter: blur(12px); 
-              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            ">
-              <div class="d-flex justify-content-between align-items-end mb-4">
-              <h3 class="mb-0"><b style = "color: white;">Login</b></h3>
-                <a href = "{{route('home')}}" class = "btn btn-danger" style = "color: white;">Back</a>
-            </div>
-         <form action="{{ route('admin.login') }}" method="POST">
-              @csrf
-
-              <div class="form-group mb-3 position-relative">
-                  <label class="form-label" style="color: white;">Email Address</label>
-                  <input type="email" name="email"
-                      class="form-control {{ session('login_error') ? 'border border-danger pr-5' : '' }}"
-                      placeholder="Email Address"
-                      style="background: transparent; color: white;"
-                      required>
-
-                  @if (session('login_error'))
-                      <span class="position-absolute" style="top: 38px; right: 10px; color: red;">
-                          &#9888; <!-- Unicode warning icon -->
-                      </span>
-                  @endif
-              </div>
-
-              <div class="form-group mb-3 position-relative">
-                  <label class="form-label" style="color: white;">Password</label>
-                  <input type="password" name="password"
-                      class="form-control {{ session('login_error') ? 'border border-danger pr-5' : '' }}"
-                      placeholder="Password"
-                      style="background: transparent; color: white;"
-                      required>
-
-                  @if (session('login_error'))
-                      <span class="position-absolute" style="top: 38px; right: 10px; color: red;">
-                          &#9888;
-                      </span>
-                  @endif
-              </div>
-
-              @if (session('login_error'))
-                  <div class="mb-3" style="color: red; background-color: #ffdddd; padding: 10px; border-radius: 5px;">
-                      {{ session('login_error') }}
-                  </div>
-              @endif
-
-              <div class="d-grid mt-4">
-                  <button type="submit" class="btn btn-primary">Login</button>
-              </div>
-          </form>
-
-
-      </div>
     </div>
-  </header>
-  <!-- [ Header ] End -->
+  </div>
   <!-- [ Main Content ] end -->
   <!-- Required Js -->
   <script src="main_template/dist/assets/js/plugins/popper.min.js"></script>
@@ -158,36 +192,31 @@
   <script src="main_template/dist/assets/js/fonts/custom-font.js"></script>
   <script src="main_template/dist/assets/js/pcoded.js"></script>
   <script src="main_template/dist/assets/js/plugins/feather.min.js"></script>
-  <script>layout_change('light');</script>
-  <script>change_box_container('false');</script>
-  <script>layout_rtl_change('false');</script>
-  <script>preset_change("preset-1");</script>
-  <script>font_change("Public-Sans");</script>
-  <script>
-    // Start [ Menu hide/show on scroll ]
-    let ost = 0;
-    document.addEventListener('scroll', function () {
-      let cOst = document.documentElement.scrollTop;
-      if (cOst == 0) {
-        document.querySelector(".navbar").classList.add("top-nav-collapse");
-      } else if (cOst > ost) {
-        document.querySelector(".navbar").classList.add("top-nav-collapse");
-        document.querySelector(".navbar").classList.remove("default");
-      } else {
-        document.querySelector(".navbar").classList.add("default");
-        document.querySelector(".navbar").classList.remove("top-nav-collapse");
-      }
 
-      if (cOst > 500) {
-        document.querySelector(".pc-landing-custmizer").classList.add("active");
-      } else {
-        document.querySelector(".pc-landing-custmizer").classList.remove("active");
-      }
-      ost = cOst;
-    });
-    // End [ Menu hide/show on scroll ]
-  </script>
-  <!-- [Page Specific JS] end -->
+  
+  
+  
+  
+  <script>layout_change('light');</script>
+  
+  
+  
+  
+  <script>change_box_container('false');</script>
+  
+  
+  
+  <script>layout_rtl_change('false');</script>
+  
+  
+  <script>preset_change("preset-1");</script>
+  
+  
+  <script>font_change("Public-Sans");</script>
+  
+    
+ 
 </body>
+<!-- [Body] end -->
 
 </html>
