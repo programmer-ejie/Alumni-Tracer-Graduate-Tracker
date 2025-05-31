@@ -13,7 +13,8 @@
   <meta name="author" content="CodedThemes">
 <style>
     body {
-        background: linear-gradient(135deg, #f0f4f8, #e0e7ed);
+        background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center;
+        background-size: cover;
         font-family: 'Public Sans', sans-serif; 
     
     }
@@ -50,9 +51,12 @@
     <div class="auth-wrapper v3">
       <div class="auth-form">
         <div class="auth-header">
-          <a href="#"><img src="main_template/dist/assets/images/logo-dark.svg" alt="img"></a>
+          <a href="{{route('home')}}" class="b-brand text-primary" style = "display: flex; margin-left: 10px;">
+                                    <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
+                                    <h4 style = "color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold; ">ALUMNI TRACER</h4>
+                    </a>
         </div>
-        <div class="card my-5">
+        <div class="card my-5" style=" border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.18); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
           <div class="card-body">
                   <div class="mb-4">
                      <div class="d-flex justify-content-end align-items-end mb-4" style = "position: absolute; right: 15px; top: 10px;">
@@ -108,7 +112,7 @@
             <form action="{{ route('resend.code') }}" method="POST" style="display:inline;">
                 @csrf
                 <input type="hidden" name="email" value="{{ $email }}">
-                <button type="submit" class="btn btn-link link-primary p-0 m-0 align-baseline" style="font-size: 12px;">Resend code</button>
+                <button type="submit" class="btn btn-link  p-0 m-0 align-baseline" style="font-size: 12px; color: black; font-weight: bolder; text-decoration: none;">Resend code</button>
             </form>
         </div>
         @if(session('status'))

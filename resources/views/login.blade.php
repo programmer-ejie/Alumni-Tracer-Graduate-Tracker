@@ -27,8 +27,14 @@
 <link rel="stylesheet" href="main_template/dist/assets/css/style.css" id="main-style-link" >
 <link rel="stylesheet" href="main_template/dist/assets/css/style-preset.css" >
 <style>
+    *{
+        color: black; 
+        font-weight: bolder;
+         text-decoration: none;
+    }
     body {
-        background: linear-gradient(135deg, #f0f4f8, #e0e7ed);
+        background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center;
+        background-size: cover;
         font-family: 'Public Sans', sans-serif; 
     }
 </style>
@@ -69,12 +75,8 @@
         }
         </style>
 
-        <div class="card my-5"   style="
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-           
-            box-shadow: 0 4px 24px 0 rgba(34,41,47,0.10), 0 1.5px 4px 0 rgba(34,41,47,0.08);
-        ">
+        <div class="card my-5"   style="border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.18); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
+       
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-end mb-4">
                     <h3 class="mb-0"><b>Login</b></h3>

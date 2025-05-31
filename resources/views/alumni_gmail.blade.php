@@ -13,7 +13,9 @@
   <meta name="author" content="CodedThemes">
 <style>
     body {
-        background: linear-gradient(135deg, #f0f4f8, #e0e7ed);
+         background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center;
+        background-size: cover;
+    
         font-family: 'Public Sans', sans-serif; 
     }
 </style>
@@ -55,7 +57,7 @@
                                     <h4 style = "color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold; ">ALUMNI TRACER</h4>
                     </a>
                     </div>
-                <div class="card my-5" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.18); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
+                <div class="card my-5" style=" border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.18); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);">
             <div class="card-body">
                 
                 <div class="mb-4">
