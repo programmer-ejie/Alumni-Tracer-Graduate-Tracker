@@ -124,7 +124,7 @@
       </a>
     </li>
     <li class="dropdown pc-h-item d-inline-flex d-md-none">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none m-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -133,21 +133,21 @@
         aria-expanded="false"
       >
         <i class="ti ti-search"></i>
-      </a>
+      </a> --}}
       <div class="dropdown-menu pc-h-dropdown drp-search">
-        <form class="px-3">
+        {{-- <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
             <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
           </div>
-        </form>
+        </form> --}}
       </div>
     </li>
     <li class="pc-h-item d-none d-md-inline-flex">
-      <form class="header-search">
+      {{-- <form class="header-search">
         <i data-feather="search" class="icon-search"></i>
         <input type="search" class="form-control" placeholder="Search here. . .">
-      </form>
+      </form> --}}
     </li>
   </ul>
 </div>
@@ -155,7 +155,7 @@
 <div class="ms-auto">
   <ul class="list-unstyled">
     <li class="dropdown pc-h-item">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none me-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -164,7 +164,7 @@
         aria-expanded="false"
       >
         <i class="ti ti-mail"></i>
-      </a>
+      </a> --}}
       <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header d-flex align-items-center justify-content-between">
           <h5 class="m-0">Message</h5>
@@ -239,18 +239,25 @@
         data-bs-auto-close="outside"
         aria-expanded="false"
       >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
+           <img src="{{ asset('images/' . ($admin->profile_pic ?? 'default.jpg')) }}"
+        alt="user-image"
+        class="user-avtar wid-35"
+        style="height: 23px; object-fit: cover;">
+
+        <span>{{$admin->fullname}}</span>
       </a>
       <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header">
           <div class="d-flex mb-1">
             <div class="flex-shrink-0">
-              <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+              <img src="{{ asset('images/' . ($admin->profile_pic ?? 'default.jpg')) }}"
+              alt="user-image"
+              class="user-avtar wid-35"
+              style="height: 35px; object-fit: cover;">
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
+               <h6 class="mb-1">{{ $admin->fullname}}</h6>
+              <span>Administrator</span>
             </div>
             <a href="{{route('admin.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
           </div>

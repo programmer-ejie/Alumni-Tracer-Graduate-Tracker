@@ -25,7 +25,16 @@ class AdminController extends Controller
                 if (!$admin) {
                      return view('index')->with('error', 'Please log in first.');
                 }
-                return view('admin.profile')->with('admin', $admin);                         
+             $latestNotifications = Notification::where('user_type', 'admin')
+                ->where('user_id', $admin->id)
+                ->orderBy('created_at', 'desc')
+                ->take(4)
+                ->get();
+
+                  return view('admin.profile')->with([
+                    'admin' => $admin,
+                    'latestNotifications' => $latestNotifications
+                ]);                      
     }
 
     function gotoAnnouncements()

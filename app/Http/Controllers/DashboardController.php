@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 use PHPInsight\Sentiment;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\AdminAccount;
 use App\Models\AlumniInfo;
 use App\Models\AlumniSurvey;
 use App\Models\Event;
 use Illuminate\Support\Facades\Http;
 use App\Models\PageView;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+
+        private function getAuthenticatedAdmin(){
+            if (!session()->has('admin_logged_in') || !session('admin_id')) {
+                    return null;
+            }
+
+            return AdminAccount::find(session('admin_id'));
+        }
          public function index(){
-                
+
+          $admin = $this->getAuthenticatedAdmin();
+
                 //  [start] page view tracking
                     $totalPageViews = PageView::where('page', 'landing')->count();
 
@@ -286,6 +298,7 @@ class DashboardController extends Controller
                 // [end] Week Summary
 
                 return view('admin.dashboard', compact(
+                    'admin',
                     'totalPageViews',
                     'pageViewsPercent',
                     'extraPageViews',

@@ -146,7 +146,7 @@
         <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
-            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+            <input type="search" class="form-control border-0 shadow-none" id="survey-search-mobile" placeholder="Search here. . .">
           </div>
         </form>
       </div>
@@ -154,8 +154,64 @@
     <li class="pc-h-item d-none d-md-inline-flex">
       <form class="header-search">
         <i data-feather="search" class="icon-search"></i>
-        <input type="search" class="form-control" placeholder="Search here. . .">
+        <input type="search" class="form-control" id="survey-search" placeholder="Search here. . .">
       </form>
+
+  <script>
+          document.getElementById('survey-search').addEventListener('input', function() {
+              let filter = this.value.toLowerCase().trim();
+              let rows = document.querySelectorAll('#survey-table tbody tr');
+              rows.forEach(row => {
+                  let cells = row.querySelectorAll('td');
+                  if (cells.length < 4) return;
+
+                 
+                  let email = cells[0].textContent.toLowerCase();
+                  let fullname = cells[1].textContent.toLowerCase();
+                  let age = cells[2].textContent.toLowerCase();
+                  let batch = cells[3].textContent.toLowerCase();
+
+                 
+                  if (!isNaN(filter) && filter !== '') {
+                      row.style.display =
+                          age === filter || batch === filter || email.includes(filter) || fullname.includes(filter)
+                          ? '' : 'none';
+                  } else {
+                   
+                      let searchText = email + ' ' + fullname + ' ' + age + ' ' + batch;
+                      row.style.display = searchText.includes(filter) ? '' : 'none';
+                  }
+              });
+          });
+          </script>
+
+            <script>
+            document.getElementById('survey-search-mobile').addEventListener('input', function() {
+                let filter = this.value.toLowerCase().trim();
+                let rows = document.querySelectorAll('#survey-table tbody tr');
+                rows.forEach(row => {
+                    let cells = row.querySelectorAll('td');
+                    if (cells.length < 4) return; 
+
+                
+                    let email = cells[0].textContent.toLowerCase();
+                    let fullname = cells[1].textContent.toLowerCase();
+                    let age = cells[2].textContent.toLowerCase();
+                    let batch = cells[3].textContent.toLowerCase();
+
+                 
+                    if (!isNaN(filter) && filter !== '') {
+                        row.style.display =
+                            age === filter || batch === filter || email.includes(filter) || fullname.includes(filter)
+                            ? '' : 'none';
+                    } else {
+                       
+                        let searchText = email + ' ' + fullname + ' ' + age + ' ' + batch;
+                        row.style.display = searchText.includes(filter) ? '' : 'none';
+                    }
+                });
+            });
+            </script>
     </li>
   </ul>
 </div>
@@ -163,7 +219,7 @@
 <div class="ms-auto">
   <ul class="list-unstyled">
     <li class="dropdown pc-h-item">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none me-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -171,7 +227,7 @@
         aria-haspopup="false"
         aria-expanded="false"
       >
-        <i class="ti ti-mail"></i>
+        <i class="ti ti-mail"></i> --}}
       </a>
       <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header d-flex align-items-center justify-content-between">
@@ -366,10 +422,10 @@
           <div class="card construction-card">
               <div class="card-body">
                    <div class="row">
-                      <h5 class="mb-3">Alumni Survey Count</h5>
+                      {{-- <h5 class="mb-3">Alumni Survey Count</h5> --}}
                      <div class="col-md-6 col-xl-3">
                        
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-body">
                             <h6 class="mb-2 f-w-400 text-muted">Total Page Views</h6>
                             <h4 class="mb-3">4,42,236 <br><span class="badge bg-light-primary border border-primary"><i
@@ -409,7 +465,8 @@
                             </p>
                             </div>
                         </div>
-                        </div>
+                        </div> --}}
+                      </div>
 
 
                              <div class="col-md-12 col-xl-12">
@@ -417,12 +474,12 @@
                                 <div class="card tbl-card">
                                   <div class="card-body">
                                     <div class="table-responsive ">
-                                     <table class="table table-hover table-borderless mb-0">
-                                        <thead>
+                                     <table class="table table-hover table-borderless mb-0" id="survey-table">
+                                        <thead class = "table-info">
                                             <tr>
                                                 <th>Email</th>
                                                 <th>Fullname</th>
-                                                <th>School</th>
+                                                <th>Age</th>
                                                 <th>Batch</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
@@ -437,12 +494,12 @@
                                                     @php
                                                         $alumniData = $alumni->firstWhere('id', $survey->alumni_id);
                                                     @endphp
-                                                    <tr>
+                                                    <tr style = "border-bottom: 1px solid #dee2e6;">
                                                         <td>
                                                             <a href="#" class="text-muted">{{ $alumniData->email ?? 'N/A' }}</a>
                                                         </td>
                                                         <td>{{ $alumniData->fullname ?? 'N/A' }}</td>
-                                                        <td>{{ $alumniData->school ?? 'N/A' }}</td>
+                                                        <td>{{ $alumniData->age ?? 'N/A' }}</td>
                                                         <td>
                                                             <span class="d-flex align-items-center gap-2">
                                                                 <i class="fas fa-circle text-success f-10 m-r-5"></i>

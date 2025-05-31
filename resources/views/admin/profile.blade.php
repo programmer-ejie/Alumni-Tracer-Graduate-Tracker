@@ -124,7 +124,7 @@
       </a>
     </li>
     <li class="dropdown pc-h-item d-inline-flex d-md-none">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none m-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -133,21 +133,21 @@
         aria-expanded="false"
       >
         <i class="ti ti-search"></i>
-      </a>
+      </a> --}}
       <div class="dropdown-menu pc-h-dropdown drp-search">
-        <form class="px-3">
+        {{-- <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
             <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
           </div>
-        </form>
+        </form> --}}
       </div>
     </li>
     <li class="pc-h-item d-none d-md-inline-flex">
-      <form class="header-search">
+      {{-- <form class="header-search">
         <i data-feather="search" class="icon-search"></i>
         <input type="search" class="form-control" placeholder="Search here. . .">
-      </form>
+      </form> --}}
     </li>
   </ul>
 </div>
@@ -155,7 +155,7 @@
 <div class="ms-auto">
   <ul class="list-unstyled">
     <li class="dropdown pc-h-item">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none me-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -164,8 +164,8 @@
         aria-expanded="false"
       >
         <i class="ti ti-mail"></i>
-      </a>
-      <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+      </a> --}}
+      {{-- <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header d-flex align-items-center justify-content-between">
           <h5 class="m-0">Message</h5>
           <a href="#!" class="pc-head-link bg-transparent"><i class="ti ti-x text-danger"></i></a>
@@ -227,7 +227,7 @@
         <div class="text-center py-2">
           <a href="#!" class="link-primary">View all</a>
         </div>
-      </div>
+      </div> --}}
     </li>
     <li class="dropdown pc-h-item header-user-profile">
       <a

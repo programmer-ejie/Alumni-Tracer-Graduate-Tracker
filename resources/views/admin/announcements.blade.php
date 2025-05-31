@@ -146,16 +146,46 @@ window.alumniMentions = [
         <form class="px-3">
           <div class="form-group mb-0 d-flex align-items-center">
             <i data-feather="search"></i>
-            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . .">
+            <input type="search" class="form-control border-0 shadow-none" id = "announcement-search-mobile" placeholder="Search here. . .">
           </div>
         </form>
       </div>
     </li>
     <li class="pc-h-item d-none d-md-inline-flex">
       <form class="header-search">
-        <i data-feather="search" class="icon-search"></i>
-        <input type="search" class="form-control" placeholder="Search here. . .">
+          <i data-feather="search" class="icon-search"></i>
+          <input type="search" class="form-control" id="announcement-search" placeholder="Search here. . .">
       </form>
+
+     <script>
+        document.getElementById('announcement-search').addEventListener('input', function() {
+            let filter = this.value.toLowerCase().trim();
+            let items = document.querySelectorAll('.announcement-item');
+            let anyVisible = false;
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                let match = text.includes(filter);
+                item.style.display = match ? '' : 'none';
+                if (match) anyVisible = true;
+            });
+            document.getElementById('no-announcement-alert').style.display = anyVisible ? 'none' : '';
+        });
+        </script>
+
+       <script>
+            document.getElementById('announcement-search-mobile').addEventListener('input', function() {
+                let filter = this.value.toLowerCase().trim();
+                let items = document.querySelectorAll('.announcement-item');
+                let anyVisible = false;
+                items.forEach(item => {
+                    let text = item.textContent.toLowerCase();
+                    let match = text.includes(filter);
+                    item.style.display = match ? '' : 'none';
+                    if (match) anyVisible = true;
+                });
+                document.getElementById('no-announcement-alert').style.display = anyVisible ? 'none' : '';
+            });
+            </script>
     </li>
   </ul>
 </div>
@@ -163,7 +193,7 @@ window.alumniMentions = [
 <div class="ms-auto">
   <ul class="list-unstyled">
     <li class="dropdown pc-h-item">
-      <a
+      {{-- <a
         class="pc-head-link dropdown-toggle arrow-none me-0"
         data-bs-toggle="dropdown"
         href="#"
@@ -171,7 +201,7 @@ window.alumniMentions = [
         aria-haspopup="false"
         aria-expanded="false"
       >
-        <i class="ti ti-mail"></i>
+        <i class="ti ti-mail"></i> --}}
       </a>
       <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header d-flex align-items-center justify-content-between">
@@ -247,18 +277,25 @@ window.alumniMentions = [
         data-bs-auto-close="outside"
         aria-expanded="false"
       >
-        <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
-        <span>Stebin Ben</span>
+           <img src="{{ asset('images/' . ($admin->profile_pic ?? 'default.jpg')) }}"
+        alt="user-image"
+        class="user-avtar wid-35"
+        style="height: 23px; object-fit: cover;">
+
+        <span>{{$admin->fullname}}</span>
       </a>
       <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
         <div class="dropdown-header">
           <div class="d-flex mb-1">
             <div class="flex-shrink-0">
-              <img src="../main_template/dist/assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+              <img src="{{ asset('images/' . ($admin->profile_pic ?? 'default.jpg')) }}"
+              alt="user-image"
+              class="user-avtar wid-35"
+              style="height: 35px; object-fit: cover;">
             </div>
             <div class="flex-grow-1 ms-3">
-              <h6 class="mb-1">Stebin Ben</h6>
-              <span>UI/UX Designer</span>
+               <h6 class="mb-1">{{ $admin->fullname}}</h6>
+              <span>Administrator</span>
             </div>
             <a href="{{route('admin.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
           </div>
@@ -404,7 +441,6 @@ window.alumniMentions = [
                                               <input type="hidden" id="mentionId" name="mention_id">
                                               <div id="mentionSuggestions" class="list-group position-absolute w-100" style="z-index: 10; display: none;"></div>
                                           </div>
-
                                           <script>
                                             const alumniMentions = window.alumniMentions;
 
@@ -478,12 +514,12 @@ window.alumniMentions = [
                                   @endphp
                                   
                                   @if($announcements->isEmpty())
-                                      <div class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
+                                      <div id="no-announcement-alert" class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
                                           <strong>No Data Available</strong>
                                       </div>
                                   @else
                                      @foreach($announcements as $announcement)
-                                        <div class="list-group-item border-0 rounded shadow-sm mb-3 px-2 py-3" style="background: #f7faff;">
+                                        <div class="list-group-item border-0 rounded shadow-sm mb-3 px-2 py-3 announcement-item" style="background: #f7faff;">
                                             <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
                                                 <!-- Icon -->
                                                 <div class="flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
@@ -539,6 +575,10 @@ window.alumniMentions = [
                                                     {{ \Carbon\Carbon::parse($announcement->created_at)->diffForHumans() }}
                                                 </small>
                                             </div>
+                                        </div>
+
+                                        <div id="no-announcement-alert" class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da; display: none;">
+                                            <strong>No Data Available</strong>
                                         </div>
 
                                         <!-- [start] edit information Offcanvas form panel -->
