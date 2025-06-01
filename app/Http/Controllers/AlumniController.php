@@ -10,6 +10,7 @@ use App\Models\AlumniSurvey;
 use App\Models\Event; 
 use App\Models\Notification;
 use App\Models\AdminAccount;
+use App\Models\School;
 
 class AlumniController extends Controller
 {
@@ -69,14 +70,15 @@ class AlumniController extends Controller
               ));
              }
 
-    function gotoProfile()
-    {
+    function gotoProfile(){
         $alumni = $this->getAuthenticatedAlumni();
-            if (!$alumni) {   
-                return redirect()->route('login')->with('error', 'Please log in first.');
-            } 
-            return view('alumni_folder.profile')->with('alumni', $alumni);; 
+        if (!$alumni) {   
+            return redirect()->route('login')->with('error', 'Please log in first.');
+        }
+        $schools = School::all(); 
+        return view('alumni_folder.profile', compact('alumni', 'schools')); 
     }
+
     function gotoAnnouncements()
     {
          $alumni = $this->getAuthenticatedAlumni();
@@ -157,7 +159,7 @@ class AlumniController extends Controller
            $data = $request->validate([
                     'fullname' => 'required|string|max:255',
                     'email' => 'required|email',
-                    'school_graduated' => 'nullable|string|max:255',
+                   'school_id' => 'nullable|exists:schools,id',
                     'batch' => 'nullable|string|max:50',
                     'age' => 'nullable|integer|min:0',
                     'phone' => 'nullable|string',
@@ -169,6 +171,7 @@ class AlumniController extends Controller
                     'facebook' => 'nullable|string',
                     'profile_pic' => 'nullable|image|max:10240',
                 ]);
+            
 
             // Handle profile picture upload
             if ($request->hasFile('profile_pic')) {
@@ -176,6 +179,12 @@ class AlumniController extends Controller
                 $filename = time() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('images'), $filename);
                 $data['profile_pic'] = $filename;
+            }
+            
+            if ($request->filled('school_id')) {
+                $school = \App\Models\School::find($request->school_id);
+                $alumni->school_id = $school->id;
+                $alumni->school_graduated = $school->school_name;
             }
 
             $alumni->update($data);

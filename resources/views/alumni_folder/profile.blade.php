@@ -564,10 +564,15 @@
                                                             </div>
 
                                                             <!-- School Graduated -->
-                                                            <div class="mb-3">
-                                                              <label for="editSchoolGraduated" class="form-label fw-semibold">🏫 School Graduated</label>
-                                                              <input type="text" class="form-control" id="editSchoolGraduated" name="school_graduated" value="{{ $alumni->school_graduated }}" placeholder="Enter School Graduated">
-                                                            </div>
+                                                            <select class="form-select" id="editSchoolGraduated" name="school_id">
+                                                            <option value="">Select School</option>
+                                                            @foreach($schools as $school)
+                                                                <option value="{{ $school->id }}" 
+                                                                    {{ $alumni->school_id == $school->id ? 'selected' : '' }}>
+                                                                    {{ $school->school_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
 
                                                             <!-- School Batch -->
                                                             <div class="mb-3">

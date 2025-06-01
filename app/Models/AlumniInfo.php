@@ -28,12 +28,16 @@ class AlumniInfo extends Model
     ];
 
      public function events(){
-        return $this->belongsToMany(Event::class, 'alumni_event', 'alumni_id', 'event_id')
+        return $this->belongsToMany(\App\Models\Event::class, 'alumni_event', 'alumni_id', 'event_id')
             ->withTimestamps()
             ->withPivot('attended_at');
     }
 
     public function connections(){
         return $this->belongsToMany(AlumniInfo::class, 'alumni_connections', 'alumni_id', 'connection_id');
+    }
+
+    public function school(){
+        return $this->belongsTo(\App\Models\School::class, 'school_id');
     }
 }
