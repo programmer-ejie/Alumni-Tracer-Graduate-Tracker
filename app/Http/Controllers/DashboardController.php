@@ -31,85 +31,110 @@ class DashboardController extends Controller
             }
 
 
-                //  [start] page view tracking
-                    $totalPageViews = PageView::where('page', 'landing')->count();
+               // [start] page view tracking
+                $alumniIds = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id');
 
-                    $pageViewsLastWeek = PageView::where('page', 'landing')
-                        ->whereBetween('created_at', [
-                            now()->subWeeks(2)->startOfWeek(),
-                            now()->subWeek()->endOfWeek()
-                        ])->count();
 
-                    $pageViewsThisWeek = PageView::where('page', 'landing')
-                        ->whereBetween('created_at', [
-                            now()->startOfWeek(),
-                            now()->endOfWeek()
-                        ])->count();
+                $totalPageViews = PageView::where('page', 'landing')
+                    ->whereIn('alumni_id', $alumniIds)
+                    ->count();
 
-                    $pageViewsPercent = $pageViewsLastWeek > 0
-                        ? round((($pageViewsThisWeek - $pageViewsLastWeek) / $pageViewsLastWeek) * 100, 1)
-                        : 100;
+                $pageViewsLastWeek = PageView::where('page', 'landing')
+                    ->whereIn('alumni_id', $alumniIds)
+                    ->whereBetween('created_at', [
+                        now()->subWeeks(2)->startOfWeek(),
+                        now()->subWeek()->endOfWeek()
+                    ])->count();
 
-                    $extraPageViews = $pageViewsThisWeek - $pageViewsLastWeek;
-                
+                $pageViewsThisWeek = PageView::where('page', 'landing')
+                    ->whereIn('alumni_id', $alumniIds)
+                    ->whereBetween('created_at', [
+                        now()->startOfWeek(),
+                        now()->endOfWeek()
+                    ])->count();
+
+                $pageViewsPercent = $pageViewsLastWeek > 0
+                    ? round((($pageViewsThisWeek - $pageViewsLastWeek) / $pageViewsLastWeek) * 100, 1)
+                    : 100;
+
+                $extraPageViews = $pageViewsThisWeek - $pageViewsLastWeek;
+
                 // [end] page view tracking
 
-                // [start] alumni user count
-                    $totalUsers = User::count() + AlumniInfo::count();
+              // [start] alumni user count
+                $totalUsers = User::where('school_id', $admin->school_id)->count()
+                    + AlumniInfo::where('school_id', $admin->school_id)->count();
 
-                    $usersLastWeek = User::whereBetween('created_at', [
+                $usersLastWeek = User::where('school_id', $admin->school_id)
+                        ->whereBetween('created_at', [
                             now()->subWeeks(2)->startOfWeek(),
                             now()->subWeek()->endOfWeek()
                         ])->count()
-                        + AlumniInfo::whereBetween('created_at', [
+                    + AlumniInfo::where('school_id', $admin->school_id)
+                        ->whereBetween('created_at', [
                             now()->subWeeks(2)->startOfWeek(),
                             now()->subWeek()->endOfWeek()
                         ])->count();
 
-                    $usersThisWeek = User::whereBetween('created_at', [
+                $usersThisWeek = User::where('school_id', $admin->school_id)
+                        ->whereBetween('created_at', [
                             now()->startOfWeek(),
                             now()->endOfWeek()
                         ])->count()
-                        + AlumniInfo::whereBetween('created_at', [
+                    + AlumniInfo::where('school_id', $admin->school_id)
+                        ->whereBetween('created_at', [
                             now()->startOfWeek(),
                             now()->endOfWeek()
                         ])->count();
 
-                    $usersPercent = $usersLastWeek > 0
-                        ? round((($usersThisWeek - $usersLastWeek) / $usersLastWeek) * 100, 1)
-                        : 100;
+                $usersPercent = $usersLastWeek > 0
+                    ? round((($usersThisWeek - $usersLastWeek) / $usersLastWeek) * 100, 1)
+                    : 100;
 
-                    $extraUsers = $usersThisWeek - $usersLastWeek;
-                    
+                $extraUsers = $usersThisWeek - $usersLastWeek;
                 // [end] alumni user count
 
-                // [start] alumni survey count
+              // [start] alumni survey count
 
-                    $totalSurveys = AlumniSurvey::count();
+               
+                $alumniIds = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id');
 
-                    $surveysLastWeek = AlumniSurvey::whereBetween('created_at', [
-                            now()->subWeeks(2)->startOfWeek(),
-                            now()->subWeek()->endOfWeek()
-                        ])->count();
+               
+                $totalSurveys = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)->count();
 
-                    $surveysThisWeek = AlumniSurvey::whereBetween('created_at', [
-                            now()->startOfWeek(),
-                            now()->endOfWeek()
-                        ])->count();
+                $surveysLastWeek = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)
+                    ->whereBetween('created_at', [
+                        now()->subWeeks(2)->startOfWeek(),
+                        now()->subWeek()->endOfWeek()
+                    ])->count();
 
-                    $surveysPercent = $surveysLastWeek > 0
-                        ? round((($surveysThisWeek - $surveysLastWeek) / $surveysLastWeek) * 100, 1)
-                        : 100;
+                $surveysThisWeek = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)
+                    ->whereBetween('created_at', [
+                        now()->startOfWeek(),
+                        now()->endOfWeek()
+                    ])->count();
 
-                    $extraSurveys = $surveysThisWeek - $surveysLastWeek;
+                $surveysPercent = $surveysLastWeek > 0
+                    ? round((($surveysThisWeek - $surveysLastWeek) / $surveysLastWeek) * 100, 1)
+                    : 100;
+
+                $extraSurveys = $surveysThisWeek - $surveysLastWeek;
 
                 // [end] alumni survey count
 
-                // [start] NLP Sentiment Score
+              // [start] NLP Sentiment Score
                 $positiveWords = file(app_path('NLP/data/positive.txt'), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 $negativeWords = file(app_path('NLP/data/negative.txt'), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-                $surveys = AlumniSurvey::latest()->take(10)->get();
+                // Get alumni IDs for this admin's school
+                $alumniIds = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id');
+
+                // Only get surveys from those alumni
+                $surveys = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)
+                    ->latest()
+                    ->take(10)
+                    ->get();
+
                 $totalPos = 0;
                 $totalNeg = 0;
                 $totalWords = 0;
@@ -154,11 +179,13 @@ class DashboardController extends Controller
                     }
                     $nlpPercent = round($nlpScore * 100);
                 }
-
                 // [end] NLP Sentiment Score
 
-                // [start] NLP Graph Data
-                   $surveysByMonth = AlumniSurvey::select('id', 'created_at',
+               // [start] NLP Graph Data   
+                $alumniIds = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id');
+             
+                $surveysByMonth = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)
+                    ->select('id', 'created_at',
                         'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
                         'q11','q12','q13','q14','q15','q16','q17','q18','q19','q20',
                         'q21','q22','q23','q24','q25','q26','q27','q28','q29','q30',
@@ -215,9 +242,14 @@ class DashboardController extends Controller
                 // [end] NLP Graph Data
 
 
-                // [start] Survey per Day]
+             // [start] Survey per Day
 
-                $surveysByDay = \App\Models\AlumniSurvey::select(
+               
+                $alumniIds = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id');
+
+            
+                $surveysByDay = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)
+                    ->select(
                         'id', 'created_at',
                         'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
                         'q11','q12','q13','q14','q15','q16','q17','q18','q19','q20',
@@ -226,7 +258,7 @@ class DashboardController extends Controller
                     )
                     ->get()
                     ->groupBy(function($survey) {
-                        // Group by date (Y-m-d)
+                    
                         return \Carbon\Carbon::parse($survey->created_at)->format('Y-m-d');
                     });
 
@@ -277,28 +309,45 @@ class DashboardController extends Controller
                 // [end] Survey per Day
 
 
-                // [start] Event Count
+          
+            // [start] Event Count
+     
+            $adminIds = \App\Models\AdminAccount::where('school_id', $admin->school_id)->pluck('id');
 
-                $eventsPerMonth = Event::selectRaw("DATE_FORMAT(date, '%Y-%m') as month, COUNT(*) as count")
+            $eventsPerMonth = Event::whereIn('admin_id', $adminIds)
+                ->selectRaw("DATE_FORMAT(date, '%Y-%m') as month, COUNT(*) as count")
                 ->groupBy('month')
                 ->orderBy('month')
                 ->get();
 
-                $eventsThisMonth = Event::whereMonth('date', now()->month)->whereYear('date', now()->year)->count();
-                $totalAttendees = 0;
-                foreach (Event::withCount('alumni')->get() as $event) {
-                    $totalAttendees += $event->alumni_count;
-                }
-                $mostPopularEvent = Event::withCount('alumni')
-                ->orderByDesc('alumni_count')
-                ->value('title'); 
-                // [end] Event Count
+         
+            $eventsThisMonth = Event::whereIn('admin_id', $adminIds)
+                ->whereMonth('date', now()->month)
+                ->whereYear('date', now()->year)
+                ->count();
 
-                // [start] Week Summary
-                $surveysPerWeek = \App\Models\AlumniSurvey::selectRaw("YEARWEEK(created_at, 1) as week, COUNT(*) as count")
-                ->groupBy('week')
-                ->orderBy('week')
-                ->get();
+      
+            $totalAttendees = 0;
+            foreach (Event::whereIn('admin_id', $adminIds)->withCount('alumni')->get() as $event) {
+                $totalAttendees += $event->alumni_count;
+            }
+
+         
+            $mostPopularEvent = Event::whereIn('admin_id', $adminIds)
+                ->withCount('alumni')
+                ->orderByDesc('alumni_count')
+                ->value('title');
+
+            // [end] Event Count
+
+               // [start] Week Summary
+                $alumniIds = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id');
+
+                $surveysPerWeek = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)
+                    ->selectRaw("YEARWEEK(created_at, 1) as week, COUNT(*) as count")
+                    ->groupBy('week')
+                    ->orderBy('week')
+                    ->get();
                 // [end] Week Summary
 
                 return view('admin.dashboard', compact(

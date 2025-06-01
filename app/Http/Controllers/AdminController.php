@@ -37,25 +37,49 @@ class AdminController extends Controller
                 ]);                      
     }
 
-    function gotoAnnouncements()
-    {
-         $admin = $this->getAuthenticatedAdmin();
+            public function gotoAnnouncements()
+            {
+                $admin = $this->getAuthenticatedAdmin();
                 if (!$admin) {   
-                return redirect()->route('login')->with('error', 'Please log in first.');
-                } 
-           return view('admin.announcements')->with('admin',$admin);
-    }
+                    return redirect()->route('login')->with('error', 'Please log in first.');
+                }
+
+              
+                $announcements = \App\Models\Announcement::whereIn('admin_id', function($query) use ($admin) {
+                        $query->select('id')
+                            ->from('admin_accounts')
+                            ->where('school_id', $admin->school_id);
+                    })
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+                return view('admin.announcements', [
+                    'admin' => $admin,
+                    'announcements' => $announcements
+                ]);
+            }
+            
     function gotoSurvey()
-    {
-              $admin = $this->getAuthenticatedAdmin();
-                if (!$admin) {   
+        {
+            $admin = $this->getAuthenticatedAdmin();
+            if (!$admin) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
-                } 
-               $surveys = AlumniSurvey::all();
-               $alumni_info = AlumniInfo::all();
-            return view('admin.survey')->with(['admin' => $admin, 'surveys' => $surveys, 'alumni' => $alumni_info]);
-      
-    }
+            }
+
+         
+            $alumni_info = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->get();
+            $alumniIds = $alumni_info->pluck('id');
+
+          
+            $surveys = \App\Models\AlumniSurvey::whereIn('alumni_id', $alumniIds)->get();
+
+            return view('admin.survey')->with([
+                'admin' => $admin,
+                'surveys' => $surveys,
+                'alumni' => $alumni_info
+            ]);
+        }
+
     function gotoNotifications(){
         $admin = $this->getAuthenticatedAdmin();
             if (!$admin) {
@@ -190,7 +214,7 @@ class AdminController extends Controller
                 $data['admin_id'] = $admin->id;
 
                 $event = Event::create($data);
-                 $alumniList = AlumniInfo::all();
+                 $alumniList = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->get();
                     foreach ($alumniList as $alumni) {
                         Notification::create([
                             'user_id' => $alumni->id,
@@ -229,7 +253,7 @@ class AdminController extends Controller
 
                     $event->update($data);
 
-                     $alumniList = AlumniInfo::all();
+                     $alumniList = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->get();
                         foreach ($alumniList as $alumni) {
                             Notification::create([
                                 'user_id' => $alumni->id,
@@ -261,7 +285,7 @@ class AdminController extends Controller
                     $eventTitle = $event->title;
                     $event->delete();
 
-                     $alumniList = AlumniInfo::all();
+                     $alumniList = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->get();
                         foreach ($alumniList as $alumni) {
                             Notification::create([
                                 'user_id' => $alumni->id,

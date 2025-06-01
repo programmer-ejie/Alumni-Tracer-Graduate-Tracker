@@ -72,6 +72,7 @@ class GmailCheckerController extends Controller
                 PageView::create([
                     'page' => 'landing',
                     'ip_address' => request()->ip(),
+                    'alumni_id' => $alumni->id,
                 ]);
                 return redirect()->route('alumni.dashboard');
             }

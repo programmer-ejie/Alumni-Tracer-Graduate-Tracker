@@ -21,20 +21,24 @@ class AlumniController extends Controller
 
    function gotoDashboard()
         {
-            $alumni = $this->getAuthenticatedAlumni();
+        $alumni = $this->getAuthenticatedAlumni();
             if (!$alumni) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
             } 
-             $upcomingEvents = \App\Models\Event::where('date', '>=', now())
-            ->orderBy('date', 'asc')
-            ->take(3)
-            ->get();
+            $adminIds = \App\Models\AdminAccount::where('school_id', $alumni->school_id)->pluck('id');
 
-            $recentAnnouncements = \App\Models\Announcement::orderBy('created_at', 'desc')
-            ->take(3)
-            ->get();
+             $upcomingEvents = \App\Models\Event::whereIn('admin_id', $adminIds)
+                ->where('date', '>=', now())
+                ->orderBy('date', 'asc')
+                ->take(3)
+                ->get();
 
-            $latestNotifications = \App\Models\Notification::where('user_type', 'alumni')
+              $recentAnnouncements = \App\Models\Announcement::whereIn('admin_id', $adminIds)
+                ->orderBy('created_at', 'desc')
+                ->take(3)
+                ->get();
+
+           $latestNotifications = \App\Models\Notification::where('user_type', 'alumni')
             ->where('user_id', $alumni->id)
             ->orderBy('created_at', 'desc')
             ->take(3)
@@ -79,15 +83,22 @@ class AlumniController extends Controller
         return view('alumni_folder.profile', compact('alumni', 'schools')); 
     }
 
-    function gotoAnnouncements()
-    {
-         $alumni = $this->getAuthenticatedAlumni();
-            if (!$alumni) {   
-                return redirect()->route('login')->with('error', 'Please log in first.');
-            } 
-            return view('alumni_folder.announcements')->with('alumni', $alumni);
-         
+  function gotoAnnouncements(){
+        $alumni = $this->getAuthenticatedAlumni();
+        if (!$alumni) {   
+            return redirect()->route('login')->with('error', 'Please log in first.');
+        }
+
+        $adminIds = \App\Models\AdminAccount::where('school_id', $alumni->school_id)->pluck('id');
+    
+        $announcements = \App\Models\Announcement::whereIn('admin_id', $adminIds)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('alumni_folder.announcements', compact('alumni', 'announcements'));
     }
+
+    
     function gotoSurvey()
     {
        $alumni = $this->getAuthenticatedAlumni();
@@ -97,45 +108,57 @@ class AlumniController extends Controller
              $survey = AlumniSurvey::where('alumni_id', $alumni->id)->first();
                 return view('alumni_folder.survey')->with(['alumni' => $alumni, 'survey' => $survey]);
     }
-    function gotoNotifications()
-    {
-         $alumni = $this->getAuthenticatedAlumni();
-    if (!$alumni) {
-        return redirect()->route('login')->with('error', 'Please log in first.');
-    }
 
-    $notifications = Notification::where('user_type', 'alumni')
-        ->where('user_id', $alumni->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
 
-    $latestNotifications = $notifications->take(3);
-    $earlierNotifications = $notifications->slice(3);
 
-    return view('alumni_folder.notifications', compact('alumni', 'latestNotifications', 'earlierNotifications'));
-    }
+        function gotoNotifications(){
+            $alumni = $this->getAuthenticatedAlumni();
+            if (!$alumni) {
+                return redirect()->route('login')->with('error', 'Please log in first.');
+            }
 
-    function gotoEvents(Request $request){
-          $alumni = $this->getAuthenticatedAlumni();
+           
+            $notifications = \App\Models\Notification::orderBy('created_at', 'desc')->get();
+
+        
+           $filtered = $notifications->filter(function($notification) use ($alumni) {
+                return $notification->user_type === 'alumni' && $notification->user_id == $alumni->id;
+            })->values();
+
+            $latestNotifications = $filtered->take(3);
+            $earlierNotifications = $filtered->slice(3);
+
+            return view('alumni_folder.notifications', compact('alumni', 'latestNotifications', 'earlierNotifications'));
+        }
+
+   function gotoEvents(Request $request){
+            $alumni = $this->getAuthenticatedAlumni();
             if (!$alumni) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
             }
 
+           
+            $adminIds = \App\Models\AdminAccount::where('school_id', $alumni->school_id)->pluck('id');
+
             $filter = $request->input('filter', 'all');
             $today = date('Y-m-d');
 
+          
+            $query = Event::whereIn('admin_id', $adminIds);
+
             if ($filter === 'completed') {
-                $events = Event::where('date', '<', $today)->orderBy('date', 'desc')->get();
+                $query->where('date', '<', $today);
             } elseif ($filter === 'upcoming') {
-                $events = Event::where('date', '>=', $today)->orderBy('date', 'desc')->get();
+                $query->where('date', '>=', $today);
             } elseif ($filter === 'my') {
-                $events = $alumni->events()->orderBy('date', 'desc')->get();
-            } else {
-                $events = Event::orderBy('date', 'desc')->get();
+                $events = $alumni->events()->whereIn('admin_id', $adminIds)->orderBy('date', 'desc')->get();
+                return view('alumni_folder.events', compact('alumni', 'events'));
             }
 
+            $events = $query->orderBy('date', 'desc')->get();
+
             return view('alumni_folder.events', compact('alumni', 'events'));
-    }
+        }
 
     function gotoHome()
     {
@@ -189,11 +212,11 @@ class AlumniController extends Controller
 
             $alumni->update($data);
 
-            $admins = AdminAccount::all();
-                foreach ($admins as $admin) {
-                    Notification::create([
-                        'user_id' => $admin->id,
-                        'user_type' => 'admin',
+            $admins = AdminAccount::where('school_id', $alumni->school_id)->get();
+            foreach ($admins as $admin) {
+                Notification::create([
+                    'user_id' => $admin->id,
+                    'user_type' => 'admin',
                         'type' => 'profile_update',
                         'message' => "{$alumni->fullname} updated their profile.",
                     ]);
@@ -212,7 +235,7 @@ class AlumniController extends Controller
          public function deleteAccount(Request $request){
             $alumni = $this->getAuthenticatedAlumni();
             if ($alumni) {
-                 $admins = AdminAccount::all();
+                 $admins = AdminAccount::where('school_id', $alumni->school_id)->get();
                     foreach ($admins as $admin) {
                     Notification::create([
                             'user_id' => $admin->id,
@@ -286,7 +309,7 @@ class AlumniController extends Controller
                     $data
                 );
 
-                 $admins = AdminAccount::all();
+                 $admins = AdminAccount::where('school_id', $alumni->school_id)->get();
                     foreach ($admins as $admin) {
                         Notification::create([
                             'user_id' => $admin->id,
@@ -316,7 +339,7 @@ class AlumniController extends Controller
 
                      $event = Event::find($eventId);
 
-                      $admins = AdminAccount::all();
+                      $admins = AdminAccount::where('school_id', $alumni->school_id)->get();
                         foreach ($admins as $admin) {
                             Notification::create([
                                 'user_id' => $admin->id,
@@ -348,7 +371,7 @@ class AlumniController extends Controller
 
                         $event = Event::find($eventId);
 
-                        $admins = AdminAccount::all();
+                        $admins = AdminAccount::where('school_id', $alumni->school_id)->get();
                             foreach ($admins as $admin) {
                                 Notification::create([
                                     'user_id' => $admin->id,

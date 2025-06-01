@@ -384,15 +384,7 @@
       <div class="row">
         <!-- [ sample-page ] start -->
         <div class="card construction-card">
-          <div class="card-body">
-              @php
-                  use App\Models\Announcement;
-                  $announcements = \App\Models\Announcement::where('mention_id', $alumni->id)
-                      ->orWhere('mention_id', 0)
-                      ->orderBy('created_at', 'desc')
-                      ->get();
-              @endphp
-
+          <div class="card-body"> 
               <div class="col-md-12 col-xl-12">
                   <h5 class="mb-3">Announcements</h5>
                   <div class="card border-0 shadow-sm">

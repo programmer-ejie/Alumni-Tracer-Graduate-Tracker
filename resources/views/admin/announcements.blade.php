@@ -508,11 +508,7 @@ window.alumniMentions = [
                               <h5 class="mb-3"> Announcements</h5>
                               <div class="card">
                                 <div class="list-group list-group-flush">
-                                  @php
-                                      use App\Models\Announcement;
-                                      $announcements = \App\Models\Announcement::orderBy('created_at', 'desc')->get();
-                                  @endphp
-                                  
+                                
                                   @if($announcements->isEmpty())
                                       <div id="no-announcement-alert" class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
                                           <strong>No Data Available</strong>

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PageView extends Model
 {
-     protected $fillable = ['page', 'ip_address'];
+    protected $fillable = ['page', 'ip_address', 'alumni_id'];
 }

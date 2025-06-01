@@ -469,30 +469,25 @@
                         </div> --}}
                       </div>
 
-
-
                              <div class="col-md-12 col-xl-12">
-<h5 class="mb-3">Alumni Survey Data</h5>
-<div class="d-flex flex-row flex-wrap align-items-end gap-2">
-  <div>
-    <label for="batchStart" class="form-label mb-1">Batch Start Year</label>
-    <input type="number" class="form-control" id="batchStart" placeholder="e.g., 2016"
-           maxlength="4" oninput="limitToFourDigits(this)" style="width: 130px;">
-  </div>
-  <div>
-    <label for="batchEnd" class="form-label mb-1">Batch End Year</label>
-    <input type="number" class="form-control" id="batchEnd" placeholder="e.g., 2020"
-           maxlength="4" oninput="limitToFourDigits(this)" style="width: 130px;">
-  </div>
-  <div>
-    <button class="btn btn-primary" onclick="filterBatch()" title="Filter" style = "margin-top: -27px;">
-      <i class="fas fa-search"></i>
-    </button>
-  </div>
-</div><br><hr>
-
-
-
+                                  <h5 class="mb-3">Alumni Survey Data</h5>
+                                  <div class="d-flex flex-row flex-wrap align-items-end gap-2">
+                                    <div>
+                                      <label for="batchStart" class="form-label mb-1">Batch Start Year</label>
+                                      <input type="number" class="form-control" id="batchStart" placeholder="e.g., 2016"
+                                            maxlength="4" oninput="limitToFourDigits(this)" style="width: 130px;">
+                                    </div>
+                                    <div>
+                                      <label for="batchEnd" class="form-label mb-1">Batch End Year</label>
+                                      <input type="number" class="form-control" id="batchEnd" placeholder="e.g., 2020"
+                                            maxlength="4" oninput="limitToFourDigits(this)" style="width: 130px;">
+                                    </div>
+                                    <div>
+                                      <button class="btn btn-primary" onclick="filterBatch()" title="Filter" style = "margin-top: -27px;">
+                                        <i class="fas fa-search"></i>
+                                      </button>
+                                    </div>
+                                  </div><br><hr>
 
                                 <div class="card tbl-card">
                                   <div class="card-body">
@@ -507,39 +502,41 @@
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                          @if($surveys->isEmpty())
-                                                <tr style="background-color: #f8d7da; color: #842029;">
-                                                    <td colspan="5" class="text-center fw-bold">No Alumni Survey Data Yet!</td>
-                                                </tr>
-                                            @else
-                                                @foreach($surveys as $survey)
-                                                    @php
-                                                        $alumniData = $alumni->firstWhere('id', $survey->alumni_id);
-                                                    @endphp
-                                                    <tr style = "border-bottom: 1px solid #dee2e6;">
-                                                        <td>
-                                                            <a href="#" class="text-muted">{{ $alumniData->email ?? 'N/A' }}</a>
-                                                        </td>
-                                                        <td>{{ $alumniData->fullname ?? 'N/A' }}</td>
-                                                        <td>{{ $alumniData->age ?? 'N/A' }}</td>
-                                                        <td>
-                                                            <span class="d-flex align-items-center gap-2">
-                                                                <i class="fas fa-circle text-success f-10 m-r-5"></i>
-                                                                {{ $alumniData->batch ?? 'N/A' }}
-                                                            </span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <a href="{{ route('admin.viewData', ['id' => $survey->id]) }}">
-                                                                <i class="fas fa-info-circle"></i>
-                                                                <span style="margin-left: 5px;">View</span>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-
-                                        </tbody>
+                              <tbody>
+                                  @if($surveys->isEmpty())
+                                      <tr style="background-color: #f8d7da; color: #842029;">
+                                          <td colspan="5" class="text-center fw-bold">No Alumni Survey Data Yet!</td>
+                                      </tr>
+                                  @else
+                                      @foreach($surveys as $survey)
+                                          @php
+                                              $alumniData = $alumni->firstWhere('id', $survey->alumni_id);
+                                          @endphp
+                                          <tr style="border-bottom: 1px solid #dee2e6;">
+                                              <td>
+                                                  <a href="#" class="text-muted">{{ $alumniData->email ?? 'N/A' }}</a>
+                                              </td>
+                                              <td>{{ $alumniData->fullname ?? 'N/A' }}</td>
+                                              <td>{{ $alumniData->age ?? 'N/A' }}</td>
+                                              <td>
+                                                  <span class="d-flex align-items-center gap-2">
+                                                      <i class="fas fa-circle text-success f-10 m-r-5"></i>
+                                                      {{ $alumniData->batch ?? 'N/A' }}
+                                                  </span>
+                                              </td>
+                                              <td class="text-center">
+                                                  <a href="{{ route('admin.viewData', ['id' => $survey->id]) }}">
+                                                      <i class="fas fa-info-circle"></i>
+                                                      <span style="margin-left: 5px;">View</span>
+                                                  </a>
+                                              </td>
+                                          </tr>
+                                      @endforeach
+                                      <tr id="noResultsRow" style="background-color: #f8d7da; color: #842029; display: none;" role="alert">
+                                          <td colspan="5" class="text-center fw-bold">No Survey Data found.</td>
+                                      </tr>
+                                  @endif
+                              </tbody>
                                     </table>
                                    <div id="noResultsMessage" class="alert alert-danger text-center d-none" role="alert">
                                       No Survey Data found.
@@ -585,18 +582,21 @@ function limitToFourDigits(input) {
 function filterBatch() {
     let startVal = document.getElementById('batchStart').value;
     let endVal = document.getElementById('batchEnd').value;
-    const noResults = document.getElementById('noResultsMessage');
-    const rows = document.querySelectorAll('#survey-table tbody tr');
+    const noResultsRow = document.getElementById('noResultsRow');
+    // Only select survey rows, skip the "No Alumni Survey Data Yet!" row and the noResultsRow
+    const rows = Array.from(document.querySelectorAll('#survey-table tbody tr'))
+        .filter(row => !row.id && !row.querySelector('td[colspan]'));
 
+    // If there are no survey rows at all, just hide the noResultsRow and return
+    if (rows.length === 0) {
+        if (noResultsRow) noResultsRow.style.display = 'none';
+        return;
+    }
+
+    // If both fields are empty, show all rows and hide the alert
     if (startVal === '' && endVal === '') {
-        rows.forEach(row => {
-            if (!row.querySelector('td[colspan]')) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-        noResults.classList.add('d-none');
+        rows.forEach(row => row.style.display = '');
+        if (noResultsRow) noResultsRow.style.display = 'none';
         return;
     }
 
@@ -605,32 +605,36 @@ function filterBatch() {
     let matchFound = false;
 
     rows.forEach(row => {
-        if (row.querySelector('td[colspan]')) {
-            row.style.display = 'none';
-            return;
-        }
-
         const batchText = row.querySelector('td:nth-child(4)')?.innerText.trim();
-        if (!batchText.includes('-')) {
+        if (!batchText) {
             row.style.display = 'none';
             return;
         }
 
-        const [batchStart, batchEnd] = batchText.split('-').map(num => parseInt(num.trim()));
-
-      
-        if (!isNaN(start) && !isNaN(end) && batchStart === start && batchEnd === end) {
-            row.style.display = '';
-            matchFound = true;
+        if (batchText.includes('-')) {
+            const [batchStart, batchEnd] = batchText.split('-').map(num => parseInt(num.trim()));
+            if (!isNaN(start) && !isNaN(end) && batchStart === start && batchEnd === end) {
+                row.style.display = '';
+                matchFound = true;
+            } else {
+                row.style.display = 'none';
+            }
         } else {
-            row.style.display = 'none';
+            // Handle single year batch
+            if (!isNaN(start) && !isNaN(end) && parseInt(batchText) === start && parseInt(batchText) === end) {
+                row.style.display = '';
+                matchFound = true;
+            } else {
+                row.style.display = 'none';
+            }
         }
     });
 
-    if (!matchFound) {
-        noResults.classList.remove('d-none');
+    // Show/hide the "No Results" row if there are filter values and no matches
+    if ((startVal !== '' || endVal !== '') && !matchFound) {
+        if (noResultsRow) noResultsRow.style.display = '';
     } else {
-        noResults.classList.add('d-none');
+        if (noResultsRow) noResultsRow.style.display = 'none';
     }
 }
 </script>

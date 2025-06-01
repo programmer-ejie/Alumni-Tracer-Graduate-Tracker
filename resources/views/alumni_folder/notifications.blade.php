@@ -417,9 +417,9 @@
                           </div>
                       </div>
                   @empty
-                      <div class="list-group-item border rounded mb-2">
-                          <p class="mb-0 text-muted">No notifications found.</p>
-                      </div>
+                     <div class="alert alert-danger text-center my-3" role="alert" style="background: #f8d7da;">
+                      <strong>No Notification Yet!</strong>
+                  </div>
                   @endforelse
 
                 {{-- Earlier Section --}}
