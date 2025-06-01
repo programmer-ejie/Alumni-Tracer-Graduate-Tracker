@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use PHPInsight\Sentiment;
+
 use Illuminate\Http\Request;
+use PHPInsight\Sentiment;
 use App\Models\User;
 use App\Models\AdminAccount;
 use App\Models\AlumniInfo;
@@ -12,20 +13,20 @@ use Illuminate\Support\Facades\Http;
 use App\Models\PageView;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SuperAdminAccount;
 
-class DashboardController extends Controller
+class SuperController extends Controller
 {
-
-        private function getAuthenticatedAdmin(){
+      private function getAuthenticatedSuper(){
             if (!session()->has('admin_logged_in') || !session('admin_id')) {
                     return null;
             }
 
-            return AdminAccount::find(session('admin_id'));
+            return SuperAdminAccount::find(session('admin_id'));
         }
          public function index(){
 
-            $admin = $this->getAuthenticatedAdmin();
+            $admin = $this->getAuthenticatedSuper();
             if (!$admin) {
                 return redirect('/')->with('error', 'Please log in first.');
             }
@@ -301,7 +302,7 @@ class DashboardController extends Controller
                 ->get();
                 // [end] Week Summary
 
-                return view('admin.dashboard', compact(
+                return view('super_admin.dashboard', compact(
                     'admin',
                     'totalPageViews',
                     'pageViewsPercent',

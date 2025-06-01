@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SuperController;
 use App\Models\PageView;
 
 Route::get('/', function () {
@@ -15,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/AuthLogin',[LoginController::class, 'gotoLogin'])->name('login');
+Route::get('/SuperAuth',[LoginController::class, 'gotoSuperLogin'])->name('Superlogin');
 Route::get('/',[LoginController::class, 'gotoHome'])->name('home');
 Route::get('/Alumni_CheckGmail',[AlumniController::class, 'gotoAlumni'])->name('alumni');
 
@@ -44,6 +46,7 @@ Route::get('/alumni_events', [AlumniController::class, 'gotoEvents'])->name('alu
 Route::get('/alumni_logout', [AlumniController::class, 'gotoHome'])->name('alumni.logout');
 
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
+Route::post('/super/login', [AdminAuthController::class, 'superLogin'])->name('super.login');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 Route::match(['get', 'post'], '/admin_profile', [AdminController::class, 'gotoProfile'])->name('admin.profile');
@@ -73,3 +76,4 @@ Route::delete('/admin/events/{event}', [AdminController::class, 'destroyEvent'])
 Route::post('/alumni_events/{event}/attend', [AlumniController::class, 'attendEvent'])->name('alumni.events.attend');
 Route::delete('/alumni_events/{event}/unattend', [AlumniController::class, 'unattendEvent'])->name('alumni.events.unattend');
 
+Route::get('/super/dashboard', [SuperController::class, 'index'])->name('super_admin.dashboard');

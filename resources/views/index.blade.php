@@ -24,16 +24,8 @@
   <link href="landing_page/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="landing_page/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <!-- Main CSS File -->
+  
   <link href="landing_page/assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: eNno
-  * Template URL: https://bootstrapmade.com/enno-free-simple-bootstrap-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
@@ -52,6 +44,9 @@
       </nav>
 
       <a class="btn-getstarted" href="{{route('login')}}">Administrator</a>
+      <a class="btn-getstarted" href="{{route('Superlogin')}}">Super Admin</a>
+      <a class="btn-getstarted" href="{{route('alumni')}}">Alumni</a>
+      
 
     </div>
   </header>

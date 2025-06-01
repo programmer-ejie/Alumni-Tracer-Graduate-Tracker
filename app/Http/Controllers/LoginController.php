@@ -14,5 +14,9 @@ class LoginController extends Controller
     {
         return view('index');
     }
+
+    function gotoSuperLogin(){
+        return view('superlogin');
+    }
 }
 
