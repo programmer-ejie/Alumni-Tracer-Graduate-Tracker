@@ -11,6 +11,7 @@ class AdminAccount extends Model
         'password',
         'fullname',
         'phone',
+        'school_id',
         'gender',
         'address',
         'github',
@@ -20,4 +21,8 @@ class AdminAccount extends Model
         'profile_pic'
     ];
     protected $hidden = ['password'];
+
+    public function school(){
+            return $this->belongsTo(School::class);
+        }
 }

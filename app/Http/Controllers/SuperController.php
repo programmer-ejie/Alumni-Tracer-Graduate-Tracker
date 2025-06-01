@@ -11,6 +11,7 @@ use App\Models\AlumniSurvey;
 use App\Models\Event;
 use Illuminate\Support\Facades\Http;
 use App\Models\PageView;
+use App\Models\School;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\SuperAdminAccount;
@@ -218,7 +219,7 @@ class SuperController extends Controller
 
                 // [start] Survey per Day]
 
-                $surveysByDay = \App\Models\AlumniSurvey::select(
+                $surveysByDay = AlumniSurvey::select(
                         'id', 'created_at',
                         'q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
                         'q11','q12','q13','q14','q15','q16','q17','q18','q19','q20',
@@ -296,7 +297,7 @@ class SuperController extends Controller
                 // [end] Event Count
 
                 // [start] Week Summary
-                $surveysPerWeek = \App\Models\AlumniSurvey::selectRaw("YEARWEEK(created_at, 1) as week, COUNT(*) as count")
+                $surveysPerWeek = AlumniSurvey::selectRaw("YEARWEEK(created_at, 1) as week, COUNT(*) as count")
                 ->groupBy('week')
                 ->orderBy('week')
                 ->get();
@@ -326,4 +327,134 @@ class SuperController extends Controller
                     'surveysPerWeek'            
                 ));
         }
+
+       public function schoolApproved() {
+            $admin = $this->getAuthenticatedSuper();
+            if (!$admin) {
+                return redirect('/')->with('error', 'Please log in first.');
+            }
+            $schools = School::all(); 
+            return view('super_admin.school', compact('admin', 'schools'));
+        }
+
+       
+            public function storeSchool(Request $request){
+                $request->validate([
+                    'school_name' => 'required|string|max:255',
+                    'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+
+                $logoPath = null;
+                if ($request->hasFile('logo')) {
+                    $file = $request->file('logo');
+                    $filename = uniqid() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('logos'), $filename);
+                    $logoPath = $filename; // Save only the filename
+                }
+
+                School::create([
+                    'school_name' => $request->school_name,
+                    'logo' => $logoPath,
+                ]);
+
+                return redirect()->route('super_admin.school')->with('success', 'School registered successfully!');
+            }
+
+            public function updateSchool(Request $request, $id){
+                $request->validate([
+                    'school_name' => 'required|string|max:255',
+                    'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+
+                $school = School::findOrFail($id);
+
+                $logoPath = $school->logo;
+                if ($request->hasFile('logo')) {
+                    $file = $request->file('logo');
+                    $filename = uniqid() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('logos'), $filename);
+                    $logoPath = $filename;
+                }
+
+                $school->update([
+                    'school_name' => $request->school_name,
+                    'logo' => $logoPath,
+                ]);
+
+                return redirect()->route('super_admin.school')->with('success', 'School updated successfully!');
+            }
+         public function destroySchool($id){
+                    $school = School::findOrFail($id);
+                    $school->delete();
+
+                    return redirect()->route('super_admin.school')->with('success', 'School deleted successfully!');
+                }
+        
+
+  
+        public function adminApproved() {
+            $admin = $this->getAuthenticatedSuper();
+            if (!$admin) {
+                return redirect('/')->with('error', 'Please log in first.');
+            }
+            $schools = School::all();
+            return view('super_admin.admin', compact('admin', 'schools'));  
+        }
+
+       public function adminIndex(){
+                $admin = $this->getAuthenticatedSuper(); 
+                $admins = AdminAccount::with('school')->get();
+                $schools = School::all();
+                return view('super_admin.admin', compact('admin', 'admins', 'schools'));
+            }
+
+        
+
+                public function adminStore(Request $request)
+                {
+                    $request->validate([
+                        'fullname' => 'required|string|max:255',
+                        'email' => 'required|email|unique:admin_accounts,email',
+                        'password' => [
+                            'required',
+                            'string',
+                            'min:3'
+                        ],
+                        'school_id' => 'required|exists:schools,id',
+                    ]);
+
+                    AdminAccount::create([
+                        'fullname' => $request->fullname,
+                        'email' => $request->email,
+                        'password' => bcrypt($request->password),
+                        'school_id' => $request->school_id,
+                    ]);
+
+                    return redirect()->route('super_admin.accounts')->with('success', 'Admin created!');
+                }
+
+            public function adminUpdate(Request $request, $id)
+            {
+                $request->validate([
+                    'fullname' => 'required|string|max:255',
+                    'email' => 'required|email|unique:admin_accounts,email,' . $id,
+                ]);
+
+                $admin = AdminAccount::findOrFail($id);
+                $admin->fullname = $request->fullname;
+                $admin->email = $request->email;
+                $admin->save();
+
+                return redirect()->route('super_admin.accounts')->with('success', 'Admin updated successfully!');
+            }
+
+            public function adminDestroy($id)
+                {
+                    $admin = AdminAccount::findOrFail($id);
+                    $admin->delete();
+
+                    return redirect()->route('super_admin.accounts')->with('success', 'Admin deleted successfully!');
+                }
+
+   
 }

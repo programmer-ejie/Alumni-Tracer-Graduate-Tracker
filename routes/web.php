@@ -77,3 +77,13 @@ Route::post('/alumni_events/{event}/attend', [AlumniController::class, 'attendEv
 Route::delete('/alumni_events/{event}/unattend', [AlumniController::class, 'unattendEvent'])->name('alumni.events.unattend');
 
 Route::get('/super/dashboard', [SuperController::class, 'index'])->name('super_admin.dashboard');
+Route::get('/super/school', [SuperController::class, 'schoolApproved'])->name('super_admin.school');
+Route::post('/super/school/store', [SuperController::class, 'storeSchool'])->name('super_admin.school.store');
+Route::put('/super/school/{id}/update', [SuperController::class, 'updateSchool'])->name('super_admin.school.update');
+Route::delete('/super/school/{id}/destroy', [SuperController::class, 'destroySchool'])->name('super_admin.school.destroy');
+Route::prefix('super_admin')->name('super_admin.')->group(function () {
+    Route::get('/accounts', [SuperController::class, 'adminIndex'])->name('accounts');
+    Route::post('/admin/store', [SuperController::class, 'adminStore'])->name('admin.store');
+    Route::put('/admin/{admin}/update', [SuperController::class, 'adminUpdate'])->name('admin.update');
+    Route::delete('/admin/{admin}/destroy', [SuperController::class, 'adminDestroy'])->name('admin.destroy');
+});
