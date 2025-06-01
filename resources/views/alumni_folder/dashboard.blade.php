@@ -362,11 +362,9 @@
     <div class="card shadow-sm border-0" style="background: linear-gradient(90deg, #f8fafc 60%, #e3f0ff 100%);">
         <div class="card-body d-flex align-items-center py-4 px-4">
             @if($alumni->profile_pic)
-                <img src="{{ asset('images/' . $alumni->profile_pic) }}" alt="user-image" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
+                <img src="{{ asset('images/' . ($alumni->profile_pic ?? 'default.jpg')) }}" alt="user-image" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
             @else
-                <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light border border-3 border-primary shadow-sm" style="width: 80px; height: 80px;">
-                    <i class="ti ti-user-circle text-primary" style="font-size: 2.8rem;"></i>
-                </span>
+              <img src="{{ asset('images/' . ($alumni->profile_pic ?? 'default.jpg')) }}" alt="user-image" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
             @endif
             <div class="ms-4">
                 <h3 class="mb-1 fw-bold" style="color: #2a5caa;">Welcome back, {{ $alumni->fullname ?? 'Alumni' }}!</h3>
