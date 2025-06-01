@@ -13,7 +13,7 @@
   <meta name="author" content="CodedThemes">
 <style>
     body {
-        background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center;
+        /* background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center; */
         background-size: cover;
         font-family: 'Public Sans', sans-serif; 
     

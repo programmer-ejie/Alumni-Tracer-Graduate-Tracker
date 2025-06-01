@@ -27,13 +27,9 @@
 <link rel="stylesheet" href="main_template/dist/assets/css/style.css" id="main-style-link" >
 <link rel="stylesheet" href="main_template/dist/assets/css/style-preset.css" >
 <style>
-    *{
-        color: black; 
-        font-weight: bolder;
-         text-decoration: none;
-    }
+   
     body {
-        background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center;
+        /* background: url('{{ asset('images/alumni_bg.png') }}') no-repeat center center; */
         background-size: cover;
         font-family: 'Public Sans', sans-serif; 
     }
@@ -127,7 +123,7 @@
                         <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="">
                         <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
                     </div>
-                    <h5 class="text-secondary f-w-400">Forgot Password?</h5>
+                    {{-- <h5 class="text-secondary f-w-400">Forgot Password?</h5> --}}
                     </div>
                     <div class="d-grid mt-4">
                         <button type="submit" class="btn btn-primary">Login</button>
