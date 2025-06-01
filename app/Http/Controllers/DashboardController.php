@@ -25,7 +25,11 @@ class DashboardController extends Controller
         }
          public function index(){
 
-          $admin = $this->getAuthenticatedAdmin();
+            $admin = $this->getAuthenticatedAdmin();
+            if (!$admin) {
+                return redirect('/')->with('error', 'Please log in first.');
+            }
+
 
                 //  [start] page view tracking
                     $totalPageViews = PageView::where('page', 'landing')->count();

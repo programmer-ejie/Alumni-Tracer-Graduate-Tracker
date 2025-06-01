@@ -137,6 +137,7 @@ class AlumniController extends Controller
 
     function gotoHome()
     {
+         session()->flush();
         return view('index');
     }
 

@@ -11,6 +11,7 @@
   <meta name="description" content="Mantis is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
   <meta name="keywords" content="Mantis, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template">
   <meta name="author" content="CodedThemes">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     .step {
@@ -468,10 +469,31 @@
                         </div> --}}
                       </div>
 
-                      
+
 
                              <div class="col-md-12 col-xl-12">
-                                <h5 class="mb-3">Alumni Survey Data</h5>
+<h5 class="mb-3">Alumni Survey Data</h5>
+<div class="d-flex flex-row flex-wrap align-items-end gap-2">
+  <div>
+    <label for="batchStart" class="form-label mb-1">Batch Start Year</label>
+    <input type="number" class="form-control" id="batchStart" placeholder="e.g., 2016"
+           maxlength="4" oninput="limitToFourDigits(this)" style="width: 130px;">
+  </div>
+  <div>
+    <label for="batchEnd" class="form-label mb-1">Batch End Year</label>
+    <input type="number" class="form-control" id="batchEnd" placeholder="e.g., 2020"
+           maxlength="4" oninput="limitToFourDigits(this)" style="width: 130px;">
+  </div>
+  <div>
+    <button class="btn btn-primary" onclick="filterBatch()" title="Filter" style = "margin-top: -27px;">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</div><br><hr>
+
+
+
+
                                 <div class="card tbl-card">
                                   <div class="card-body">
                                     <div class="table-responsive ">
@@ -519,11 +541,17 @@
 
                                         </tbody>
                                     </table>
+                                   <div id="noResultsMessage" class="alert alert-danger text-center d-none" role="alert">
+                                      No Survey Data found.
+                                  </div>
+
 
                                     </div>
                                   </div>
                                 </div>
                               </div>
+
+                              
                    </div>
               </div>
          </div>
@@ -546,6 +574,67 @@
       </div>
     </div>
   </footer>
+<script>
+
+function limitToFourDigits(input) {
+  if (input.value.length > 4) {
+    input.value = input.value.slice(0, 4);
+  }
+}
+
+function filterBatch() {
+    let startVal = document.getElementById('batchStart').value;
+    let endVal = document.getElementById('batchEnd').value;
+    const noResults = document.getElementById('noResultsMessage');
+    const rows = document.querySelectorAll('#survey-table tbody tr');
+
+    if (startVal === '' && endVal === '') {
+        rows.forEach(row => {
+            if (!row.querySelector('td[colspan]')) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        noResults.classList.add('d-none');
+        return;
+    }
+
+    let start = parseInt(startVal);
+    let end = parseInt(endVal);
+    let matchFound = false;
+
+    rows.forEach(row => {
+        if (row.querySelector('td[colspan]')) {
+            row.style.display = 'none';
+            return;
+        }
+
+        const batchText = row.querySelector('td:nth-child(4)')?.innerText.trim();
+        if (!batchText.includes('-')) {
+            row.style.display = 'none';
+            return;
+        }
+
+        const [batchStart, batchEnd] = batchText.split('-').map(num => parseInt(num.trim()));
+
+      
+        if (!isNaN(start) && !isNaN(end) && batchStart === start && batchEnd === end) {
+            row.style.display = '';
+            matchFound = true;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    if (!matchFound) {
+        noResults.classList.remove('d-none');
+    } else {
+        noResults.classList.add('d-none');
+    }
+}
+</script>
+
 
   <!-- [Page Specific JS] start -->
   <script src="../main_template/dist/assets/js/plugins/apexcharts.min.js"></script>
