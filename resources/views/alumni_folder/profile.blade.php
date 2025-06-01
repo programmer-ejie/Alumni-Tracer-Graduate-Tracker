@@ -650,62 +650,57 @@
                                 </div>
                             </div>
 
-                            <div class="row gutters-sm">
-                                <div class="col-sm-6 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Project Status</h6>
-                                    <small>Web Design</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Website Markup</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>One Page</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Mobile Template</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Backend API</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Project Status</h6>
-                                    <small>Web Design</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Website Markup</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>One Page</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Mobile Template</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <small>Backend API</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
+                        <div class="row gutters-sm">
+    <div class="col-sm-12 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="d-flex align-items-center mb-3">
+                    <i class="material-icons text-info mr-2"></i>Alumni Engagement
+                </h6>
+                <small>Profile Completion</small>
+                <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-primary" role="progressbar"
+                        style="width: {{ $profileComplete ? 100 : 60 }}%"
+                        aria-valuenow="{{ $profileComplete ? 100 : 60 }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ $profileComplete ? 'Complete' : 'Incomplete' }}
+                    </div>
+                </div>
+                <small>Surveys Completed</small>
+                <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-success" role="progressbar"
+                        style="width: {{ $surveysCompleted > 0 ? 100 : 0 }}%"
+                        aria-valuenow="{{ $surveysCompleted > 0 ? 100 : 0 }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ $surveysCompleted }}
+                    </div>
+                </div>
+                <small>Events Attended</small>
+                <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-info" role="progressbar"
+                        style="width: {{ min($eventsAttended * 20, 100) }}%"
+                        aria-valuenow="{{ min($eventsAttended * 20, 100) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ $eventsAttended }}
+                    </div>
+                </div>
+                <small>Connections</small>
+                <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-warning" role="progressbar"
+                        style="width: {{ min($connections * 10, 100) }}%"
+                        aria-valuenow="{{ min($connections * 10, 100) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ $connections }}
+                    </div>
+                </div>
+                <small>Last Profile Update</small>
+                <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-secondary" role="progressbar"
+                        style="width: 100%"
+                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                        {{ $alumni->updated_at->diffForHumans() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

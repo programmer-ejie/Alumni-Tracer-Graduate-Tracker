@@ -74,14 +74,23 @@ class AlumniController extends Controller
               ));
              }
 
-    function gotoProfile(){
-        $alumni = $this->getAuthenticatedAlumni();
-        if (!$alumni) {   
-            return redirect()->route('login')->with('error', 'Please log in first.');
+   public function gotoProfile(){
+            $alumni = $this->getAuthenticatedAlumni();
+            if (!$alumni) {   
+                return redirect()->route('login')->with('error', 'Please log in first.');
+            }
+            $schools = School::all();
+
+         
+            $surveysCompleted = AlumniSurvey::where('alumni_id', $alumni->id)->count();
+            $eventsAttended = $alumni->events()->count();
+            $connections = $alumni->connections()->count() ?? 0;
+            $profileComplete = !empty($alumni->fullname) && !empty($alumni->email) && !empty($alumni->school_graduated) && !empty($alumni->batch) && !empty($alumni->gender) && !empty($alumni->address) && ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+
+            return view('alumni_folder.profile', compact(
+                'alumni', 'schools', 'surveysCompleted', 'eventsAttended', 'connections', 'profileComplete'
+            ));
         }
-        $schools = School::all(); 
-        return view('alumni_folder.profile', compact('alumni', 'schools')); 
-    }
 
   function gotoAnnouncements(){
         $alumni = $this->getAuthenticatedAlumni();

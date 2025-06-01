@@ -20,22 +20,36 @@ class AdminController extends Controller
                 return view('admin.dashboard')->with('admin', $admin->id);                      
      }
 
-     function gotoProfile(){
+   public function gotoProfile(){
             $admin = $this->getAuthenticatedAdmin();
-                if (!$admin) {
-                     return view('index')->with('error', 'Please log in first.');
-                }
-             $latestNotifications = Notification::where('user_type', 'admin')
+            if (!$admin) {
+                return view('index')->with('error', 'Please log in first.');
+            }
+            $latestNotifications = Notification::where('user_type', 'admin')
                 ->where('user_id', $admin->id)
                 ->orderBy('created_at', 'desc')
                 ->take(4)
                 ->get();
 
-                  return view('admin.profile')->with([
-                    'admin' => $admin,
-                    'latestNotifications' => $latestNotifications
-                ]);                      
-    }
+            // Example stats
+            $alumniCount = \App\Models\AlumniInfo::where('school_id', $admin->school_id)->count();
+            $surveyCount = \App\Models\AlumniSurvey::whereIn('alumni_id', \App\Models\AlumniInfo::where('school_id', $admin->school_id)->pluck('id'))->count();
+            $eventCount = \App\Models\Event::where('admin_id', $admin->id)->count();
+            $announcementCount = \App\Models\Announcement::where('admin_id', $admin->id)->count();
+
+            // Example rates
+            $surveyCompletionRate = $alumniCount > 0 ? round(($surveyCount / $alumniCount) * 100) : 0;
+
+            return view('admin.profile')->with([
+                'admin' => $admin,
+                'latestNotifications' => $latestNotifications,
+                'alumniCount' => $alumniCount,
+                'surveyCount' => $surveyCount,
+                'eventCount' => $eventCount,
+                'announcementCount' => $announcementCount,
+                'surveyCompletionRate' => $surveyCompletionRate,
+            ]);
+        }
 
             public function gotoAnnouncements()
             {
