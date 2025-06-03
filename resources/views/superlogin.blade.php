@@ -103,7 +103,7 @@
                     id="passwordInput"
                     required>
                         <span class="position-absolute" style="top: 38px; right: 15px; cursor: pointer; z-index: 2; font-size: 18px;" onclick="togglePassword()">
-                            <i class="ti ti-eye" id="togglePasswordIcon" style="color: #888;"></i>
+                            <i class="ti ti-eye-off" id="togglePasswordIcon" style="color: #888;"></i>
                         </span>
                         @error('password')
                             <span class="invalid-feedback" role="alert" style="display:block;">
