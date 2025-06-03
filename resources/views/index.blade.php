@@ -9,7 +9,7 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="landing_page/assets/img/favicon.png" rel="icon">
+  <link href="main_template/dist/assets/images/web_logo.png" rel="icon">
   <link href="landing_page/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->

@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-  <title>Login | Mantis Bootstrap 5 Admin Template</title>
+  <title>Login | Alumni Tracer</title>
   <!-- [Meta] -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -13,7 +13,7 @@
   <meta name="author" content="CodedThemes">
 
   <!-- [Favicon] icon -->
-  <link rel="icon" href="main_template/dist/assets/images/favicon.svg" type="image/x-icon"> <!-- [Google Font] Family -->
+  <link rel="icon" href="main_template/dist/assets/images/web_logo.png" type="image/x-icon"> <!-- [Google Font] Family -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
 <!-- [Tabler Icons] https://tablericons.com -->
 <link rel="stylesheet" href="main_template/dist/assets/fonts/tabler-icons.min.css" >

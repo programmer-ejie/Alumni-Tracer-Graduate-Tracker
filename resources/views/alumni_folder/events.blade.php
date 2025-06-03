@@ -10,7 +10,7 @@
   <meta name="author" content="CodedThemes">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="icon" href="../main_template/dist/assets/images/favicon.svg" type="image/x-icon">
+<link rel="icon" href="main_template/dist/assets/images/web_logo.png" type="image/x-icon">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" id="main-font-link">
   <link rel="stylesheet" href="../main_template/dist/assets/fonts/tabler-icons.min.css" >
   <link rel="stylesheet" href="../main_template/dist/assets/fonts/feather.css" >
