@@ -525,7 +525,7 @@
                                                   </span>
                                               </td>
                                               <td class="text-center">
-                                                  <a href="{{ route('admin.viewData', ['id' => $survey->id]) }}">
+                                                  <a href="{{ route('admin.viewData', ['id' => $alumniData->id]) }}">
                                                       <i class="fas fa-info-circle"></i>
                                                       <span style="margin-left: 5px;">View</span>
                                                   </a>

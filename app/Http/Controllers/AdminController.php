@@ -143,14 +143,6 @@ class AdminController extends Controller
         $alumni_info = AlumniInfo::find($id);
         $survey = AlumniSurvey::where('alumni_id', $id)->first();
 
-        if (!$alumni_info) {
-            return redirect()->back()->with('error', 'Alumni not found.');
-        }
-
-        if (!$survey) {
-            return redirect()->back()->with('error', 'Survey not found for this alumni.');
-        }
-
         return view('admin.viewData', compact('alumni_info', 'survey', 'admin'));
     }
 
