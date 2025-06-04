@@ -9,6 +9,7 @@ use App\Models\AlumniSurvey;
 use App\Models\AlumniInfo;
 use App\Models\Event;
 use App\Models\Notification;
+use App\Models\Announcement;
 
 class AdminController extends Controller
 {
@@ -313,6 +314,13 @@ class AdminController extends Controller
                     return redirect()->route('admin.events')->with('success', 'Event deleted successfully!');
                 }
 
-
+                public function deleteAlumniSurvey($id){
+                       AlumniSurvey::where('alumni_id', $id)->delete();           
+                       AlumniInfo::where('id', $id)->delete();
+                       
+                        \DB::table('alumni_event')->where('alumni_id', $id)->delete();
+                        Announcement::where('mention_id', $id)->delete();
+                        return redirect()->route('admin.survey')->with('success', 'Alumni and all related data deleted successfully.');
+                }
 
 }

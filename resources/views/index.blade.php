@@ -43,9 +43,9 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list" style = "display: none;"></i>
       </nav>
 
-      {{-- <a class="btn-getstarted" href="{{route('login')}}">Administrator</a>
-      <a class="btn-getstarted" href="{{route('Superlogin')}}">Super Admin</a> --}}
-      <a class="btn-getstarted" href="{{route('alumni')}}">Get Started</a>
+      <a class="btn-getstarted" href="{{route('login')}}">Administrator</a>
+      {{-- <a class="btn-getstarted" href="{{route('Superlogin')}}">Super Admin</a>  --}}
+      {{-- <a class="btn-getstarted" href="{{route('alumni')}}">Get Started</a> --}}
       
 
     </div>

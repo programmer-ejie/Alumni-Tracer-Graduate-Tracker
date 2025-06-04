@@ -524,12 +524,48 @@
                                                       {{ $alumniData->batch ?? 'N/A' }}
                                                   </span>
                                               </td>
-                                              <td class="text-center">
-                                                  <a href="{{ route('admin.viewData', ['id' => $alumniData->id]) }}">
-                                                      <i class="fas fa-info-circle"></i>
-                                                      <span style="margin-left: 5px;">View</span>
-                                                  </a>
-                                              </td>
+                                             <td class="text-center">
+                                                    <a href="{{ route('admin.viewData', ['id' => $alumniData->id]) }}">
+                                                        <i class="fas fa-info-circle"></i>
+                                                        <span style="margin-left: 5px;">View</span>
+                                                    </a>
+                                                     <a href="#" data-bs-toggle="offcanvas" data-bs-target="#deleteOffcanvas-{{ $alumniData->id }}" style="color: #dc3545; margin-left: 15px;">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                        <span style="margin-left: 5px;">Delete</span>
+                                                    </a>
+                                                </td>
+
+                                               <!-- Offcanvas for Delete Confirmation -->
+                                                  <div class="offcanvas offcanvas-end" tabindex="-1" id="deleteOffcanvas-{{ $alumniData->id }}" aria-labelledby="deleteOffcanvasLabel-{{ $alumniData->id }}">
+                                                      <div class="offcanvas-header border-bottom">
+                                                          <h5 class="offcanvas-title text-danger" id="deleteOffcanvasLabel-{{ $alumniData->id }}">
+                                                              <i class="fas fa-trash-alt me-2"></i> Confirm Deletion
+                                                          </h5>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="offcanvas-body d-flex flex-column justify-content-center text-center" style="min-height: 300px;">
+                                                          <div class="mb-4">
+                                                              <div class="text-danger mb-2">
+                                                                  <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
+                                                              </div>
+                                                              <p class="fs-5 mb-1">Are you sure you want to delete this alumni's survey data?</p>
+                                                              <h6 class="fw-bold text-dark">"{{ $alumniData->fullname ?? 'Alumni' }}"</h6>
+                                                              <p class="text-muted small">This action cannot be undone.</p>
+                                                          </div>
+                                                          <form method="POST" action="{{ route('admin.deleteAlumniSurvey', ['id' => $alumniData->id]) }}">
+                                                              @csrf
+                                                              @method('DELETE')
+                                                              <div class="d-grid gap-2">
+                                                                  <button type="submit" class="btn btn-danger">
+                                                                      <i class="fas fa-trash-alt me-1"></i> Yes, Delete Permanently
+                                                                  </button>
+                                                                  <button type="button" class="btn btn-light border" data-bs-dismiss="offcanvas">
+                                                                      Cancel
+                                                                  </button>
+                                                              </div>
+                                                          </form>
+                                                      </div>
+                                                  </div>
                                           </tr>
                                       @endforeach
                                       <tr id="noResultsRow" style="background-color: #f8d7da; color: #842029; display: none;" role="alert">
