@@ -9,6 +9,14 @@ use Carbon\Carbon;
 use App\Models\AlumniInfo;
 use App\Models\EmailConfirmation;
 use App\Models\PageView;
+use App\Models\AlumniSurvey;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\AdminAccount;
+use App\Models\SuperAdminAccount;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class GmailCheckerController extends Controller
 {
@@ -74,6 +82,19 @@ class GmailCheckerController extends Controller
                     'ip_address' => request()->ip(),
                     'alumni_id' => $alumni->id,
                 ]);
+                
+                if (
+                        empty($alumni->fullname) ||
+                        empty($alumni->school_graduated) ||
+                        empty($alumni->batch) ||
+                        empty($alumni->address) ||
+                        empty($alumni->gender) ||
+                        empty($alumni->age) || $alumni->age == 0
+
+                ) {
+                    return redirect()->route('alumni.profile')->with('status', 'Please complete your profile information.');
+                }
+
                 return redirect()->route('alumni.dashboard');
             }
 

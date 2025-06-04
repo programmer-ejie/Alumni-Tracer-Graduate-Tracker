@@ -19,12 +19,27 @@ class AlumniController extends Controller
         return view('alumni_gmail');
     }
 
-   function gotoDashboard()
-        {
+   function gotoDashboard() {
+
         $alumni = $this->getAuthenticatedAlumni();
             if (!$alumni) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
             } 
+
+          // Check for incomplete profile
+            $profileComplete =
+                !empty($alumni->fullname) &&
+                !empty($alumni->email) &&
+                !empty($alumni->school_graduated) &&
+                !empty($alumni->batch) &&
+                !empty($alumni->gender) &&
+                !empty($alumni->address) &&
+                ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+
+            if (!$profileComplete) {
+                return redirect()->route('alumni.profile')->with('status', 'Please complete your profile information.');
+            }
+
             $adminIds = \App\Models\AdminAccount::where('school_id', $alumni->school_id)->pluck('id');
 
              $upcomingEvents = \App\Models\Event::whereIn('admin_id', $adminIds)
@@ -98,6 +113,20 @@ class AlumniController extends Controller
             return redirect()->route('login')->with('error', 'Please log in first.');
         }
 
+          // Check for incomplete profile
+            $profileComplete =
+                !empty($alumni->fullname) &&
+                !empty($alumni->email) &&
+                !empty($alumni->school_graduated) &&
+                !empty($alumni->batch) &&
+                !empty($alumni->gender) &&
+                !empty($alumni->address) &&
+                ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+
+            if (!$profileComplete) {
+                return redirect()->route('alumni.profile')->with('status', 'Please complete your profile information.');
+            }
+
         $adminIds = \App\Models\AdminAccount::where('school_id', $alumni->school_id)->pluck('id');
     
         $announcements = \App\Models\Announcement::whereIn('admin_id', $adminIds)
@@ -114,6 +143,21 @@ class AlumniController extends Controller
             if (!$alumni) {   
                 return redirect()->route('login')->with('error', 'Please log in first.');
             } 
+
+          // Check for incomplete profile
+            $profileComplete =
+                !empty($alumni->fullname) &&
+                !empty($alumni->email) &&
+                !empty($alumni->school_graduated) &&
+                !empty($alumni->batch) &&
+                !empty($alumni->gender) &&
+                !empty($alumni->address) &&
+                ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+
+            if (!$profileComplete) {
+                return redirect()->route('alumni.profile')->with('status', 'Please complete your profile information.');
+            }
+
              $survey = AlumniSurvey::where('alumni_id', $alumni->id)->first();
                 return view('alumni_folder.survey')->with(['alumni' => $alumni, 'survey' => $survey]);
     }
@@ -126,6 +170,19 @@ class AlumniController extends Controller
                 return redirect()->route('login')->with('error', 'Please log in first.');
             }
 
+              // Check for incomplete profile
+            $profileComplete =
+                !empty($alumni->fullname) &&
+                !empty($alumni->email) &&
+                !empty($alumni->school_graduated) &&
+                !empty($alumni->batch) &&
+                !empty($alumni->gender) &&
+                !empty($alumni->address) &&
+                ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+
+            if (!$profileComplete) {
+                return redirect()->route('alumni.profile')->with('status', 'Please complete your profile information.');
+            }
            
             $notifications = \App\Models\Notification::orderBy('created_at', 'desc')->get();
 
@@ -146,6 +203,19 @@ class AlumniController extends Controller
                 return redirect()->route('login')->with('error', 'Please log in first.');
             }
 
+              // Check for incomplete profile
+            $profileComplete =
+                !empty($alumni->fullname) &&
+                !empty($alumni->email) &&
+                !empty($alumni->school_graduated) &&
+                !empty($alumni->batch) &&
+                !empty($alumni->gender) &&
+                !empty($alumni->address) &&
+                ($alumni->age !== null && $alumni->age !== '' && $alumni->age > 0);
+
+            if (!$profileComplete) {
+                return redirect()->route('alumni.profile')->with('status', 'Please complete your profile information.');
+            }
            
             $adminIds = \App\Models\AdminAccount::where('school_id', $alumni->school_id)->pluck('id');
 

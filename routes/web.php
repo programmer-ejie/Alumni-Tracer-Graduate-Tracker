@@ -51,7 +51,6 @@ Route::post('/alumni_events/{event}/attend', [AlumniController::class, 'attendEv
 Route::delete('/alumni_events/{event}/unattend', [AlumniController::class, 'unattendEvent'])->name('alumni.events.unattend');
 
 
-
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 Route::match(['get', 'post'], '/admin_profile', [AdminController::class, 'gotoProfile'])->name('admin.profile');
 Route::get('/admin_announcements', [AdminController::class, 'gotoAnnouncements'])->name('admin.announcements');
