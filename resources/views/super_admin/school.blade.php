@@ -52,7 +52,7 @@
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
-      <a href="{{route('admin.dashboard')}}" class="b-brand text-primary" style = "display: flex;">
+      <a href="{{route('super_admin.dashboard')}}" class="b-brand text-primary" style = "display: flex;">
                 <i class="fas fa-user-graduate fa-2x" style="color: #2a5caa;"></i>
                 <h4 style = "color: rgb(46, 44, 44); text-align: center; margin-top: 4px; margin-left: 5px; font-weight: bold;">ALUMNI TRACER</h4>
       </a>
@@ -303,7 +303,7 @@
                <h6 class="mb-1"  style = "font-size: 12px;">{{ $admin->fullname}}</h6>
               <span>Administrator</span>
             </div>
-            <a href="{{route('admin.logout')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
+            <a href="{{route('home')}}" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
           </div>
         </div>
         <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
@@ -320,53 +320,27 @@
               ><i class="ti ti-user"></i> Admin</button
             >
           </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link"
-              id="drp-t2"
-              data-bs-toggle="tab"
-              data-bs-target="#drp-tab-2"
-              type="button"
-              role="tab"
-              aria-controls="drp-tab-2"
-              aria-selected="false"
-              ><i class="ti ti-settings"></i> Setting</button
-            >
-          </li>
+        
         </ul>
         <div class="tab-content" id="mysrpTabContent">
           <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
            
-             <a href="{{route('admin.dashboard')}}" class="dropdown-item">
+           <a href="{{route('super_admin.dashboard')}}" class="dropdown-item">
             <i class="ti ti-dashboard"></i>
               <span>Dashboard</span>
             </a>
-            <a href="{{route('admin.profile')}}" class="dropdown-item">
-              <i class="ti ti-user"></i>
-              <span>Profile</span>
-            </a>
-            <a href="{{route('admin.survey')}}" class="dropdown-item">
-              <i class="ti ti-clipboard-list"></i>
-              <span>Survey</span>
+             <a href="{{ route('super_admin.school') }}" class="dropdown-item">
+         <i class="ti ti-school"></i>
+            <span >Manage School</span>
+          </a>
+
+            <a href="{{ route('super_admin.accounts') }}" class="dropdown-item">
+            <i class="ti ti-user-check"></i>
+              <span >Manage Admin</span>
             </a>
            
           </div>
-          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
-        
-          <a href="{{route('admin.announcements')}}" class="dropdown-item">
-          <i class="ti ti-speakerphone"></i>
-            <span>Announcements</span>
-            </a>
-            <a href="{{route('admin.notifications')}}" class="dropdown-item">
-            <i class="ti ti-bell"></i>
-            <span>Notifications</span>
-            </a>
-            <a href="{{route('admin.events')}}" class="dropdown-item">
-            <i class="ti ti-phone-call"></i>
-            <span>Events</span>
-            </a>
-
-          </div>
+       
         </div>  
       </div>
     </li>
