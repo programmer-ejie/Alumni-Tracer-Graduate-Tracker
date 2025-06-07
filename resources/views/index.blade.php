@@ -43,7 +43,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list" style = "display: none;"></i>
       </nav>
 
-      <a class="btn-getstarted" href="{{route('login')}}">Administrator</a>
+      <a class="btn-getstarted" href="{{route('alumni')}}">Get Started</a>
       {{-- <a class="btn-getstarted" href="{{route('Superlogin')}}">Super Admin</a>  --}}
       {{-- <a class="btn-getstarted" href="{{route('alumni')}}">Get Started</a> --}}
       
@@ -59,8 +59,10 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
-           <h1>Empowering Alumni Connections</h1>
-          <p>We help graduates stay connected, share opportunities, and track career journeys with Alumni Tracer.</p>
+         <h1>Welcome, Alumni!</h1>
+          <p>
+              Stay connected with your alma mater and fellow graduates. Alumni Tracer helps you network, discover opportunities, and share your career journey with the alumni community.
+          </p>
             <div class="d-flex">         
             <span style="margin-left: 12px; font-weight: 500; color: #2a5caa; margin-top: 10px; margin-right: 5px;">Are you an alumni?</span>
             <a href="{{route('alumni')}}" class="btn-get-started">Click Here!</a>
@@ -68,7 +70,7 @@
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
-            <img src="landing_page/assets/img/tracer.jpg" class="img-fluid animated" alt="">
+            <img src="landing_page/assets/img/alumni_pic.jpg" class="img-fluid animated" alt="">
           </div>
         </div>
       </div>
